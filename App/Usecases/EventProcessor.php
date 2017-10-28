@@ -19,7 +19,7 @@ class EventProcessor
     {
         $projectors = $this->projectors_queryable->allProjectors();
 
-        $active_projectors = $projectors->extract(ProjectorMode::RUN_ONCE);
+        $active_projectors = $projectors->exclude(ProjectorMode::RUN_ONCE);
         $this->projectors_player->play($active_projectors);
     }
 }

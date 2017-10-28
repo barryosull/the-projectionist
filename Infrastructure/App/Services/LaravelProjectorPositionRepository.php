@@ -10,7 +10,7 @@ class LaravelProjectorPositionRepository implements ProjectorPositionRepository
 
     public function __construct()
     {
-        $this->table = \DB::connection()->table('player_snapshots');
+        //$this->table = \DB::connection()->table('player_snapshots');
     }
 
     public function store(ProjectorPosition $projector_position)

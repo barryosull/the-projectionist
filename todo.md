@@ -4,7 +4,7 @@ This repo is an attempt to explore potential new structures to make using and ex
 
 Todo:
 - Write acceptance tests for the new components
-    - Use an in memory repo
+    - Use an in memory repo (harder than it sounds, need to write integration tests for it)
 - Write unit tests for appropriate units
 - Write integration tests for infrastructure    
 
