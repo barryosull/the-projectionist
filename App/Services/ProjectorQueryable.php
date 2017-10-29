@@ -51,11 +51,13 @@ class ProjectorQueryable
             && $projector_position->projector_version == $projector_reference->currentVersion();
     }
 
-    private function isNew(ProjectorPosition $projector_position): boolean
+    private function isNew($projector_position): bool
     {
+        /** @var  ProjectorPosition $projector_position */
         if (!$projector_position) {
-            return false;
+            return true;
         }
+
         $player_id = $projector_position->projector_reference;
 
         $actual_player_version = $player_id->currentVersion();

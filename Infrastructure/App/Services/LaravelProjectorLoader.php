@@ -15,6 +15,6 @@ class LaravelProjectorLoader implements ProjectorLoader
 
     public function load(ProjectorReference $projector_class)
     {
-        return $this->container->make($projector_class);
+        return $this->container->make($projector_class->class_path);
     }
 }

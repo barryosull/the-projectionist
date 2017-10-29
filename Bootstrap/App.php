@@ -1,6 +1,6 @@
 <?php namespace Bootstrap;
 
-use App\Providers\AppProviders;
+use App\Providers\AppProvider;
 use Illuminate\Container\Container;
 
 class App
@@ -21,8 +21,8 @@ class App
 
     private function loadProviders()
     {
-        $provider = new AppProviders(self::$container);
-        $provider->bind();
+        $provider = new AppProvider(self::$container);
+        $provider->boot();
     }
 
     public static function make(string $class)

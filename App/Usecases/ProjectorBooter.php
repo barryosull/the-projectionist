@@ -4,6 +4,7 @@ use App\Services\ProjectorQueryable;
 use App\Services\ProjectorSkipper;
 use App\Services\ProjectorsPlayer;
 use App\ValueObjects\ProjectorMode;
+use App\ValueObjects\ProjectorReferenceCollection;
 
 class ProjectorBooter
 {
@@ -18,7 +19,7 @@ class ProjectorBooter
         $this->projectors_player = $projectors_player;
     }
 
-    public function boot()
+    public function boot(): ProjectorReferenceCollection
     {
         $new_projectors = $this->projector_queryable->newProjectors();
 
@@ -27,5 +28,7 @@ class ProjectorBooter
 
         $standard_projectors = $new_projectors->exclude(ProjectorMode::RUN_FROM_LAUNCH);
         $this->projectors_player->play($standard_projectors);
+
+        return $new_projectors;
     }
 }

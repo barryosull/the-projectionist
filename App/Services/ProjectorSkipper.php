@@ -1,6 +1,8 @@
 <?php namespace App\Services;
 
 use App\ValueObjects\ProjectorPosition;
+use App\ValueObjects\ProjectorReference;
+use App\ValueObjects\ProjectorReferenceCollection;
 
 class ProjectorSkipper
 {
@@ -15,22 +17,23 @@ class ProjectorSkipper
         $this->event_store = $event_store;
     }
 
-    public function skipToLastEvent($workflow_ids)
+    public function skipToLastEvent(ProjectorReferenceCollection $projector_references)
     {
         $latest_event = $this->event_store->latestEvent();
-        foreach ($workflow_ids as $workflow_id) {
-            $this->skipProjectorToEvent($workflow_id, $latest_event);
+        foreach ($projector_references as $projector_reference) {
+            $this->skipProjectorToEvent($projector_reference, $latest_event);
         }
     }
 
-    private function skipProjectorToEvent($projector_reference, $latest_event)
+    private function skipProjectorToEvent(ProjectorReference $projector_reference, $latest_event)
     {
         $projector_position = $this->projector_position_repository->fetch($projector_reference);
         if (!$projector_position) {
             $projector_position = ProjectorPosition::make($projector_reference);
         }
-
-        $projector_position = $projector_position->played($latest_event);
+        if ($latest_event) {
+            $projector_position = $projector_position->played($latest_event);
+        }
 
         $this->projector_position_repository->store($projector_position);
     }
