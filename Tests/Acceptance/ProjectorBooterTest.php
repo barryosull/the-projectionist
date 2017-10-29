@@ -20,7 +20,6 @@ class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
         $this->booter = App::make(ProjectorBooter::class);
     }
 
-    /*
     public function tests_boots_all_projectors_if_none_has_been_stored()
     {
         $expected = new ProjectorReferenceCollection([
@@ -33,7 +32,6 @@ class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected->all(), $actual->all());
     }
-    */
 
     public function test_does_not_boot_existing_projectors()
     {

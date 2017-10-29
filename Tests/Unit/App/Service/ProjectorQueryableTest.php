@@ -65,8 +65,24 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function test_projectors_with_a_higher_version_than_stored_are_new()
+    public function test_projectors_with_a_higher_version_than_stored_are_considered_new()
     {
+        // Has a version of 2
+        $ref_1 = new ProjectorReference(RunOnce::class);
 
+        $version = 1;
+        $processed_events = 2;
+        $occurred_at = date('Y-m-d H:i:s');
+        $last_event_id = '6c040404-80fd-4a4d-98d6-547344d4873a';
+        $pos_1 = new ProjectorPosition($ref_1, $version, $processed_events, $occurred_at, $last_event_id);
+
+        $this->registerer->all()->willReturn([$ref_1]);
+        $this->repo->all()->willReturn([$pos_1]);
+
+        $expected = new ProjectorReferenceCollection([$ref_1]);
+
+        $actual = $this->queryable->newProjectors();
+
+        $this->assertEquals($expected, $actual);
     }
 }

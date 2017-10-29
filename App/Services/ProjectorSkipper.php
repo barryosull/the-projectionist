@@ -34,7 +34,7 @@ class ProjectorSkipper
         if ($latest_event) {
             $projector_position = $projector_position->played($latest_event);
         }
-
+        
         $this->projector_position_repository->store($projector_position);
     }
 }
