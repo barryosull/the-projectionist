@@ -67,6 +67,6 @@ class ProjectorQueryable
     public function allProjectors(): ProjectorReferenceCollection
     {
         $list = $this->projector_registerer->all();
-        return new ProjectorReferenceCollection($list->application);
+        return new ProjectorReferenceCollection($list);
     }
 }

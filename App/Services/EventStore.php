@@ -4,7 +4,7 @@ use Illuminate\Support\Collection;
 
 interface EventStore
 {
-    public function latestEvent(): \stdClass;
+    public function latestEvent();
 
     public function getStream($last_event_id): Collection;
 }

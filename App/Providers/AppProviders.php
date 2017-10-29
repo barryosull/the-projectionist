@@ -5,8 +5,8 @@ use App\Services\ProjectorLoader;
 use App\Services\ProjectorPositionRepository;
 use Illuminate\Container\Container;
 use Infrastructure\App\Services\FakeEventStore;
+use Infrastructure\App\Services\InMemoryProjectorPositionRepository;
 use Infrastructure\App\Services\LaravelProjectorLoader;
-use Infrastructure\App\Services\LaravelProjectorPositionRepository;
 
 class AppProviders
 {
@@ -28,7 +28,7 @@ class AppProviders
 
         $this->container->bind(
             ProjectorPositionRepository::class,
-                LaravelProjectorPositionRepository::class
+                InMemoryProjectorPositionRepository::class
         );
 
         $this->container->bind(

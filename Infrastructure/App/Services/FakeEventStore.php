@@ -5,14 +5,14 @@ use Illuminate\Support\Collection;
 
 class FakeEventStore implements EventStore
 {
-    private static $events;
+    private static $events = [];
 
     public static function setEvents(array $events)
     {
         self::$events = $events;
     }
 
-    public function latestEvent(): \stdClass
+    public function latestEvent()
     {
         return last(self::$events);
     }
