@@ -31,7 +31,7 @@ class ProjectorPosition
             $this->projector_reference,
             $this->projector_version,
             $event_count,
-            $event->id()->value(),
+            $event->id,
             date('Y-m-d H:i:s')
         );
     }

@@ -7,6 +7,8 @@ Todo:
     - Use an in memory repo (harder than it sounds, need to write integration tests for it)
 - Write unit tests for appropriate units
 - Write integration tests for infrastructure    
+- Add actor to event object
+    - Figure out way to separate the base logic needed
 
 Ideas:
 - Extract how events are played into projectors as a strategy

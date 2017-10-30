@@ -5,7 +5,7 @@ use App\Services\ProjectorLoader;
 use App\Services\ProjectorPositionRepository;
 use App\Services\ProjectorRegisterer;
 use Illuminate\Container\Container;
-use Infrastructure\App\Services\FakeEventStore;
+use Infrastructure\App\Services\InMemoryEventStore;
 use Infrastructure\App\Services\InMemoryProjectorPositionRepository;
 use Infrastructure\App\Services\LaravelProjectorLoader;
 use Tests\Projectors\RunFromLaunch;
@@ -48,7 +48,7 @@ class AppProvider
 
         $this->container->bind(
             EventStore::class,
-                FakeEventStore::class
+                InMemoryEventStore::class
         );
     }
 

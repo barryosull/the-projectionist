@@ -3,7 +3,7 @@
 use App\Services\EventStore;
 use Illuminate\Support\Collection;
 
-class FakeEventStore implements EventStore
+class InMemoryEventStore implements EventStore
 {
     private static $events = [];
 
