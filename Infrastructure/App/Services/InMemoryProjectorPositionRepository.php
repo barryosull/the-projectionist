@@ -13,6 +13,11 @@ class InMemoryProjectorPositionRepository implements ProjectorPositionRepository
         $this->store = [];
     }
 
+    public function reset()
+    {
+        $this->store = [];
+    }
+
     public function store(ProjectorPosition $projector_position)
     {
         $ref = $projector_position->projector_reference;

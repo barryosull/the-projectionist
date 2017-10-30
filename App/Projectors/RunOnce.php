@@ -2,12 +2,10 @@
 
 use App\ValueObjects\ProjectorMode;
 
-class RunOnce
+class RunOnce extends BaseProjector
 {
     const MODE = ProjectorMode::RUN_ONCE;
+    const VERSION = 2;
 
-    public static function version()
-    {
-        return 2;
-    }
+    protected static $has_seen_event = false;
 }

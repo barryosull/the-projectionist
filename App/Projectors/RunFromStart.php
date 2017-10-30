@@ -2,12 +2,9 @@
 
 use App\ValueObjects\ProjectorMode;
 
-class RunFromStart
+class RunFromStart extends BaseProjector
 {
     const MODE = ProjectorMode::RUN_FROM_START;
 
-    public static function version()
-    {
-        return 1;
-    }
+    protected static $has_seen_event = false;
 }

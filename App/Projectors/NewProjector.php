@@ -2,12 +2,8 @@
 
 use App\ValueObjects\ProjectorMode;
 
-class NewProjector
+class NewProjector extends BaseProjector
 {
     const MODE = ProjectorMode::RUN_FROM_START;
-
-    public static function version()
-    {
-        return 1;
-    }
+    const VERSION = 1;
 }
