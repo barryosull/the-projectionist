@@ -5,10 +5,10 @@ use App\Usecases\ProjectorBooter;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;
 use Bootstrap\App;
-use Tests\Projectors\NewProjector;
-use Tests\Projectors\RunFromLaunch;
-use Tests\Projectors\RunFromStart;
-use Tests\Projectors\RunOnce;
+use App\Projectors\NewProjector;
+use App\Projectors\RunFromLaunch;
+use App\Projectors\RunFromStart;
+use App\Projectors\RunOnce;
 
 class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
 {

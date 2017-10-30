@@ -1,4 +1,4 @@
-<?php namespace Tests\Unit\App\Service;
+<?php namespace Tests\Unit\App\Services;
 
 use App\Services\ProjectorPositionRepository;
 use App\Services\ProjectorQueryable;
@@ -6,9 +6,9 @@ use App\Services\ProjectorRegisterer;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;
-use Tests\Projectors\RunFromLaunch;
-use Tests\Projectors\RunFromStart;
-use Tests\Projectors\RunOnce;
+use App\Projectors\RunFromLaunch;
+use App\Projectors\RunFromStart;
+use App\Projectors\RunOnce;
 
 class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 {

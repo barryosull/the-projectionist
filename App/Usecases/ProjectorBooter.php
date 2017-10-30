@@ -23,11 +23,11 @@ class ProjectorBooter
     {
         $new_projectors = $this->projector_queryable->newProjectors();
 
-        $run_once_projectors = $new_projectors->extract(ProjectorMode::RUN_FROM_LAUNCH);
-        $this->projector_skipper->skipToLastEvent($run_once_projectors);
+        $skip_to_now_projectors = $new_projectors->extract(ProjectorMode::RUN_FROM_LAUNCH);
+        $this->projector_skipper->skipToLastEvent($skip_to_now_projectors);
 
-        $standard_projectors = $new_projectors->exclude(ProjectorMode::RUN_FROM_LAUNCH);
-        $this->projectors_player->play($standard_projectors);
+        $play_to_now_projectors = $new_projectors->exclude(ProjectorMode::RUN_FROM_LAUNCH);
+        $this->projectors_player->play($play_to_now_projectors);
 
         return $new_projectors;
     }

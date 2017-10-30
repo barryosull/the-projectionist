@@ -1,10 +1,10 @@
-<?php namespace Tests\Projectors;
+<?php namespace App\Projectors;
 
 use App\ValueObjects\ProjectorMode;
 
-class NewProjector
+class RunFromLaunch
 {
-    const MODE = ProjectorMode::RUN_FROM_START;
+    const MODE = ProjectorMode::RUN_FROM_LAUNCH;
 
     public static function version()
     {

@@ -1,8 +1,8 @@
-<?php namespace Tests\Projectors;
+<?php namespace App\Projectors;
 
 use App\ValueObjects\ProjectorMode;
 
-class RunFromStart
+class NewProjector
 {
     const MODE = ProjectorMode::RUN_FROM_START;
 

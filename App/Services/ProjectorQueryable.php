@@ -17,6 +17,7 @@ class ProjectorQueryable
         $this->projector_registerer = $projector_registerer;
     }
 
+    // TODO: Fix messy comparing of references to positions
     public function newProjectors(): ProjectorReferenceCollection
     {
         $projector_positions = $this->projector_position_repository->all();

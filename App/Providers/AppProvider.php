@@ -56,10 +56,7 @@ class AppProvider
     {
         /** @var ProjectorRegisterer $registerer */
         $registerer = $this->container->make(ProjectorRegisterer::class);
-        $registerer->register([
-            RunFromLaunch::class,
-            RunFromStart::class,
-            RunOnce::class
-        ]);
+        $projectors = require "config/projectors.php";
+        $registerer->register($projectors);
     }
 }
