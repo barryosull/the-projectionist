@@ -24,7 +24,6 @@ class AppProvider
     public function boot()
     {
         $this->bind();
-        $this->loadConfigs();
     }
 
     public function bind()
@@ -50,13 +49,5 @@ class AppProvider
             EventStore::class,
                 InMemoryEventStore::class
         );
-    }
-
-    public function loadConfigs()
-    {
-        /** @var ProjectorRegisterer $registerer */
-        $registerer = $this->container->make(ProjectorRegisterer::class);
-        $projectors = require "config/projectors.php";
-        $registerer->register($projectors);
     }
 }

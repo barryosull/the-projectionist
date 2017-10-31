@@ -30,10 +30,18 @@ class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
             new \stdClass()
         );
 
+        $this->registerProjectors();
         $this->resetProjectorPositionRepo();
         $this->prepareEventStore();
 
         $this->booter = App::make(ProjectorBooter::class);
+    }
+
+    private function registerProjectors()
+    {
+        /** @var ProjectorRegisterer $registerer */
+        $registerer = App::make(ProjectorRegisterer::class);
+        $registerer->register(require "Tests/projectors.php");
     }
 
     private function resetProjectorPositionRepo()
