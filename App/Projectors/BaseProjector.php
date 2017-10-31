@@ -14,7 +14,7 @@ class BaseProjector
 
     protected static $has_seen_event = false;
 
-    public static function hasPlayedEvent(): bool
+    public static function hasSeenEvent(): bool
     {
         return static::$has_seen_event;
     }

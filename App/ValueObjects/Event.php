@@ -1,5 +1,6 @@
 <?php namespace App\ValueObjects;
 
+// TODO: Make compatible with snapshot concept
 class Event
 {
     public $id;
