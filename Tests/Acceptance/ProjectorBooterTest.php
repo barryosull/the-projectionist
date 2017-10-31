@@ -7,10 +7,10 @@ use App\ValueObjects\Event;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;
 use Bootstrap\App;
-use App\Projectors\NewProjector;
-use App\Projectors\RunFromLaunch;
-use App\Projectors\RunFromStart;
-use App\Projectors\RunOnce;
+use Tests\Fakes\Projectors\NewProjector;
+use Tests\Fakes\Projectors\RunFromLaunch;
+use Tests\Fakes\Projectors\RunFromStart;
+use Tests\Fakes\Projectors\RunOnce;
 use Infrastructure\App\Services\InMemoryEventStore;
 
 class ProjectorBooterTest extends \PHPUnit_Framework_TestCase

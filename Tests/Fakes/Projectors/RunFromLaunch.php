@@ -1,4 +1,4 @@
-<?php namespace App\Projectors;
+<?php namespace Tests\Fakes\Projectors;
 
 use App\ValueObjects\ProjectorMode;
 

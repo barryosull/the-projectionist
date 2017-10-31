@@ -3,9 +3,9 @@
 use App\Services\ProjectorPositionRepository;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
-use App\Projectors\RunFromLaunch;
-use App\Projectors\RunFromStart;
-use App\Projectors\RunOnce;
+use Tests\Fakes\Projectors\RunFromLaunch;
+use Tests\Fakes\Projectors\RunFromStart;
+use Tests\Fakes\Projectors\RunOnce;
 
 abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCase
 {
