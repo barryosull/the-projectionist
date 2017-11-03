@@ -3,6 +3,7 @@
 use App\Services\ProjectorPositionRepository;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
+use App\ValueObjects\ProjectorReferenceCollection;
 
 class InMemoryProjectorPositionRepository implements ProjectorPositionRepository
 {

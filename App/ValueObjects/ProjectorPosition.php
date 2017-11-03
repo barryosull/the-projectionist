@@ -46,4 +46,10 @@ class ProjectorPosition
             ''
         );
     }
+
+    public function isSame(ProjectorReference $current_projector)
+    {
+        return $this->projector_reference->class_path == $current_projector->class_path
+            && $this->projector_version == $current_projector->currentVersion();
+    }
 }

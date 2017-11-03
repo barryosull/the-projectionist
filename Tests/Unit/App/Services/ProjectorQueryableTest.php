@@ -50,10 +50,10 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
     public function test_that_stored_projectors_are_not_considered_new()
     {
         $ref_1 = new ProjectorReference(RunFromStart::class);
-        $pos_1 = ProjectorPosition::make($ref_1);
-
         $ref_2 = new ProjectorReference(RunOnce::class);
         $ref_3 = new ProjectorReference(RunFromLaunch::class);
+
+        $pos_1 = ProjectorPosition::make($ref_1);
 
         $this->registerer->all()->willReturn([$ref_1, $ref_2, $ref_3]);
         $this->repo->all()->willReturn([$pos_1]);

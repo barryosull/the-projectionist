@@ -17,4 +17,11 @@ class ProjectorReferenceCollection extends Collection
             return $projector_reference->mode() != $mode;
         });
     }
+
+    public function extractNewProjectors(ProjectorPositionCollection $projector_positions)
+    {
+        return $this->filter(function(ProjectorReference $projector_reference) use ($projector_positions){
+            return !$projector_positions->hasSameVersion($projector_reference);
+        })->values();
+    }
 }

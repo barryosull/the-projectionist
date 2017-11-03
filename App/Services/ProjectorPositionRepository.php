@@ -2,6 +2,7 @@
 
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
+use App\ValueObjects\ProjectorReferenceCollection;
 
 interface ProjectorPositionRepository
 {
