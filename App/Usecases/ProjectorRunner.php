@@ -4,7 +4,7 @@ use App\Services\ProjectorQueryable;
 use App\ValueObjects\ProjectorMode;
 use App\Services\ProjectorsPlayer;
 
-class EventProcessor
+class ProjectorRunner
 {
     private $projectors_queryable;
     private $projectors_player;

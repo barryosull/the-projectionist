@@ -11,14 +11,13 @@ class ProjectorReference
         }
         $this->class_path = $class_path;
     }
-    
+
     public function mode()
     {
         $class = $this->class_path;
         if (defined("$class::MODE")) {
             return $class::MODE;
         }
-
         return ProjectorMode::RUN_FROM_START;
     }
 

@@ -19,7 +19,7 @@ class ProjectorBooter
         $this->projectors_player = $projectors_player;
     }
 
-    public function boot(): ProjectorReferenceCollection
+    public function boot()
     {
         $new_projectors = $this->projector_queryable->newProjectors();
 
@@ -28,7 +28,5 @@ class ProjectorBooter
 
         $play_to_now_projectors = $new_projectors->exclude(ProjectorMode::RUN_FROM_LAUNCH);
         $this->projectors_player->play($play_to_now_projectors);
-
-        return $new_projectors;
     }
 }
