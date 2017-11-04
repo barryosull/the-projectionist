@@ -52,4 +52,16 @@ class ProjectorPosition
         return $this->projector_reference->class_path == $current_projector->class_path
             && $this->projector_version == $current_projector->currentVersion();
     }
+
+    public function bumpVersion(): ProjectorPosition
+    {
+        $version = $this->projector_version+1;
+        return new ProjectorPosition(
+            $this->projector_reference,
+            $version,
+            $this->processed_events,
+            $this->last_event_id,
+            $this->occurred_at
+        );
+    }
 }

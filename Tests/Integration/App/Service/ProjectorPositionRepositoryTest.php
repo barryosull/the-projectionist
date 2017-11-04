@@ -63,6 +63,14 @@ abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCa
 
     public function test_stores_by_reference_and_version()
     {
-        // TODO: write
+        $pos_1 = $this->makePosition(RunFromStart::class);
+        $pos_1_bumped_version = $pos_1->bumpVersion();
+
+        $this->repo->store($pos_1);
+        $this->repo->store($pos_1_bumped_version);
+
+        $expected = [$pos_1, $pos_1_bumped_version];
+
+        $this->assertEquals($expected, $this->repo->all());
     }
 }
