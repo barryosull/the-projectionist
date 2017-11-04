@@ -22,7 +22,7 @@ class InMemoryProjectorPositionRepository implements ProjectorPositionRepository
     public function store(ProjectorPosition $projector_position)
     {
         $ref = $projector_position->projector_reference;
-        $key = $ref->class_path.'-'.$ref->currentVersion();
+        $key = $ref->class_path.'-'.$projector_position->projector_version;
         $this->store[$key] = $projector_position;
     }
 
