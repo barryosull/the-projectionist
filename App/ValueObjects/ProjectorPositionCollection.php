@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Collection;
 
+// TODO: write unit test
 class ProjectorPositionCollection extends Collection
 {
     public function hasSameVersion(ProjectorReference $projector_reference): bool

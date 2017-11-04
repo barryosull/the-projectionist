@@ -1,6 +1,7 @@
 <?php namespace App\ValueObjects;
 
 // TODO: Make compatible with snapshot concept
+// TODO: Possibly build integration interfaces, allow other services to define how they plug into this system
 class Event
 {
     public $id;

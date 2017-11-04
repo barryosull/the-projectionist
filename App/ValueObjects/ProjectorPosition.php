@@ -1,5 +1,6 @@
 <?php namespace App\ValueObjects;
 
+// TODO: Write unit test for factory methods
 class ProjectorPosition
 {
     public $projector_reference;
