@@ -2,7 +2,7 @@
 
 use App\ValueObjects\ProjectorMode;
 
-class RunOnce extends BaseProjector
+class RunOnce extends BaseTestProjector
 {
     const MODE = ProjectorMode::RUN_ONCE;
     const VERSION = 2;

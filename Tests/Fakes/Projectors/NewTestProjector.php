@@ -2,7 +2,7 @@
 
 use App\ValueObjects\ProjectorMode;
 
-class NewProjector extends BaseProjector
+class NewTestProjector extends BaseTestProjector
 {
     const MODE = ProjectorMode::RUN_FROM_START;
     const VERSION = 1;

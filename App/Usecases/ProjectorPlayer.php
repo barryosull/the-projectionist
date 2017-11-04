@@ -4,7 +4,7 @@ use App\Services\ProjectorQueryable;
 use App\ValueObjects\ProjectorMode;
 use App\Services\ProjectorsPlayer;
 
-class ProjectorRunner
+class ProjectorPlayer
 {
     private $projectors_queryable;
     private $projectors_player;
@@ -15,7 +15,7 @@ class ProjectorRunner
         $this->projectors_player = $projectors_player;
     }
 
-    public function process()
+    public function play()
     {
         $projectors = $this->projectors_queryable->allProjectors();
 

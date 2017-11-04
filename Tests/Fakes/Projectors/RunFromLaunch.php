@@ -2,7 +2,7 @@
 
 use App\ValueObjects\ProjectorMode;
 
-class RunFromLaunch extends BaseProjector
+class RunFromLaunch extends BaseTestProjector
 {
     const MODE = ProjectorMode::RUN_FROM_LAUNCH;
 

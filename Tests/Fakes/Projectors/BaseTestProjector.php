@@ -2,7 +2,7 @@
 
 use App\ValueObjects\ProjectorMode;
 
-class BaseProjector
+class BaseTestProjector
 {
     const MODE = ProjectorMode::RUN_FROM_START;
     const VERSION = 1;
@@ -23,4 +23,11 @@ class BaseProjector
     {
         return static::VERSION;
     }
+
+    public static function reset()
+    {
+        return static::$has_seen_event = false;
+    }
+
+
 }
