@@ -11,8 +11,7 @@ class ProjectorReference
         }
         $this->class_path = $class_path;
     }
-
-    // TODO: Add default mode here
+    
     public function mode()
     {
         $class = $this->class_path;
