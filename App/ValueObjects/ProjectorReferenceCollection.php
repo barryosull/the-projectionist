@@ -22,7 +22,7 @@ class ProjectorReferenceCollection extends Collection
     public function extractNewProjectors(ProjectorPositionCollection $projector_positions)
     {
         return $this->filter(function(ProjectorReference $projector_reference) use ($projector_positions){
-            return !$projector_positions->hasSameVersion($projector_reference);
+            return !$projector_positions->hasReference($projector_reference);
         })->values();
     }
 }

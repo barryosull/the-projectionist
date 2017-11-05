@@ -16,6 +16,16 @@ class ProjectorReference
         $this->mode = $this->mode($class_path);
     }
 
+    public function equals(ProjectorReference $reference)
+    {
+        return $this->class_path == $reference->class_path && $this->version == $reference->version;
+    }
+
+    public function toString()
+    {
+        return $this->class_path."-".$this->version;
+    }
+
     const DEFAULT_MODE = ProjectorMode::RUN_FROM_START;
 
     private function mode($class_path)

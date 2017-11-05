@@ -11,17 +11,7 @@ class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
         $reference = ProjectorReference::makeFromClass(RunOnce::class);
         $actual = ProjectorPosition::makeNewUnplayed($reference);
 
-        $this->assertEquals($reference, $actual->projector_reference);
-        $this->assertEquals($reference->version, $actual->projector_version);
+        $this->assertTrue($reference->equals($actual->projector_reference));
         $this->assertEmpty(0, $actual->processed_events);
-    }
-
-    public function test_bump_version()
-    {
-        $position = ProjectorPosition::makeNewUnplayed(ProjectorReference::makeFromClass(RunOnce::class));
-
-        $bumped = $position->bumpVersion();
-
-        $this->assertEquals($position->projector_version+1, $bumped->projector_version);
     }
 }

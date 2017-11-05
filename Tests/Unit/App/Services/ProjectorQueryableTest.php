@@ -67,19 +67,18 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
     public function test_projectors_with_a_higher_version_than_stored_are_considered_new()
     {
-        // Has a version of 2
-        $ref_1 = ProjectorReference::makeFromClass(RunOnce::class);
+        $ref = ProjectorReference::make(RunOnce::class, 1);
+        $ref_higher_version = ProjectorReference::make(RunOnce::class, 2);
 
-        $version = 1;
         $processed_events = 2;
         $occurred_at = date('Y-m-d H:i:s');
         $last_event_id = '6c040404-80fd-4a4d-98d6-547344d4873a';
-        $pos_1 = new ProjectorPosition($ref_1, $version, $processed_events, $occurred_at, $last_event_id);
+        $pos_1 = new ProjectorPosition($ref, $processed_events, $occurred_at, $last_event_id);
 
-        $this->registerer->all()->willReturn([$ref_1]);
+        $this->registerer->all()->willReturn([$ref_higher_version]);
         $this->repo->all()->willReturn([$pos_1]);
 
-        $expected = new ProjectorReferenceCollection([$ref_1]);
+        $expected = new ProjectorReferenceCollection([$ref_higher_version]);
 
         $actual = $this->queryable->newProjectors();
 

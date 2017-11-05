@@ -3,7 +3,6 @@
 use App\Services\ProjectorPositionRepository;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
-use App\ValueObjects\ProjectorReferenceCollection;
 
 class InMemoryProjectorPositionRepository implements ProjectorPositionRepository
 {
@@ -22,7 +21,7 @@ class InMemoryProjectorPositionRepository implements ProjectorPositionRepository
     public function store(ProjectorPosition $projector_position)
     {
         $ref = $projector_position->projector_reference;
-        $key = $ref->class_path.'-'.$projector_position->projector_version;
+        $key = $ref->class_path.'-'.$ref->version;
         $this->store[$key] = $projector_position;
     }
 
