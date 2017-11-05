@@ -3,27 +3,42 @@
 class ProjectorReference
 {
     public $class_path;
+    public $version;
+    public $mode;
 
-    public function __construct(string $class_path)
+    private function __construct(string $class_path, int $version)
     {
         if (!class_exists($class_path)) {
             throw new \Exception("Cannot load class '$class_path'");
         }
         $this->class_path = $class_path;
+        $this->version = $version;
+        $this->mode = $this->mode($class_path);
     }
 
-    public function mode()
+    const DEFAULT_MODE = ProjectorMode::RUN_FROM_START;
+
+    private function mode($class_path)
     {
-        $class = $this->class_path;
-        if (defined("$class::MODE")) {
-            return $class::MODE;
+        if (defined("$class_path::MODE")) {
+            return $class_path::MODE;
         }
-        return ProjectorMode::RUN_FROM_START;
+        return self::DEFAULT_MODE;
     }
 
-    public function currentVersion()
+    const DEFAULT_VERSION = 1;
+
+    public static function makeFromClass(string $class_path): ProjectorReference
     {
-        $class = $this->class_path;
-        return $class::version();
+        $version = self::DEFAULT_VERSION;
+        if (defined("$class_path::VERSION")) {
+            $version = $class_path::VERSION;
+        }
+        return new ProjectorReference($class_path, $version);
+    }
+
+    public static function make(string $class_path, int $version): ProjectorReference
+    {
+        return new ProjectorReference($class_path, $version);
     }
 }

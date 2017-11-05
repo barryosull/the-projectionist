@@ -34,7 +34,7 @@ class ProjectorsPlayer
     {
         $projector_position = $this->projector_position_repository->fetch($projector_reference);
         if (!$projector_position) {
-            $projector_position = ProjectorPosition::make($projector_reference);
+            $projector_position = ProjectorPosition::makeNewUnplayed($projector_reference);
         }
 
         $projector = $this->projector_loader->load($projector_reference);

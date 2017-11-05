@@ -29,7 +29,7 @@ class ProjectorSkipper
     {
         $projector_position = $this->projector_position_repository->fetch($projector_reference);
         if (!$projector_position) {
-            $projector_position = ProjectorPosition::make($projector_reference);
+            $projector_position = ProjectorPosition::makeNewUnplayed($projector_reference);
         }
         if ($latest_event) {
             $projector_position = $projector_position->played($latest_event);

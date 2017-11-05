@@ -28,7 +28,7 @@ class InMemoryProjectorPositionRepository implements ProjectorPositionRepository
 
     public function fetch(ProjectorReference $projector_reference)
     {
-        $key = $projector_reference->class_path.'-'.$projector_reference->currentVersion();
+        $key = $projector_reference->class_path.'-'.$projector_reference->version;
         if (isset($this->store[$key])) {
             return $this->store[$key];
         }

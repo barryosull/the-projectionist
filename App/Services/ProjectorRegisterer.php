@@ -14,10 +14,11 @@ class ProjectorRegisterer
         );
     }
 
+    // TODO: Make it return a reference collection
     public function all(): array
     {
         return array_map(function($projector_class){
-            return new ProjectorReference($projector_class);
+            return ProjectorReference::makeFromClass($projector_class);
         }, self::$projectors);
     }
 }

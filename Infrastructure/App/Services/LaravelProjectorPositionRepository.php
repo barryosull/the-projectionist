@@ -36,7 +36,7 @@ class LaravelProjectorPositionRepository implements ProjectorPositionRepository
     {
         $row = $this->table
             ->where('class_name', $projector_reference)
-            ->where('player_version', $projector_reference->currentVersion())
+            ->where('player_version', $projector_reference->version)
             ->first();
 
         if (!$row) {

@@ -17,8 +17,8 @@ abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCa
     public function setUp()
     {
         $this->repo = $this->makeRepository();
-        $this->ref = new ProjectorReference(RunFromStart::class);
-        $this->position = ProjectorPosition::make($this->ref);
+        $this->ref = ProjectorReference::makeFromClass(RunFromStart::class);
+        $this->position = ProjectorPosition::makeNewUnplayed($this->ref);
     }
 
     abstract protected function makeRepository(): ProjectorPositionRepository;
@@ -41,8 +41,8 @@ abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCa
 
     private function makePosition(string $projector_class)
     {
-        return ProjectorPosition::make(
-            new ProjectorReference($projector_class)
+        return ProjectorPosition::makeNewUnplayed(
+            ProjectorReference::makeFromClass($projector_class)
         );
     }
 

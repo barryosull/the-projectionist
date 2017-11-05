@@ -36,7 +36,7 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
     public function test_registered_but_not_stored_projectors_are_considered_new()
     {
-        $ref = new ProjectorReference(RunFromStart::class);
+        $ref = ProjectorReference::makeFromClass(RunFromStart::class);
         $this->registerer->all()->willReturn([$ref]);
         $this->repo->all()->willReturn([]);
 
@@ -49,11 +49,11 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
     public function test_that_stored_projectors_are_not_considered_new()
     {
-        $ref_1 = new ProjectorReference(RunFromStart::class);
-        $ref_2 = new ProjectorReference(RunOnce::class);
-        $ref_3 = new ProjectorReference(RunFromLaunch::class);
+        $ref_1 = ProjectorReference::makeFromClass(RunFromStart::class);
+        $ref_2 = ProjectorReference::makeFromClass(RunOnce::class);
+        $ref_3 = ProjectorReference::makeFromClass(RunFromLaunch::class);
 
-        $pos_1 = ProjectorPosition::make($ref_1);
+        $pos_1 = ProjectorPosition::makeNewUnplayed($ref_1);
 
         $this->registerer->all()->willReturn([$ref_1, $ref_2, $ref_3]);
         $this->repo->all()->willReturn([$pos_1]);
@@ -68,7 +68,7 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
     public function test_projectors_with_a_higher_version_than_stored_are_considered_new()
     {
         // Has a version of 2
-        $ref_1 = new ProjectorReference(RunOnce::class);
+        $ref_1 = ProjectorReference::makeFromClass(RunOnce::class);
 
         $version = 1;
         $processed_events = 2;

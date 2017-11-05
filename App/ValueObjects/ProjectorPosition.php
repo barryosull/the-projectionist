@@ -1,6 +1,5 @@
 <?php namespace App\ValueObjects;
 
-// TODO: Write unit test for factory methods
 class ProjectorPosition
 {
     public $projector_reference;
@@ -9,6 +8,7 @@ class ProjectorPosition
     public $last_event_id;
     public $occurred_at;
 
+    // TODO: Remove projector_version, just use one in the reference
     public function __construct(
         ProjectorReference $projector_reference,
         int $projector_version,
@@ -37,11 +37,11 @@ class ProjectorPosition
         );
     }
 
-    public static function make(ProjectorReference $projector_reference): ProjectorPosition
+    public static function makeNewUnplayed(ProjectorReference $projector_reference): ProjectorPosition
     {
         return new ProjectorPosition(
             $projector_reference,
-            $projector_reference->currentVersion(),
+            $projector_reference->version,
             0,
             '',
             ''
@@ -51,7 +51,7 @@ class ProjectorPosition
     public function isSame(ProjectorReference $current_projector)
     {
         return $this->projector_reference->class_path == $current_projector->class_path
-            && $this->projector_version == $current_projector->currentVersion();
+            && $this->projector_version == $current_projector->version;
     }
 
     public function bumpVersion(): ProjectorPosition
