@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Collection;
 
-// TODO: Write unit tests
 class ProjectorReferenceCollection extends Collection
 {
     public function __construct($items = [])
