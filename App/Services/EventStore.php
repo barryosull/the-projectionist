@@ -1,11 +1,11 @@
 <?php namespace App\Services;
 
 use App\ValueObjects\Event;
-use Illuminate\Support\Collection;
+use App\ValueObjects\EventCollection;
 
 interface EventStore
 {
     public function latestEvent(): Event;
 
-    public function getStream($last_event_id): Collection;
+    public function getStream($last_event_id): EventCollection;
 }

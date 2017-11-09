@@ -2,7 +2,7 @@
 
 use App\Services\EventStore;
 use App\ValueObjects\Event;
-use Illuminate\Support\Collection;
+use App\ValueObjects\EventCollection;
 
 class InMemoryEventStore implements EventStore
 {
@@ -18,9 +18,8 @@ class InMemoryEventStore implements EventStore
         return last(self::$events);
     }
 
-    // TODO: Make Event collection
-    public function getStream($last_event_id): Collection
+    public function getStream($last_event_id): EventCollection
     {
-        return new Collection(self::$events);
+        return new EventCollection(self::$events);
     }
 }
