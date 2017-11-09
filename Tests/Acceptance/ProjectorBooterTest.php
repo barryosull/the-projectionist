@@ -3,8 +3,6 @@
 use App\Services\ProjectorPositionRepository;
 use App\Services\ProjectorRegisterer;
 use App\Usecases\ProjectorBooter;
-use App\ValueObjects\Event;
-use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;
 use Bootstrap\App;
@@ -12,6 +10,7 @@ use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
 use Tests\Fakes\Projectors\RunOnce;
 use Infrastructure\App\Services\InMemoryEventStore;
+use Tests\Fakes\Event;
 
 class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,9 +46,7 @@ class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
     {
         $event = new Event(
             '94ae0b60-ddb4-4cf0-bb75-4b588fea3c3c',
-            'domain.context.aggregate.event',
-            '2017-01-01 00:00:01',
-            new \stdClass()
+            'domain.context.aggregate.event'
         );
 
         $event_store = App::make(InMemoryEventStore::class);

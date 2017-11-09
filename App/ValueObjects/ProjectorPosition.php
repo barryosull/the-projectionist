@@ -20,14 +20,14 @@ class ProjectorPosition
         $this->occurred_at = $occurred_at;
     }
 
-    public function played($event): ProjectorPosition
+    public function played(Event $event): ProjectorPosition
     {
         $event_count = $this->processed_events + 1;
 
         return new ProjectorPosition(
             $this->projector_reference,
             $event_count,
-            $event->id,
+            $event->id(),
             date('Y-m-d H:i:s')
         );
     }

@@ -1,12 +1,12 @@
-<?php namespace Infrastructure\App\Services;
+<?php namespace Infrastructure\App\Service;
 
 use App\Services\ProjectorPositionRepository;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorPositionCollection;
 use App\ValueObjects\ProjectorReference;
-use App\ValueObjects\ProjectorReferenceCollection;
 
-class LaravelProjectorPositionRepository implements ProjectorPositionRepository
+// TODO: Write integration test
+class LaravelPositionRepository implements ProjectorPositionRepository
 {
     private $table;
 

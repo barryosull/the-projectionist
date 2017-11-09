@@ -1,6 +1,7 @@
 <?php namespace Infrastructure\App\Services;
 
 use App\Services\EventStore;
+use App\ValueObjects\Event;
 use Illuminate\Support\Collection;
 
 class InMemoryEventStore implements EventStore
@@ -12,11 +13,12 @@ class InMemoryEventStore implements EventStore
         self::$events = $events;
     }
 
-    public function latestEvent()
+    public function latestEvent(): Event
     {
         return last(self::$events);
     }
 
+    // TODO: Make Event collection
     public function getStream($last_event_id): Collection
     {
         return new Collection(self::$events);

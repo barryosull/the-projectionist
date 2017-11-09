@@ -4,7 +4,6 @@ use App\Services\ProjectorQueryable;
 use App\Services\ProjectorSkipper;
 use App\Services\ProjectorsPlayer;
 use App\ValueObjects\ProjectorMode;
-use App\ValueObjects\ProjectorReferenceCollection;
 
 class ProjectorBooter
 {

@@ -1,5 +1,6 @@
 <?php namespace App\Services;
 
+use App\ValueObjects\Event;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;
@@ -25,7 +26,7 @@ class ProjectorSkipper
         }
     }
 
-    private function skipProjectorToEvent(ProjectorReference $projector_reference, $latest_event)
+    private function skipProjectorToEvent(ProjectorReference $projector_reference, Event $latest_event)
     {
         $projector_position = $this->projector_position_repository->fetch($projector_reference);
         if (!$projector_position) {
