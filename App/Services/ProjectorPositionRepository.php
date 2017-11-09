@@ -2,7 +2,7 @@
 
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
-use App\ValueObjects\ProjectorReferenceCollection;
+use App\ValueObjects\ProjectorPositionCollection;
 
 interface ProjectorPositionRepository
 {
@@ -11,5 +11,5 @@ interface ProjectorPositionRepository
     /** @return ProjectorPosition */
     public function fetch(ProjectorReference $projector_reference);
 
-    public function all(): array;
+    public function all(): ProjectorPositionCollection;
 }

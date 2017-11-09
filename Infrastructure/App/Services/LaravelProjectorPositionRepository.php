@@ -2,6 +2,7 @@
 
 use App\Services\ProjectorPositionRepository;
 use App\ValueObjects\ProjectorPosition;
+use App\ValueObjects\ProjectorPositionCollection;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;
 
@@ -46,20 +47,19 @@ class LaravelProjectorPositionRepository implements ProjectorPositionRepository
         return $this->convertRowToSnapshot($row);
     }
 
-    public function all(): array
+    public function all(): ProjectorPositionCollection
     {
         $rows = $this->table->get();
 
-        return array_map(function($row) {
+        return new ProjectorPositionCollection(array_map(function($row) {
             return $this->convertRowToSnapshot($row);
-        }, $rows);
+        }, $rows));
     }
 
     private function convertRowToSnapshot($row): ProjectorPosition
     {
         return new ProjectorPosition(
             $row['class_name'],
-            $row['player_version'],
             $row['version'],
             $row['last_id'],
             $row['occurred_at']

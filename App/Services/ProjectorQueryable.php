@@ -18,16 +18,15 @@ class ProjectorQueryable
 
     public function newProjectors(): ProjectorReferenceCollection
     {
-        $projector_positions = new ProjectorPositionCollection($this->projector_position_repository->all());
+        $projector_positions = $this->projector_position_repository->all();
 
-        $projector_references = $this->allProjectors();
+        $projector_references = $this->projector_registerer->all();
 
         return $projector_references->extractNewProjectors($projector_positions);
     }
 
     public function allProjectors(): ProjectorReferenceCollection
     {
-        $list = $this->projector_registerer->all();
-        return new ProjectorReferenceCollection($list);
+        return $this->projector_registerer->all();
     }
 }

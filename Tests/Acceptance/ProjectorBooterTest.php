@@ -6,6 +6,7 @@ use App\Usecases\ProjectorBooter;
 use App\ValueObjects\Event;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
+use App\ValueObjects\ProjectorReferenceCollection;
 use Bootstrap\App;
 use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
@@ -63,15 +64,13 @@ class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
 
         $stored_projector_positions = $this->projector_position_repo->all();
 
-        $actual = array_map(function(ProjectorPosition $pos){
-            return $pos->projector_reference;
-        }, $stored_projector_positions);
+        $actual = $stored_projector_positions->references();
 
-        $expected = [
+        $expected = new ProjectorReferenceCollection([
             ProjectorReference::makeFromClass(RunFromLaunch::class),
             ProjectorReference::makeFromClass(RunFromStart::class),
             ProjectorReference::makeFromClass(RunOnce::class)
-        ];
+        ]);
 
         $this->assertEquals($expected, $actual);
     }

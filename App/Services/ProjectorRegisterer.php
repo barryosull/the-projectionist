@@ -1,6 +1,7 @@
 <?php namespace App\Services;
 
 use App\ValueObjects\ProjectorReference;
+use App\ValueObjects\ProjectorReferenceCollection;
 
 class ProjectorRegisterer
 {
@@ -14,11 +15,10 @@ class ProjectorRegisterer
         );
     }
 
-    // TODO: Make it return a reference collection
-    public function all(): array
+    public function all(): ProjectorReferenceCollection
     {
-        return array_map(function($projector_class){
+        return new ProjectorReferenceCollection(array_map(function($projector_class){
             return ProjectorReference::makeFromClass($projector_class);
-        }, self::$projectors);
+        }, self::$projectors));
     }
 }

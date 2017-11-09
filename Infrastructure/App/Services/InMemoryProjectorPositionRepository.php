@@ -2,6 +2,7 @@
 
 use App\Services\ProjectorPositionRepository;
 use App\ValueObjects\ProjectorPosition;
+use App\ValueObjects\ProjectorPositionCollection;
 use App\ValueObjects\ProjectorReference;
 
 class InMemoryProjectorPositionRepository implements ProjectorPositionRepository
@@ -34,8 +35,8 @@ class InMemoryProjectorPositionRepository implements ProjectorPositionRepository
         return null;
     }
 
-    public function all(): array
+    public function all(): ProjectorPositionCollection
     {
-        return array_values($this->store);
+        return new ProjectorPositionCollection(array_values($this->store));
     }
 }

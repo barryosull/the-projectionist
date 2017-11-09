@@ -2,6 +2,7 @@
 
 use App\Services\ProjectorPositionRepository;
 use App\ValueObjects\ProjectorPosition;
+use App\ValueObjects\ProjectorPositionCollection;
 use App\ValueObjects\ProjectorReference;
 use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
@@ -56,7 +57,7 @@ abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCa
         $this->repo->store($pos_2);
         $this->repo->store($pos_3);
 
-        $expected = [$pos_1, $pos_2, $pos_3];
+        $expected = new ProjectorPositionCollection([$pos_1, $pos_2, $pos_3]);
 
         $this->assertEquals($expected, $this->repo->all());
     }
@@ -71,7 +72,7 @@ abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCa
         $this->repo->store($pos_1);
         $this->repo->store($pos_1_bumped_version);
 
-        $expected = [$pos_1, $pos_1_bumped_version];
+        $expected = new ProjectorPositionCollection([$pos_1, $pos_1_bumped_version]);
 
         $this->assertEquals($expected, $this->repo->all());
     }

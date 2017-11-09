@@ -27,4 +27,11 @@ class ProjectorPositionCollection extends Collection
 
         return $position != null;
     }
+
+    public function references(): ProjectorReferenceCollection
+    {
+        return new ProjectorReferenceCollection(array_map(function(ProjectorPosition $pos){
+            return $pos->projector_reference;
+        }, $this->all()));
+    }
 }

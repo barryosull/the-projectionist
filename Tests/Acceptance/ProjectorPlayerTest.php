@@ -4,6 +4,7 @@ use App\Services\ProjectorPositionRepository;
 use App\Usecases\ProjectorPlayer;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
+use App\ValueObjects\ProjectorReferenceCollection;
 use Bootstrap\App;
 use Infrastructure\App\Services\InMemoryProjectorPositionRepository;
 use Tests\Fakes\Projectors\RunFromLaunch;
@@ -24,14 +25,12 @@ class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
 
         $stored_projector_positions = $projector_position_repo->all();
 
-        $actual = array_map(function(ProjectorPosition $pos){
-            return $pos->projector_reference;
-        }, $stored_projector_positions);
+        $actual = $stored_projector_positions->references();
 
-        $expected = [
+        $expected = new ProjectorReferenceCollection([
             ProjectorReference::makeFromClass(RunFromLaunch::class),
             ProjectorReference::makeFromClass(RunFromStart::class)
-        ];
+        ]);
 
         $this->assertEquals($expected, $actual);
     }

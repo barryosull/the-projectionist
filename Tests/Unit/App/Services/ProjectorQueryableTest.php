@@ -4,6 +4,7 @@ use App\Services\ProjectorPositionRepository;
 use App\Services\ProjectorQueryable;
 use App\Services\ProjectorRegisterer;
 use App\ValueObjects\ProjectorPosition;
+use App\ValueObjects\ProjectorPositionCollection;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;
 use Tests\Fakes\Projectors\RunFromLaunch;
@@ -37,8 +38,8 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
     public function test_registered_but_not_stored_projectors_are_considered_new()
     {
         $ref = ProjectorReference::makeFromClass(RunFromStart::class);
-        $this->registerer->all()->willReturn([$ref]);
-        $this->repo->all()->willReturn([]);
+        $this->registerer->all()->willReturn(new ProjectorReferenceCollection([$ref]));
+        $this->repo->all()->willReturn(new ProjectorPositionCollection([]));
 
         $expected = new ProjectorReferenceCollection([$ref]);
 
@@ -55,8 +56,8 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
         $pos_1 = ProjectorPosition::makeNewUnplayed($ref_1);
 
-        $this->registerer->all()->willReturn([$ref_1, $ref_2, $ref_3]);
-        $this->repo->all()->willReturn([$pos_1]);
+        $this->registerer->all()->willReturn(new ProjectorReferenceCollection([$ref_1, $ref_2, $ref_3]));
+        $this->repo->all()->willReturn(new ProjectorPositionCollection([$pos_1]));
 
         $expected = new ProjectorReferenceCollection([$ref_2, $ref_3]);
 
@@ -75,8 +76,8 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
         $last_event_id = '6c040404-80fd-4a4d-98d6-547344d4873a';
         $pos_1 = new ProjectorPosition($ref, $processed_events, $occurred_at, $last_event_id);
 
-        $this->registerer->all()->willReturn([$ref_higher_version]);
-        $this->repo->all()->willReturn([$pos_1]);
+        $this->registerer->all()->willReturn(new ProjectorReferenceCollection([$ref_higher_version]));
+        $this->repo->all()->willReturn(new ProjectorPositionCollection([$pos_1]));
 
         $expected = new ProjectorReferenceCollection([$ref_higher_version]);
 
