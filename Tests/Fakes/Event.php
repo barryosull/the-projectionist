@@ -1,6 +1,6 @@
 <?php namespace Tests\Fakes;
 
-class Event implements \App\ValueObjects\Event
+class Event implements \App\Services\EventStore\Event
 {
     private $id;
     private $type;

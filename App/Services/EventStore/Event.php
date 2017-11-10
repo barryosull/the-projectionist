@@ -1,4 +1,4 @@
-<?php namespace App\ValueObjects;
+<?php namespace App\Services\EventStore;
 
 interface Event
 {

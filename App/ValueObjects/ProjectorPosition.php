@@ -1,5 +1,7 @@
 <?php namespace App\ValueObjects;
 
+use App\Services\EventStore\Event;
+
 class ProjectorPosition
 {
     public $projector_reference;

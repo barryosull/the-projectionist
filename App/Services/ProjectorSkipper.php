@@ -1,6 +1,6 @@
 <?php namespace App\Services;
 
-use App\ValueObjects\Event;
+use App\Services\EventStore\Event;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;

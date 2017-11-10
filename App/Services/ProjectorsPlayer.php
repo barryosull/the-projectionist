@@ -41,7 +41,10 @@ class ProjectorsPlayer
 
         $stream = $this->event_store->getStream($projector_position->last_event_id);
 
-        foreach ($stream as $event) {
+        while ($event = $stream->next()) {
+            if ($event == null) {
+                break;
+            }
             $this->projector_position_repository->store($projector_position);
             $projector_position = $this->projector_player->play($event, $projector, $projector_position);
         }

@@ -5,7 +5,7 @@
 
 use Infrastructure\EventSourced\Snapshot\Snapshot;
 
-class Event implements \App\ValueObjects\Event
+class Event implements \App\Services\EventStore\Event
 {
     private $snapshot;
 
