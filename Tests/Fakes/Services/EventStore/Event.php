@@ -1,4 +1,4 @@
-<?php namespace Tests\Fakes;
+<?php namespace Tests\Fakes\Services\EventStore;
 
 class Event implements \App\Services\EventStore\Event
 {

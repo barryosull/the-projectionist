@@ -9,8 +9,8 @@ use Bootstrap\App;
 use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
 use Tests\Fakes\Projectors\RunOnce;
-use Infrastructure\App\Services\InMemoryEventStore;
-use Tests\Fakes\Event;
+use Infrastructure\App\Services\InMemory\EventStore;
+use Tests\Fakes\Services\EventStore\Event;
 
 class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
 {
@@ -49,7 +49,7 @@ class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
             'domain.context.aggregate.event'
         );
 
-        $event_store = App::make(InMemoryEventStore::class);
+        $event_store = App::make(EventStore::class);
         $event_store->setEvents([$event]);
     }
 

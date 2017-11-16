@@ -1,11 +1,10 @@
-<?php namespace Infrastructure\App\Services;
+<?php namespace Infrastructure\App\Services\InMemory;
 
-use App\Services\ProjectorPositionRepository;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorPositionCollection;
 use App\ValueObjects\ProjectorReference;
 
-class InMemoryProjectorPositionRepository implements ProjectorPositionRepository
+class ProjectorPositionRepository implements \App\Services\ProjectorPositionRepository
 {
     private $store;
 

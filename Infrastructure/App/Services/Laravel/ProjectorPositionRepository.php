@@ -1,25 +1,24 @@
-<?php namespace Infrastructure\App\Service;
+<?php namespace Infrastructure\App\Service\Laravel;
 
-use App\Services\ProjectorPositionRepository;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorPositionCollection;
 use App\ValueObjects\ProjectorReference;
 
 // TODO: Write integration test
-class LaravelPositionRepository implements ProjectorPositionRepository
+class ProjectorPositionRepository implements \App\Services\ProjectorPositionRepository
 {
     private $table;
 
     public function __construct()
     {
-        $this->table = \DB::connection()->table('player_snapshots');
+        $this->table = \DB::table('player_snapshots');
     }
 
     public function store(ProjectorPosition $projector_position)
     {
         $row = [
             'class_name' => $projector_position->projector_reference->class_path,
-            'player_version' => $projector_position->projector_version,
+            'player_version' => $projector_position->projector_reference->version,
             'version' => $projector_position->processed_events,
             'last_id' => $projector_position->last_event_id,
             'occurred_at' => $projector_position->occurred_at

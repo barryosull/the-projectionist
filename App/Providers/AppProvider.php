@@ -1,16 +1,6 @@
 <?php namespace App\Providers;
 
-use App\Services\EventStore;
-use App\Services\ProjectorLoader;
-use App\Services\ProjectorPositionRepository;
-use App\Services\ProjectorRegisterer;
 use Illuminate\Container\Container;
-use Infrastructure\App\Services\InMemoryEventStore;
-use Infrastructure\App\Services\InMemoryProjectorPositionRepository;
-use Infrastructure\App\Services\LaravelProjectorLoader;
-use Tests\Projectors\RunFromLaunch;
-use Tests\Projectors\RunFromStart;
-use Tests\Projectors\RunOnce;
 
 class AppProvider
 {
@@ -36,18 +26,18 @@ class AppProvider
         );
 
         $this->container->singleton(
-            ProjectorPositionRepository::class,
-                InMemoryProjectorPositionRepository::class
+            \App\Services\ProjectorPositionRepository::class,
+                \Infrastructure\App\Services\InMemory\ProjectorPositionRepository::class
         );
 
         $this->container->bind(
-            ProjectorLoader::class,
-                LaravelProjectorLoader::class
+            \App\Services\ProjectorLoader::class,
+                \Infrastructure\App\Services\Laravel\ProjectorLoader::class
         );
 
         $this->container->bind(
-            EventStore::class,
-                InMemoryEventStore::class
+            \App\Services\EventStore::class,
+                \Infrastructure\App\Services\InMemory\EventStore::class
         );
     }
 }

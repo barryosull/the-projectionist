@@ -1,6 +1,6 @@
 <?php namespace Tests\Unit\Fakes;
 
-use Tests\Fakes\Event;
+use Tests\Fakes\Services\EventStore\Event;
 use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
 

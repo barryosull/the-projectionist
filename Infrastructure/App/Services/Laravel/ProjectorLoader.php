@@ -1,10 +1,9 @@
-<?php namespace Infrastructure\App\Services;
+<?php namespace Infrastructure\App\Services\Laravel;
 
-use App\Services\ProjectorLoader;
 use App\ValueObjects\ProjectorReference;
 use Illuminate\Container\Container;
 
-class LaravelProjectorLoader implements ProjectorLoader
+class ProjectorLoader implements \App\Services\ProjectorLoader
 {
     private $container;
 

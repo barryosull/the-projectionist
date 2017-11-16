@@ -2,11 +2,10 @@
 
 use App\Services\ProjectorPositionRepository;
 use App\Usecases\ProjectorPlayer;
-use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;
 use Bootstrap\App;
-use Infrastructure\App\Services\InMemoryProjectorPositionRepository;
+use Infrastructure\App\Services\InMemory;
 use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
 
@@ -17,7 +16,7 @@ class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
         /** @var ProjectorPlayer $player */
         $player = App::make(ProjectorPlayer::class);
 
-        /** @var InMemoryProjectorPositionRepository $projector_position_repo */
+        /** @var InMemory\ProjectorPositionRepository $projector_position_repo */
         $projector_position_repo = App::make(ProjectorPositionRepository::class);
         $projector_position_repo->reset();
 

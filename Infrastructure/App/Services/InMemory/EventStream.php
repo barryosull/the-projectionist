@@ -1,10 +1,9 @@
-<?php namespace Infrastructure\App\Services;
+<?php namespace Infrastructure\App\Services\InMemory;
 
 use App\Services\EventStore\Event;
-use App\Services\EventStore\EventStream;
 use Illuminate\Support\Collection;
 
-class InMemoryEventStream implements EventStream
+class EventStream implements \App\Services\EventStore\EventStream
 {
     private $events;
 

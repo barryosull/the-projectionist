@@ -1,8 +1,6 @@
 <?php namespace Infrastructure\EventSourced\Event;
 
-// TODO: Make compatible with snapshot concept
-// TODO: Possibly build integration interfaces, allow other services to define how they plug into this system
-
+// TODO: Make compatible with actual snapshot concept
 use Infrastructure\EventSourced\Snapshot\Snapshot;
 
 class Event implements \App\Services\EventStore\Event
