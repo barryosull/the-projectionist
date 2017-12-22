@@ -39,5 +39,18 @@ class AppProvider
             \App\Services\EventStore::class,
                 \Infrastructure\App\Services\InMemory\EventStore::class
         );
+
+        if (getenv('APP_ENV') == 'testing') {
+            $this->container->bind(
+                \App\Services\ProjectorPlayer::class,
+                    \App\Services\EventClassProjectorPlayer::class
+            );
+        } else {
+            $this->container->bind(
+                \App\Services\ProjectorPlayer::class,
+                    \App\Services\EventSourcedProjectorPlayer::class
+            );
+        }
+
     }
 }

@@ -10,7 +10,7 @@ use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
 use Tests\Fakes\Projectors\RunOnce;
 use Infrastructure\App\Services\InMemory\EventStore;
-use Tests\Fakes\Services\EventStore\Event;
+use Tests\Fakes\Services\EventStore\ThingHappened;
 
 class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
 {
@@ -44,10 +44,7 @@ class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
 
     private function prepareEventStore()
     {
-        $event = new Event(
-            '94ae0b60-ddb4-4cf0-bb75-4b588fea3c3c',
-            'domain.context.aggregate.event'
-        );
+        $event = new ThingHappened('94ae0b60-ddb4-4cf0-bb75-4b588fea3c3c');
 
         $event_store = App::make(EventStore::class);
         $event_store->setEvents([$event]);

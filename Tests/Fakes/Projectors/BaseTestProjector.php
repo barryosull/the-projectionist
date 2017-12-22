@@ -7,7 +7,7 @@ class BaseTestProjector
     const MODE = ProjectorMode::RUN_FROM_START;
     const VERSION = 1;
 
-    public function when_domain_context_aggregate_event()
+    public function whenThingHappened()
     {
         static::$has_seen_event = true;
     }

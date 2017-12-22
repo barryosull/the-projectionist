@@ -1,13 +1,6 @@
 <?php namespace App\Services;
 
-use App\Services\EventStore\Event;
-use App\ValueObjects\ProjectorPosition;
-
-class ProjectorPlayer
+interface ProjectorPlayer
 {
-    public function play(Event $event, $projector, ProjectorPosition $projector_position): ProjectorPosition
-    {
-        $event->playIntoProjector($projector);
-        return $projector_position->played($event);
-    }
+    public function play(EventStore\Event $event, $projector);
 }

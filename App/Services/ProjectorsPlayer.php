@@ -45,8 +45,8 @@ class ProjectorsPlayer
             if ($event == null) {
                 break;
             }
-            $this->projector_position_repository->store($projector_position);
-            $projector_position = $this->projector_player->play($event, $projector, $projector_position);
+            $this->projector_player->play($event, $projector);
+            $projector_position = $projector_position->played($event);
         }
         $this->projector_position_repository->store($projector_position);
     }

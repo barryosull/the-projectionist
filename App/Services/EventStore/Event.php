@@ -4,5 +4,5 @@ interface Event
 {
     public function id();
 
-    public function playIntoProjector($projector);
+    public function content();
 }
