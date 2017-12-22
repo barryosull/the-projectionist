@@ -2,6 +2,7 @@
 
 use Infrastructure\EventSourced\Event\Event;
 
+// TODO: Move into EventSourced infrastructure
 class EventSourcedProjectorPlayer implements ProjectorPlayer
 {
     public function play(EventStore\Event $event, $projector)

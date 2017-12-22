@@ -1,5 +1,6 @@
 <?php namespace App\Services;
 
+// TODO: Move into another location
 class EventClassProjectorPlayer implements ProjectorPlayer
 {
     public function play(EventStore\Event $event, $projector)
