@@ -8,18 +8,21 @@ class ProjectorPosition
     public $processed_events;
     public $last_event_id;
     public $occurred_at;
+    public $is_broken;
 
     public function __construct(
         ProjectorReference $projector_reference,
         int $processed_events,
         string $occurred_at,
-        string $last_event_id
+        string $last_event_id,
+        bool $is_broken
     )
     {
         $this->projector_reference = $projector_reference;
         $this->processed_events = $processed_events;
         $this->last_event_id = $last_event_id;
         $this->occurred_at = $occurred_at;
+        $this->is_broken = $is_broken;
     }
 
     public function played(Event $event): ProjectorPosition
@@ -30,8 +33,25 @@ class ProjectorPosition
             $this->projector_reference,
             $event_count,
             $event->id(),
-            date('Y-m-d H:i:s')
+            date('Y-m-d H:i:s'),
+            $this->is_broken
         );
+    }
+
+    public function broken(): ProjectorPosition
+    {
+        return new ProjectorPosition(
+            $this->projector_reference,
+            $this->processed_events,
+            $this->last_event_id,
+            date('Y-m-d H:i:s'),
+            true
+        );
+    }
+
+    public function isSame(ProjectorReference $current_projector)
+    {
+        return $this->projector_reference->equals($current_projector);
     }
 
     public static function makeNewUnplayed(ProjectorReference $projector_reference): ProjectorPosition
@@ -40,12 +60,8 @@ class ProjectorPosition
             $projector_reference,
             0,
             '',
-            ''
+            '',
+            false
         );
-    }
-
-    public function isSame(ProjectorReference $current_projector)
-    {
-        return $this->projector_reference->equals($current_projector);
     }
 }

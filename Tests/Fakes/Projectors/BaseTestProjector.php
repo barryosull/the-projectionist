@@ -1,13 +1,14 @@
 <?php namespace Tests\Fakes\Projectors;
 
 use App\ValueObjects\ProjectorMode;
+use Tests\Fakes\Services\EventStore\ThingHappened;
 
 class BaseTestProjector
 {
     const MODE = ProjectorMode::RUN_FROM_START;
     const VERSION = 1;
 
-    public function whenThingHappened()
+    public function whenThingHappened(ThingHappened $event)
     {
         static::$has_seen_event = true;
     }

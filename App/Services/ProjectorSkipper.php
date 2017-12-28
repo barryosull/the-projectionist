@@ -11,7 +11,7 @@ class ProjectorSkipper
     private $event_store;
 
     public function __construct(
-        ProjectorPositionRepository $projector_position_repository,
+        ProjectorPositionLedger $projector_position_repository,
         EventStore $event_store
     ) {
         $this->projector_position_repository = $projector_position_repository;

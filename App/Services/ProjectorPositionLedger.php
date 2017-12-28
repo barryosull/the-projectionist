@@ -4,7 +4,7 @@ use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorPositionCollection;
 
-interface ProjectorPositionRepository
+interface ProjectorPositionLedger
 {
     public function store(ProjectorPosition $projector_position);
 

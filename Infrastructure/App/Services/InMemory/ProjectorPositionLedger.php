@@ -4,7 +4,7 @@ use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorPositionCollection;
 use App\ValueObjects\ProjectorReference;
 
-class ProjectorPositionRepository implements \App\Services\ProjectorPositionRepository
+class ProjectorPositionLedger implements \App\Services\ProjectorPositionLedger
 {
     private $store;
 

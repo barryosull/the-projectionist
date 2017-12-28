@@ -5,7 +5,7 @@ use App\ValueObjects\ProjectorPositionCollection;
 use App\ValueObjects\ProjectorReference;
 
 // TODO: Write integration test
-class ProjectorPositionRepository implements \App\Services\ProjectorPositionRepository
+class ProjectorPositionLedger implements \App\Services\ProjectorPositionLedger
 {
     private $table;
 
@@ -21,6 +21,7 @@ class ProjectorPositionRepository implements \App\Services\ProjectorPositionRepo
             'player_version' => $projector_position->projector_reference->version,
             'version' => $projector_position->processed_events,
             'last_id' => $projector_position->last_event_id,
+            'is_broken' => $projector_position->is_broken,
             'occurred_at' => $projector_position->occurred_at
         ];
 
@@ -61,7 +62,8 @@ class ProjectorPositionRepository implements \App\Services\ProjectorPositionRepo
             $row['class_name'],
             $row['version'],
             $row['last_id'],
-            $row['occurred_at']
+            $row['occurred_at'],
+            $row['is_broken']
         );
     }
 }

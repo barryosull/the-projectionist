@@ -22,7 +22,7 @@ class ProjectorTest extends \PHPUnit_Framework_TestCase
         $projector_a->reset();
         $projector_b->reset();
 
-        $projector_a->whenThingHappened();
+        $projector_a->whenThingHappened($this->event);
 
         $this->assertTrue($projector_a->hasSeenEvent());
         $this->assertFalse($projector_b->hasSeenEvent());
@@ -32,7 +32,7 @@ class ProjectorTest extends \PHPUnit_Framework_TestCase
     {
         $projector_a = new RunFromStart();
 
-        $projector_a->whenThingHappened();
+        $projector_a->whenThingHappened($this->event);
 
         $projector_a->reset();
 

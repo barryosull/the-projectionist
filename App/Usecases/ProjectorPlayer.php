@@ -2,14 +2,14 @@
 
 use App\Services\ProjectorQueryable;
 use App\ValueObjects\ProjectorMode;
-use App\Services\ProjectorsPlayer;
+use App\Services\Projectionist;
 
 class ProjectorPlayer
 {
     private $projectors_queryable;
     private $projectors_player;
 
-    public function __construct(ProjectorQueryable $projectors_queryable, ProjectorsPlayer $projectors_player)
+    public function __construct(ProjectorQueryable $projectors_queryable, Projectionist $projectors_player)
     {
         $this->projectors_queryable = $projectors_queryable;
         $this->projectors_player = $projectors_player;

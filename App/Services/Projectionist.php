@@ -1,10 +1,11 @@
 <?php namespace App\Services;
 
+use App\Services\EventStore\Event;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;
 use App\ValueObjects\ProjectorPosition;
 
-class ProjectorsPlayer
+class Projectionist
 {
     private $projector_position_repository;
     private $projector_loader;
@@ -12,7 +13,7 @@ class ProjectorsPlayer
     private $projector_player;
 
     public function __construct(
-        ProjectorPositionRepository $projector_position_repository,
+        ProjectorPositionLedger $projector_position_repository,
         ProjectorLoader $projector_loader,
         EventStore $event_store,
         ProjectorPlayer $projector_player
@@ -39,15 +40,34 @@ class ProjectorsPlayer
 
         $projector = $this->projector_loader->load($projector_reference);
 
-        $stream = $this->event_store->getStream($projector_position->last_event_id);
+        $event_stream = $this->event_store->getStream($projector_position->last_event_id);
 
-        while ($event = $stream->next()) {
+        while ($event = $event_stream->next()) {
             if ($event == null) {
                 break;
             }
-            $this->projector_player->play($event, $projector);
-            $projector_position = $projector_position->played($event);
+
+            $projector_position = self::playEventIntoProjector($this->projector_player, $event, $projector_position, $projector);
+
+            if ($projector_position->is_broken) {
+                break;
+            }
         }
         $this->projector_position_repository->store($projector_position);
+    }
+
+    public static function playEventIntoProjector(
+        ProjectorPlayer $projector_player,
+        Event $event,
+        ProjectorPosition $projector_position,
+        $projector
+    ) {
+        try {
+            $projector_player->play($event, $projector);
+            $projector_position = $projector_position->played($event);
+        } catch (\Throwable $t) {
+            $projector_position = $projector_position->broken();
+        }
+        return $projector_position;
     }
 }

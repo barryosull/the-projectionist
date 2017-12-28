@@ -1,6 +1,6 @@
 <?php namespace Tests\Integration\App\Service;
 
-use App\Services\ProjectorPositionRepository;
+use App\Services\ProjectorPositionLedger;
 use App\ValueObjects\ProjectorPosition;
 use App\ValueObjects\ProjectorPositionCollection;
 use App\ValueObjects\ProjectorReference;
@@ -10,7 +10,7 @@ use Tests\Fakes\Projectors\RunOnce;
 
 abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var ProjectorPositionRepository */
+    /** @var ProjectorPositionLedger */
     private $repo;
     private $ref;
     private $position;
@@ -22,7 +22,7 @@ abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCa
         $this->position = ProjectorPosition::makeNewUnplayed($this->ref);
     }
 
-    abstract protected function makeRepository(): ProjectorPositionRepository;
+    abstract protected function makeRepository(): ProjectorPositionLedger;
 
     public function test_fetching_unstored_returns_null()
     {

@@ -9,7 +9,7 @@ class ProjectorQueryable
     private $projector_registerer;
 
     public function __construct(
-        ProjectorPositionRepository $projector_position_repository,
+        ProjectorPositionLedger $projector_position_repository,
         ProjectorRegisterer $projector_registerer
     ) {
         $this->projector_position_repository = $projector_position_repository;

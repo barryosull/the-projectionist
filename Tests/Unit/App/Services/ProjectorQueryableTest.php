@@ -1,6 +1,6 @@
 <?php namespace Tests\Unit\App\Services;
 
-use App\Services\ProjectorPositionRepository;
+use App\Services\ProjectorPositionLedger;
 use App\Services\ProjectorQueryable;
 use App\Services\ProjectorRegisterer;
 use App\ValueObjects\ProjectorPosition;
@@ -15,7 +15,7 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 {
     /** Deps */
 
-    /** @var ProjectorPositionRepository */
+    /** @var ProjectorPositionLedger */
     private $repo;
     /** @var ProjectorRegisterer */
     private $registerer;
@@ -27,7 +27,7 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->repo = $this->prophesize(ProjectorPositionRepository::class);
+        $this->repo = $this->prophesize(ProjectorPositionLedger::class);
         $this->registerer = $this->prophesize(ProjectorRegisterer::class);
         $this->queryable = new ProjectorQueryable(
             $this->repo->reveal(),
@@ -74,7 +74,7 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
         $processed_events = 2;
         $occurred_at = date('Y-m-d H:i:s');
         $last_event_id = '6c040404-80fd-4a4d-98d6-547344d4873a';
-        $pos_1 = new ProjectorPosition($ref, $processed_events, $occurred_at, $last_event_id);
+        $pos_1 = new ProjectorPosition($ref, $processed_events, $occurred_at, $last_event_id, false);
 
         $this->registerer->all()->willReturn(new ProjectorReferenceCollection([$ref_higher_version]));
         $this->repo->all()->willReturn(new ProjectorPositionCollection([$pos_1]));
@@ -84,5 +84,11 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
         $actual = $this->queryable->newProjectors();
 
         $this->assertEquals($expected, $actual);
+    }
+
+    // TODO: Ensure the queryable does not return broken projectors
+    public function test_broken_projectors_are_ignored()
+    {
+
     }
 }

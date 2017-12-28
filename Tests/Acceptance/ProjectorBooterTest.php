@@ -1,6 +1,6 @@
 <?php namespace Tests\Acceptance;
 
-use App\Services\ProjectorPositionRepository;
+use App\Services\ProjectorPositionLedger;
 use App\Services\ProjectorRegisterer;
 use App\Usecases\ProjectorBooter;
 use App\ValueObjects\ProjectorReference;
@@ -14,7 +14,7 @@ use Tests\Fakes\Services\EventStore\ThingHappened;
 
 class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var  ProjectorPositionRepository $projector_position_repo */
+    /** @var  ProjectorPositionLedger $projector_position_repo */
     private $projector_position_repo;
 
     /** @var ProjectorBooter $booter */
@@ -38,7 +38,7 @@ class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
 
     private function resetProjectorPositionRepo()
     {
-        $this->projector_position_repo = App::make(ProjectorPositionRepository::class);
+        $this->projector_position_repo = App::make(ProjectorPositionLedger::class);
         $this->projector_position_repo->reset();
     }
 

@@ -26,8 +26,8 @@ class AppProvider
         );
 
         $this->container->singleton(
-            \App\Services\ProjectorPositionRepository::class,
-                \Infrastructure\App\Services\InMemory\ProjectorPositionRepository::class
+            \App\Services\ProjectorPositionLedger::class,
+                \Infrastructure\App\Services\InMemory\ProjectorPositionLedger::class
         );
 
         $this->container->bind(

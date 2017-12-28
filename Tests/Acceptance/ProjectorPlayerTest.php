@@ -1,6 +1,6 @@
 <?php namespace Tests\Acceptance;
 
-use App\Services\ProjectorPositionRepository;
+use App\Services\ProjectorPositionLedger;
 use App\Usecases\ProjectorPlayer;
 use App\ValueObjects\ProjectorReference;
 use App\ValueObjects\ProjectorReferenceCollection;
@@ -16,8 +16,8 @@ class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
         /** @var ProjectorPlayer $player */
         $player = App::make(ProjectorPlayer::class);
 
-        /** @var InMemory\ProjectorPositionRepository $projector_position_repo */
-        $projector_position_repo = App::make(ProjectorPositionRepository::class);
+        /** @var InMemory\ProjectorPositionLedger $projector_position_repo */
+        $projector_position_repo = App::make(ProjectorPositionLedger::class);
         $projector_position_repo->reset();
 
         $player->play();

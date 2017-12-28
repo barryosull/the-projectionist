@@ -2,7 +2,7 @@
 
 use App\Services\ProjectorQueryable;
 use App\Services\ProjectorSkipper;
-use App\Services\ProjectorsPlayer;
+use App\Services\Projectionist;
 use App\ValueObjects\ProjectorMode;
 
 class ProjectorBooter
@@ -11,7 +11,7 @@ class ProjectorBooter
     private $projector_skipper;
     private $projectors_player;
 
-    public function __construct(ProjectorQueryable $projector_queryable, ProjectorSkipper $projector_skipper, ProjectorsPlayer $projectors_player)
+    public function __construct(ProjectorQueryable $projector_queryable, ProjectorSkipper $projector_skipper, Projectionist $projectors_player)
     {
         $this->projector_queryable = $projector_queryable;
         $this->projector_skipper = $projector_skipper;
