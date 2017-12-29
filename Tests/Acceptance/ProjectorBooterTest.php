@@ -1,15 +1,15 @@
 <?php namespace Tests\Acceptance;
 
-use Projectionist\App\Services\ProjectorPositionLedger;
-use Projectionist\App\Services\ProjectorRegisterer;
-use Projectionist\App\Usecases\ProjectorBooter;
-use Projectionist\App\ValueObjects\ProjectorReference;
-use Projectionist\App\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Services\ProjectorPositionLedger;
+use Projectionist\Services\ProjectorRegisterer;
+use Projectionist\Usecases\ProjectorBooter;
+use Projectionist\ValueObjects\ProjectorReference;
+use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use Projectionist\Bootstrap\App;
 use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
 use Tests\Fakes\Projectors\RunOnce;
-use Projectionist\Infrastructure\App\Services\InMemory\EventStore;
+use Projectionist\Infrastructure\Services\InMemory\EventStore;
 use Tests\Fakes\Services\EventStore\ThingHappened;
 
 class ProjectorBooterTest extends \PHPUnit_Framework_TestCase

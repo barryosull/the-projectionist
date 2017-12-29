@@ -1,11 +1,11 @@
 <?php namespace Tests\Acceptance;
 
-use Projectionist\App\Services\ProjectorPositionLedger;
-use Projectionist\App\Usecases\ProjectorPlayer;
-use Projectionist\App\ValueObjects\ProjectorReference;
-use Projectionist\App\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Services\ProjectorPositionLedger;
+use Projectionist\Usecases\ProjectorPlayer;
+use Projectionist\ValueObjects\ProjectorReference;
+use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use Projectionist\Bootstrap\App;
-use Projectionist\Infrastructure\App\Services\InMemory;
+use Projectionist\Infrastructure\Services\InMemory;
 use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
 

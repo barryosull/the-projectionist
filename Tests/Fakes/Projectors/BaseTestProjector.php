@@ -1,6 +1,6 @@
 <?php namespace Tests\Fakes\Projectors;
 
-use Projectionist\App\ValueObjects\ProjectorMode;
+use Projectionist\ValueObjects\ProjectorMode;
 use Tests\Fakes\Services\EventStore\ThingHappened;
 
 class BaseTestProjector

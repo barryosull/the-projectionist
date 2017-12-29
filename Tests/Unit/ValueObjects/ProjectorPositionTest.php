@@ -1,11 +1,20 @@
-<?php namespace Tests\Projectionist\App\ValueObjects;
+<?php namespace Tests\Projectionist\ValueObjects;
 
-use Projectionist\App\ValueObjects\ProjectorPosition;
-use Projectionist\App\ValueObjects\ProjectorReference;
+use Projectionist\ValueObjects\ProjectorPosition;
+use Projectionist\ValueObjects\ProjectorReference;
 use Tests\Fakes\Projectors\RunOnce;
 
 class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
 {
+    public function test_make_a_new_unplayed_position_from_a_reference()
+    {
+        $reference = ProjectorReference::makeFromClass(RunOnce::class);
+        $actual = ProjectorPosition::makeNewUnplayed($reference);
+
+        $this->assertTrue($reference->equals($actual->projector_reference));
+        $this->assertEmpty(0, $actual->processed_events);
+    }
+
     public function test_marking_a_position_as_broken()
     {
         $ref = ProjectorReference::make(RunOnce::class, 1);

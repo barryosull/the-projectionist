@@ -1,6 +1,6 @@
 <?php namespace Projectionist\Bootstrap;
 
-use Projectionist\App\Providers\AppProvider;
+use Projectionist\Providers\AppProvider;
 use Illuminate\Container\Container;
 
 class App
