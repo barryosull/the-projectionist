@@ -16,3 +16,7 @@ This system is implementation agnostic, it focusses purely on the projectionist 
 
 ## TODO
 At the moment this library is mostly a proof of concept. As time goes on I plan to extend it to allow easy integration, which includes writing a readme.
+
+Top todos
+- Put lib in its own namespace
+- Move around folder structure, add src, etc...
