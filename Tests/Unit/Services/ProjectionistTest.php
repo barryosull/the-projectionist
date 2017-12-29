@@ -1,6 +1,6 @@
 <?php namespace Tests\Unit\Projectionist\Services;
 
-use Projectionist\Services\EventClassProjectorPlayer;
+use Projectionist\Services\ProjectorPlayer\ClassName;
 use Projectionist\Services\EventStore;
 use Projectionist\Services\Projectionist;
 use Projectionist\Services\ProjectorLoader;
@@ -16,7 +16,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
 {
     public function test_can_handle_broken_projector()
     {
-        $player = new EventClassProjectorPlayer();
+        $player = new ClassName();
         $ref = ProjectorReference::makeFromClass(BrokenProjector::class);
         $projector_position = ProjectorPosition::makeNewUnplayed($ref);
         $projector = new BrokenProjector();

@@ -18,5 +18,4 @@ This system is implementation agnostic, it focusses purely on the projectionist 
 At the moment this library is mostly a proof of concept. As time goes on I plan to extend it to allow easy integration, which includes writing a readme.
 
 Top todos
-- Move around folder structure
-- Have a smarter one that play events one by one to projectors if they're at the same position
+- Have a smarter projectionist that play events one by one to projectors if they're at the same position

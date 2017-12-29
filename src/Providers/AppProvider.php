@@ -43,12 +43,12 @@ class AppProvider
         if (getenv('APP_ENV') == 'testing') {
             $this->container->bind(
                 \Projectionist\Services\ProjectorPlayer::class,
-                \Projectionist\Services\EventClassProjectorPlayer::class
+                \Projectionist\Services\ProjectorPlayer\ClassName::class
             );
         } else {
             $this->container->bind(
                 \Projectionist\Services\ProjectorPlayer::class,
-                \Projectionist\Services\EventSourcedProjectorPlayer::class
+                \Projectionist\Services\ProjectorPlayer\MetaTypeProperty::class
             );
         }
 

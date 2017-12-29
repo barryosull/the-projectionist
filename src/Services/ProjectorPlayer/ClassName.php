@@ -1,13 +1,16 @@
-<?php namespace Projectionist\Services;
+<?php namespace Projectionist\Services\ProjectorPlayer;
 
 // TODO: Move into another location
-class EventClassProjectorPlayer implements ProjectorPlayer
+use Projectionist\Services\EventStore;
+use Projectionist\Services\ProjectorPlayer;
+
+class ClassName implements ProjectorPlayer
 {
     public function play(EventStore\Event $event, $projector)
     {
         $event_content = $event->content();
 
-        $method = "when".$this->className($event_content);
+        $method = $this->handlerFunctionName($this->className($event_content));
 
         if (method_exists($projector, $method)) {
             $projector->$method($event->content());
@@ -18,5 +21,10 @@ class EventClassProjectorPlayer implements ProjectorPlayer
     {
         $namespaces = explode('\\', get_class($event));
         return last($namespaces);
+    }
+
+    private function handlerFunctionName(string $type): string
+    {
+        return "when".$type;
     }
 }
