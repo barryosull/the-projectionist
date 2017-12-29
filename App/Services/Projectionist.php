@@ -39,7 +39,7 @@ class Projectionist
         }
 
         if ($projector_position->is_broken) {
-            return;
+            //return;
         }
 
         $projector = $this->projector_loader->load($projector_reference);
