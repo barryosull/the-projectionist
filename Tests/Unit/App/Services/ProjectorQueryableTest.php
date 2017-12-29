@@ -85,10 +85,4 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $actual);
     }
-
-    // TODO: Ensure the queryable does not return broken projectors
-    public function test_broken_projectors_are_ignored()
-    {
-
-    }
 }

@@ -20,6 +20,6 @@ class ProjectorPlayer
         $projectors = $this->projectors_queryable->allProjectors();
 
         $active_projectors = $projectors->exclude(ProjectorMode::RUN_ONCE);
-        $this->projectors_player->play($active_projectors);
+        $this->projectors_player->playCollection($active_projectors);
     }
 }

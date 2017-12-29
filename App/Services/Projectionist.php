@@ -7,35 +7,39 @@ use App\ValueObjects\ProjectorPosition;
 
 class Projectionist
 {
-    private $projector_position_repository;
+    private $projector_position_ledger;
     private $projector_loader;
     private $event_store;
     private $projector_player;
 
     public function __construct(
-        ProjectorPositionLedger $projector_position_repository,
+        ProjectorPositionLedger $projector_position_ledger,
         ProjectorLoader $projector_loader,
         EventStore $event_store,
         ProjectorPlayer $projector_player
     ) {
-        $this->projector_position_repository = $projector_position_repository;
+        $this->projector_position_ledger = $projector_position_ledger;
         $this->projector_loader = $projector_loader;
         $this->event_store = $event_store;
         $this->projector_player = $projector_player;
     }
 
-    public function play(ProjectorReferenceCollection $projector_references)
+    public function playCollection(ProjectorReferenceCollection $projector_references)
     {
         foreach ($projector_references as $projector_reference) {
             $this->playProjector($projector_reference);
         }
     }
 
-    private function playProjector(ProjectorReference $projector_reference)
+    public function playProjector(ProjectorReference $projector_reference)
     {
-        $projector_position = $this->projector_position_repository->fetch($projector_reference);
+        $projector_position = $this->projector_position_ledger->fetch($projector_reference);
         if (!$projector_position) {
             $projector_position = ProjectorPosition::makeNewUnplayed($projector_reference);
+        }
+
+        if ($projector_position->is_broken) {
+            return;
         }
 
         $projector = $this->projector_loader->load($projector_reference);
@@ -53,7 +57,7 @@ class Projectionist
                 break;
             }
         }
-        $this->projector_position_repository->store($projector_position);
+        $this->projector_position_ledger->store($projector_position);
     }
 
     public static function playEventIntoProjector(
