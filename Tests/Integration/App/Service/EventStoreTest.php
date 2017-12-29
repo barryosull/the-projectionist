@@ -1,6 +1,6 @@
-<?php namespace Tests\Integration\App\Service;
+<?php namespace Tests\Integration\Projectionist\App\Service;
 
-use App\Services\EventStore;
+use Projectionist\App\Services\EventStore;
 
 abstract class EventStoreTest extends \PHPUnit_Framework_TestCase
 {

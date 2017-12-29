@@ -1,8 +1,8 @@
 <?php namespace Tests\Unit\ValueObjects;
 
-use App\ValueObjects\ProjectorMode;
-use App\ValueObjects\ProjectorReference;
-use App\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\App\ValueObjects\ProjectorMode;
+use Projectionist\App\ValueObjects\ProjectorReference;
+use Projectionist\App\ValueObjects\ProjectorReferenceCollection;
 use Tests\Fakes\Projectors\RunFromStart;
 use Tests\Fakes\Projectors\RunOnce;
 

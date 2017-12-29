@@ -1,13 +1,13 @@
-<?php namespace Tests\Unit\App\Services;
+<?php namespace Tests\Unit\Projectionist\App\Services;
 
-use App\Services\EventClassProjectorPlayer;
-use App\Services\EventStore;
-use App\Services\Projectionist;
-use App\Services\ProjectorLoader;
-use App\Services\ProjectorPlayer;
-use App\Services\ProjectorPositionLedger;
-use App\ValueObjects\ProjectorPosition;
-use App\ValueObjects\ProjectorReference;
+use Projectionist\App\Services\EventClassProjectorPlayer;
+use Projectionist\App\Services\EventStore;
+use Projectionist\App\Services\Projectionist;
+use Projectionist\App\Services\ProjectorLoader;
+use Projectionist\App\Services\ProjectorPlayer;
+use Projectionist\App\Services\ProjectorPositionLedger;
+use Projectionist\App\ValueObjects\ProjectorPosition;
+use Projectionist\App\ValueObjects\ProjectorReference;
 use Prophecy\Argument;
 use Tests\Fakes\Projectors\BrokenProjector;
 use Tests\Fakes\Services\EventStore\ThingHappened;

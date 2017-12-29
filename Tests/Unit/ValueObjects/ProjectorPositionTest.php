@@ -1,7 +1,7 @@
-<?php namespace Tests\App\ValueObjects;
+<?php namespace Tests\Projectionist\App\ValueObjects;
 
-use App\ValueObjects\ProjectorPosition;
-use App\ValueObjects\ProjectorReference;
+use Projectionist\App\ValueObjects\ProjectorPosition;
+use Projectionist\App\ValueObjects\ProjectorReference;
 use Tests\Fakes\Projectors\RunOnce;
 
 class ProjectorPositionTest extends \PHPUnit_Framework_TestCase

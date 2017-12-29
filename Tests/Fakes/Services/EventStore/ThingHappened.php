@@ -1,6 +1,6 @@
 <?php namespace Tests\Fakes\Services\EventStore;
 
-class ThingHappened implements \App\Services\EventStore\Event
+class ThingHappened implements \Projectionist\App\Services\EventStore\Event
 {
     private $id;
 

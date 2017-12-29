@@ -1,9 +1,9 @@
-<?php namespace Tests\Integration\App\Service;
+<?php namespace Tests\Integration\Projectionist\App\Service;
 
-use App\Services\ProjectorPositionLedger;
-use App\ValueObjects\ProjectorPosition;
-use App\ValueObjects\ProjectorPositionCollection;
-use App\ValueObjects\ProjectorReference;
+use Projectionist\App\Services\ProjectorPositionLedger;
+use Projectionist\App\ValueObjects\ProjectorPosition;
+use Projectionist\App\ValueObjects\ProjectorPositionCollection;
+use Projectionist\App\ValueObjects\ProjectorReference;
 use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
 use Tests\Fakes\Projectors\RunOnce;

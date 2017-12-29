@@ -1,10 +1,10 @@
-<?php namespace Tests\Integration\Infrastructure\App\Service\InMemory;
+<?php namespace Tests\Integration\Infrastructure\Projectionist\App\Service\InMemory;
 
-use Infrastructure\App\Services\InMemory;
+use Projectionist\Infrastructure\App\Services\InMemory;
 
-class EventStoreTest extends \Tests\Integration\App\Service\EventStoreTest
+class EventStoreTest extends \Tests\Integration\Projectionist\App\Service\EventStoreTest
 {
-    protected function makeEventStore(): \App\Services\EventStore
+    protected function makeEventStore(): \Projectionist\App\Services\EventStore
     {
         return new InMemory\EventStore();
     }

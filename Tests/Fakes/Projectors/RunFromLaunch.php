@@ -1,6 +1,6 @@
 <?php namespace Tests\Fakes\Projectors;
 
-use App\ValueObjects\ProjectorMode;
+use Projectionist\App\ValueObjects\ProjectorMode;
 
 class RunFromLaunch extends BaseTestProjector
 {

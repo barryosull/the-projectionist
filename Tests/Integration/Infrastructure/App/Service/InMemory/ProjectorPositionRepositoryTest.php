@@ -1,9 +1,9 @@
-<?php namespace Tests\Integration\Infrastructure\App\Service\InMemory;
+<?php namespace Tests\Integration\Infrastructure\Projectionist\App\Service\InMemory;
 
-use App\Services\ProjectorPositionLedger;
-use Infrastructure\App\Services\InMemory;
+use Projectionist\App\Services\ProjectorPositionLedger;
+use Projectionist\Infrastructure\App\Services\InMemory;
 
-class ProjectorPositionRepositoryTest extends \Tests\Integration\App\Service\ProjectorPositionRepositoryTest
+class ProjectorPositionRepositoryTest extends \Tests\Integration\Projectionist\App\Service\ProjectorPositionRepositoryTest
 {
     protected function makeRepository(): ProjectorPositionLedger
     {

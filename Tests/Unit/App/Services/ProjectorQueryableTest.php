@@ -1,12 +1,12 @@
-<?php namespace Tests\Unit\App\Services;
+<?php namespace Tests\Unit\Projectionist\App\Services;
 
-use App\Services\ProjectorPositionLedger;
-use App\Services\ProjectorQueryable;
-use App\Services\ProjectorRegisterer;
-use App\ValueObjects\ProjectorPosition;
-use App\ValueObjects\ProjectorPositionCollection;
-use App\ValueObjects\ProjectorReference;
-use App\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\App\Services\ProjectorPositionLedger;
+use Projectionist\App\Services\ProjectorQueryable;
+use Projectionist\App\Services\ProjectorRegisterer;
+use Projectionist\App\ValueObjects\ProjectorPosition;
+use Projectionist\App\ValueObjects\ProjectorPositionCollection;
+use Projectionist\App\ValueObjects\ProjectorReference;
+use Projectionist\App\ValueObjects\ProjectorReferenceCollection;
 use Tests\Fakes\Projectors\RunFromLaunch;
 use Tests\Fakes\Projectors\RunFromStart;
 use Tests\Fakes\Projectors\RunOnce;

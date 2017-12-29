@@ -2,5 +2,5 @@
 
 require "vendor/autoload.php";
 
-$app = new \Bootstrap\App();
+$app = new \Projectionist\Bootstrap\App();
 $app->bootstrap();

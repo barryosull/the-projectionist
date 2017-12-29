@@ -7,13 +7,12 @@
 
   "autoload": {
     "psr-4": {
-      "App\\": "App/",
-      "Bootstrap\\": "Bootstrap/",
-      "Infrastructure\\": "Infrastructure/"
+      "Projectionist\\": "src/"
     }
   },
   "autoload-dev": {
     "classmap": [
+      "Benchmarks",
       "Tests/"
     ]
   }

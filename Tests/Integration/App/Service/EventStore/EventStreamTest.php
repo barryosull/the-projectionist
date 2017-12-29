@@ -1,7 +1,7 @@
-<?php namespace Tests\Integration\App\Service\EventStore;
+<?php namespace Tests\Integration\Projectionist\App\Service\EventStore;
 
-use App\Services\EventStore\Event;
-use App\Services\EventStore\EventStream;
+use Projectionist\App\Services\EventStore\Event;
+use Projectionist\App\Services\EventStore\EventStream;
 
 abstract class EventStreamTest extends \PHPUnit_Framework_TestCase
 {
