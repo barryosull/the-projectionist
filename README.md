@@ -8,14 +8,33 @@ At it's simplest, this is a library that makes it easy to consume events and bui
 
 It is based on an article I am about to release, I'll link it here once I have.
 
-This system is implementation agnostic, it focusses purely on the projectionist concept and makes no assumptions on how you implement the underlying technologies. That said, it does feature some example code for a laravel implementation.
+This system is implementation agnostic, it focuses purely on the projectionist concept and makes no assumptions on how your implementation technologies. That said, it does feature some example code for a laravel implementation.
 
 ## Usecases
+The system comes with two 
+
 - Build new Projections at launch
 - Trigger apply new events to existing projectors
 
-## TODO
-At the moment this library is mostly a proof of concept. As time goes on I plan to extend it to allow easy integration, which includes writing a readme.
+## Modes
+Projectors tend to have three distinct modes.
+1. `run_from_start`: Start at the first event and play as normal
+3. `run_from_launch`: Start at most recent event, only play forward from there
+2. `run_once`: Start at the first event, only run once
 
-Top todos
-- Have a smarter projectionist that play events one by one to projectors if they're at the same position
+These modes allow for various usecases. Most projectors will be `run_from_start`, while `run_from_launch` is useful when you only want the projector triggered by new events, not existing ones. `run_once` is useful for the opposite reason, only run through existing events, ignore new ones.
+
+These can be configured by add a `MODE` const to your projector, and setting the appropriate mode.
+```php
+class Projector extends BaseTestProjector
+{
+    const MODE = ProjectorMode::RUN_FROM_LAUNCH;
+}
+```
+
+## TODO
+At the moment this library is mostly a proof of concept. As time goes on I plan to extend it to allow easy integrations and a tutorial.
+- Move integration interfaces into their own namespace
+- Move implementation of the above interfaces into their own namespace
+- Write tutorial for the above
+- Have a smarter projectionist that groups projectors by position, then plays events one by one to projectors if they're at the same position. One stream, multiple projectors.
