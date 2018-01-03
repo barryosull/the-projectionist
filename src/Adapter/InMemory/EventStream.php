@@ -1,9 +1,9 @@
 <?php namespace Projectionist\Adapter\InMemory;
 
-use Projectionist\Services\EventStore\Event;
+use Projectionist\Services;
 use Illuminate\Support\Collection;
 
-class EventStream implements \Projectionist\Services\EventStore\EventStream
+class EventStream implements Services\EventStore\EventStream
 {
     private $events;
 
@@ -12,9 +12,13 @@ class EventStream implements \Projectionist\Services\EventStore\EventStream
         $this->events = new Collection($events);
     }
 
-    /** @return Event */
+    /** @return Services\EventStore\Event */
     public function next()
     {
-        return $this->events->shift();
+        $event = $this->events->shift();
+        if ($event) {
+            return new Event($event);
+        }
+        return null;
     }
 }

@@ -1,9 +1,8 @@
-<?php namespace Projectionist\Services\ProjectorPlayer;
+<?php namespace Projectionist\Adapter\ProjectorPlayer;
 
 use Projectionist\Services\EventStore\Event;
 use Projectionist\Services\ProjectorPlayer;
 
-// TODO: Move into EventSourced infrastructure
 class MetaTypeProperty implements ProjectorPlayer
 {
     public function play(Event $event, $projector)

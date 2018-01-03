@@ -74,6 +74,10 @@ class Projectionist
 
     public function skipToLastEvent(ProjectorReferenceCollection $projector_references)
     {
+        if (!$this->event_store->hasEvents()) {
+            return;
+        }
+
         $latest_event = $this->event_store->latestEvent();
         foreach ($projector_references as $projector_reference) {
             $this->skipProjectorToEvent($projector_reference, $latest_event);

@@ -1,6 +1,5 @@
-<?php namespace Projectionist\Services\ProjectorPlayer;
+<?php namespace Projectionist\Adapter\ProjectorPlayer;
 
-// TODO: Move into another location
 use Projectionist\Services\EventStore;
 use Projectionist\Services\ProjectorPlayer;
 

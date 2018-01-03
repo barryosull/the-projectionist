@@ -2,7 +2,7 @@
 
 use Projectionist\Adapter;
 use Projectionist\Services\EventStore;
-use Projectionist\Services\ProjectorPlayer\ClassName;
+use Projectionist\Adapter\ProjectorPlayer\ClassName;
 use Projectionist\Projectionist;
 use Projectionist\Services\ProjectorLoader;
 use Projectionist\Services\ProjectorPlayer;
@@ -15,13 +15,14 @@ use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 
 class ProjectionistTest extends \PHPUnit_Framework_TestCase
 {
+    // TODO: Clean this up, too much messy logic
     public function test_can_handle_broken_projector()
     {
         $player = new ClassName();
         $ref = ProjectorReference::makeFromClass(BrokenProjector::class);
         $projector_position = ProjectorPosition::makeNewUnplayed($ref);
         $projector = new BrokenProjector();
-        $event = new ThingHappened('');
+        $event = new Adapter\InMemory\Event(new ThingHappened(''));
 
         $projector_position = Projectionist::playEventIntoProjector($player, $event, $projector_position, $projector);
 

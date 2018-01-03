@@ -1,8 +1,8 @@
 <?php namespace Projectionist\Adapter\InMemory;
 
-use Projectionist\Adapter\InMemory\EventStream;
+use Projectionist\Services;
 
-class EventStore implements \Projectionist\Services\EventStore
+class EventStore implements Services\EventStore
 {
     private static $events = [];
 
@@ -11,13 +11,24 @@ class EventStore implements \Projectionist\Services\EventStore
         self::$events = $events;
     }
 
-    public function latestEvent(): \Projectionist\Services\EventStore\Event
+    public function hasEvents(): bool
     {
-        return last(self::$events);
+        return count(self::$events) != 0;
     }
 
-    public function getStream($last_event_id): \Projectionist\Services\EventStore\EventStream
+    public function latestEvent(): Services\EventStore\Event
+    {
+        $event = last(self::$events);
+        if (!$event) {
+            throw new \Exception("No events in the EventStore");
+        }
+        return new Event($event);
+    }
+
+    public function getStream($last_event_id): Services\EventStore\EventStream
     {
         return new EventStream(self::$events);
     }
+
+
 }

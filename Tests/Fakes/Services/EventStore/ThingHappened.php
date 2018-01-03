@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Fakes\Services\EventStore;
 
-class ThingHappened implements \Projectionist\Services\EventStore\Event
+class ThingHappened
 {
     private $id;
 
@@ -12,10 +12,5 @@ class ThingHappened implements \Projectionist\Services\EventStore\Event
     public function id()
     {
         return $this->id;
-    }
-
-    public function content()
-    {
-        return $this;
     }
 }

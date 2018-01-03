@@ -1,10 +1,7 @@
 <?php namespace Projectionist\Adapter;
 
 use Projectionist\Adapter;
-use Projectionist\Services\EventStore;
-use Projectionist\Services\ProjectorLoader;
-use Projectionist\Services\ProjectorPlayer;
-use Projectionist\Services\ProjectorPositionLedger;
+use Projectionist\Services;
 
 class InMemory implements Adapter
 {
@@ -21,22 +18,22 @@ class InMemory implements Adapter
         $this->projector_position_ledger = new Adapter\InMemory\ProjectorPositionLedger();
     }
 
-    public function eventStore(): EventStore
+    public function eventStore(): Services\EventStore
     {
         return $this->event_store;
     }
 
-    public function projectorLoader(): ProjectorLoader
+    public function projectorLoader(): Services\ProjectorLoader
     {
         return $this->projector_loader;
     }
 
-    public function projectorPlayer(): ProjectorPlayer
+    public function projectorPlayer(): Services\ProjectorPlayer
     {
         return $this->projector_player;
     }
 
-    public function projectorPositionLedger(): ProjectorPositionLedger
+    public function projectorPositionLedger(): Services\ProjectorPositionLedger
     {
         return $this->projector_position_ledger;
     }
