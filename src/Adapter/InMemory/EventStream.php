@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Infrastructure\Services\InMemory;
+<?php namespace Projectionist\Adapter\InMemory;
 
 use Projectionist\Services\EventStore\Event;
 use Illuminate\Support\Collection;

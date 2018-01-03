@@ -1,6 +1,7 @@
-<?php namespace Projectionist\Services;
+<?php namespace Projectionist;
 
 use Projectionist\Services\EventStore\Event;
+use Projectionist\Services\ProjectorPlayer;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use Projectionist\ValueObjects\ProjectorPosition;
@@ -12,16 +13,12 @@ class Projectionist
     private $event_store;
     private $projector_player;
 
-    public function __construct(
-        ProjectorPositionLedger $projector_position_ledger,
-        ProjectorLoader $projector_loader,
-        EventStore $event_store,
-        ProjectorPlayer $projector_player
-    ) {
-        $this->projector_position_ledger = $projector_position_ledger;
-        $this->projector_loader = $projector_loader;
-        $this->event_store = $event_store;
-        $this->projector_player = $projector_player;
+    public function __construct(Adapter $adapter)
+    {
+        $this->projector_position_ledger = $adapter->projectorPositionLedger();
+        $this->projector_loader = $adapter->projectorLoader();
+        $this->event_store = $adapter->eventStore();
+        $this->projector_player = $adapter->projectorPlayer();
     }
 
     public function playCollection(ProjectorReferenceCollection $projector_references)
@@ -73,5 +70,26 @@ class Projectionist
             $projector_position = $projector_position->broken();
         }
         return $projector_position;
+    }
+
+    public function skipToLastEvent(ProjectorReferenceCollection $projector_references)
+    {
+        $latest_event = $this->event_store->latestEvent();
+        foreach ($projector_references as $projector_reference) {
+            $this->skipProjectorToEvent($projector_reference, $latest_event);
+        }
+    }
+
+    private function skipProjectorToEvent(ProjectorReference $projector_reference, Event $latest_event)
+    {
+        $projector_position = $this->projector_position_ledger->fetch($projector_reference);
+        if (!$projector_position) {
+            $projector_position = ProjectorPosition::makeNewUnplayed($projector_reference);
+        }
+        if ($latest_event) {
+            $projector_position = $projector_position->played($latest_event);
+        }
+
+        $this->projector_position_ledger->store($projector_position);
     }
 }

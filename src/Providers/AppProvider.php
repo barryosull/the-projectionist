@@ -1,6 +1,7 @@
 <?php namespace Projectionist\Providers;
 
 use Illuminate\Container\Container;
+use Projectionist\Adapter;
 
 class AppProvider
 {
@@ -25,32 +26,6 @@ class AppProvider
                 }
         );
 
-        $this->container->singleton(
-            \Projectionist\Services\ProjectorPositionLedger::class,
-            \Projectionist\Infrastructure\Services\InMemory\ProjectorPositionLedger::class
-        );
-
-        $this->container->bind(
-            \Projectionist\Services\ProjectorLoader::class,
-            \Projectionist\Infrastructure\Services\Laravel\ProjectorLoader::class
-        );
-
-        $this->container->bind(
-            \Projectionist\Services\EventStore::class,
-            \Projectionist\Infrastructure\Services\InMemory\EventStore::class
-        );
-
-        if (getenv('APP_ENV') == 'testing') {
-            $this->container->bind(
-                \Projectionist\Services\ProjectorPlayer::class,
-                \Projectionist\Services\ProjectorPlayer\ClassName::class
-            );
-        } else {
-            $this->container->bind(
-                \Projectionist\Services\ProjectorPlayer::class,
-                \Projectionist\Services\ProjectorPlayer\MetaTypeProperty::class
-            );
-        }
-
+        $this->container->singleton(Adapter::class, Adapter\InMemory::class);
     }
 }

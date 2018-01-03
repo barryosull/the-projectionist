@@ -1,8 +1,9 @@
-<?php namespace Tests\Unit\Projectionist\Services;
+<?php namespace Tests\Unit\Projectionist;
 
-use Projectionist\Services\ProjectorPlayer\ClassName;
+use Projectionist\Adapter;
 use Projectionist\Services\EventStore;
-use Projectionist\Services\Projectionist;
+use Projectionist\Services\ProjectorPlayer\ClassName;
+use Projectionist\Projectionist;
 use Projectionist\Services\ProjectorLoader;
 use Projectionist\Services\ProjectorPlayer;
 use Projectionist\Services\ProjectorPositionLedger;
@@ -29,24 +30,35 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
 
     public function test_ignores_broken_projectors()
     {
-        $ref = ProjectorReference::makeFromClass(BrokenProjector::class);
-
+        $player = $this->prophesize(ProjectorPlayer::class);
         $position_ledger = $this->prophesize(ProjectorPositionLedger::class);
 
-        $player = $this->prophesize(ProjectorPlayer::class);
-
-        $projectionist = new Projectionist(
-            $position_ledger->reveal(),
-            $this->prophesize(ProjectorLoader::class)->reveal(),
-            $this->prophesize(EventStore::class)->reveal(),
-            $player->reveal()
-        );
-
+        $ref = ProjectorReference::makeFromClass(BrokenProjector::class);
         $position = ProjectorPosition::makeNewUnplayed($ref)->broken();
         $position_ledger->fetch($ref)->willReturn($position);
+
+        $adapter = $this->makeAdapter($player->reveal(), $position_ledger->reveal());
+
+        $projectionist = new Projectionist($adapter);
 
         $projectionist->playProjector($ref);
 
         $player->play(Argument::cetera())->shouldNotHaveBeenCalled();
+    }
+
+    private function makeAdapter(ProjectorPlayer $player, ProjectorPositionLedger $ledger): Adapter
+    {
+        $adapter = $this->prophesize(Adapter::class);
+
+        $adapter->projectorPlayer()->willReturn($player);
+        $adapter->projectorPositionLedger()->willReturn($ledger);
+        $adapter->projectorLoader()->willReturn(
+            $this->prophesize(ProjectorLoader::class)->reveal()
+        );
+        $adapter->eventStore()->willReturn(
+            $this->prophesize(EventStore::class)->reveal()
+        );
+
+        return $adapter->reveal();
     }
 }

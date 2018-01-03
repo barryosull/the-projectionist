@@ -7,6 +7,6 @@ class ProjectorPositionRepositoryTest extends \Tests\Integration\Projectionist\S
 {
     protected function makeRepository(): ProjectorPositionLedger
     {
-        return new InMemory\ProjectorPositionLedger();
+        return new \Projectionist\Adapter\InMemory\ProjectorPositionLedger();
     }
 }

@@ -34,7 +34,6 @@ class Projector extends BaseTestProjector
 
 ## TODO
 At the moment this library is mostly a proof of concept. As time goes on I plan to extend it to allow easy integrations and a tutorial.
-- Move integration interfaces into their own namespace
-- Move implementation of the above interfaces into their own namespace
+- Move Event Player Strategies into their own adapter
 - Write tutorial for the above
 - Have a smarter projectionist that groups projectors by position, then plays events one by one to projectors if they're at the same position. One stream, multiple projectors.

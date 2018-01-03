@@ -1,25 +1,30 @@
 <?php namespace Projectionist\Usecases;
 
+use Projectionist\Adapter;
 use Projectionist\Services\ProjectorQueryable;
+use Projectionist\Services\ProjectorRegisterer;
 use Projectionist\ValueObjects\ProjectorMode;
-use Projectionist\Services\Projectionist;
+use Projectionist\Projectionist;
 
 class ProjectorPlayer
 {
-    private $projectors_queryable;
-    private $projectors_player;
+    private $projector_queryable;
+    private $projectionist;
 
-    public function __construct(ProjectorQueryable $projectors_queryable, Projectionist $projectors_player)
+    public function __construct(Adapter $adapter)
     {
-        $this->projectors_queryable = $projectors_queryable;
-        $this->projectors_player = $projectors_player;
+        $this->projector_queryable = new ProjectorQueryable(
+            $adapter->projectorPositionLedger(),
+            new ProjectorRegisterer()
+        );
+        $this->projectionist = new Projectionist($adapter);
     }
 
     public function play()
     {
-        $projectors = $this->projectors_queryable->allProjectors();
+        $projectors = $this->projector_queryable->allProjectors();
 
         $active_projectors = $projectors->exclude(ProjectorMode::RUN_ONCE);
-        $this->projectors_player->playCollection($active_projectors);
+        $this->projectionist->playCollection($active_projectors);
     }
 }

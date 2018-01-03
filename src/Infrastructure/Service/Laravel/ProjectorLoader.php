@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Infrastructure\Services\Laravel;
+<?php namespace Projectionist\Infrastructure\Service\Laravel;
 
 use Projectionist\ValueObjects\ProjectorReference;
 use Illuminate\Container\Container;

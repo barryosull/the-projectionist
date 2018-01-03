@@ -12,6 +12,6 @@ class EventStreamTest extends \Tests\Integration\Projectionist\Service\EventStor
             new ThingHappened('id')
         ];
 
-        return new InMemory\EventStream($events);
+        return new \Projectionist\Adapter\InMemory\EventStream($events);
     }
 }

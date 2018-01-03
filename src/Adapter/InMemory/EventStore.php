@@ -1,4 +1,6 @@
-<?php namespace Projectionist\Infrastructure\Services\InMemory;
+<?php namespace Projectionist\Adapter\InMemory;
+
+use Projectionist\Adapter\InMemory\EventStream;
 
 class EventStore implements \Projectionist\Services\EventStore
 {

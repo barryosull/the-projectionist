@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Infrastructure\Service\Laravel;
+<?php namespace Projectionist\Adapter\EventSourced;
 
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
