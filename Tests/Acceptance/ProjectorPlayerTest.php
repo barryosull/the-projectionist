@@ -4,7 +4,7 @@ use Projectionist\Adapter;
 use Projectionist\Usecases\ProjectorPlayer;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
-use Projectionist\Bootstrap\App;
+use ProjectionistTests\Bootstrap\App;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 

@@ -2,5 +2,5 @@
 
 require __DIR__."/../vendor/autoload.php";
 
-$app = new \Projectionist\Bootstrap\App();
-$app->bootstrap();
+$provider = new \ProjectionistTests\TestProvider( \ProjectionistTests\Bootstrap\App::container() );
+$provider->boot();

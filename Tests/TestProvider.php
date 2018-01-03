@@ -1,9 +1,9 @@
-<?php namespace Projectionist\Providers;
+<?php namespace ProjectionistTests;
 
 use Illuminate\Container\Container;
 use Projectionist\Adapter;
 
-class AppProvider
+class TestProvider
 {
     private $container;
 
