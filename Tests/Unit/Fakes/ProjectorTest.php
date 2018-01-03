@@ -1,8 +1,8 @@
-<?php namespace Tests\Unit\Fakes;
+<?php namespace ProjectonistTests\Unit\Fakes;
 
-use Tests\Fakes\Services\EventStore\ThingHappened;
-use Tests\Fakes\Projectors\RunFromLaunch;
-use Tests\Fakes\Projectors\RunFromStart;
+use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
+use ProjectonistTests\Fakes\Projectors\RunFromStart;
 
 class ProjectorTest extends \PHPUnit_Framework_TestCase
 {

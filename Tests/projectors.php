@@ -1,7 +1,7 @@
 <?php
 
 return [
-    Tests\Fakes\Projectors\RunFromLaunch::class,
-    Tests\Fakes\Projectors\RunFromStart::class,
-    Tests\Fakes\Projectors\RunOnce::class,
+    ProjectonistTests\Fakes\Projectors\RunFromLaunch::class,
+    ProjectonistTests\Fakes\Projectors\RunFromStart::class,
+    ProjectonistTests\Fakes\Projectors\RunOnce::class,
 ];

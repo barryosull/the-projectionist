@@ -1,12 +1,12 @@
-<?php namespace Tests\Acceptance;
+<?php namespace ProjectonistTests\Acceptance;
 
 use Projectionist\Adapter;
 use Projectionist\Usecases\ProjectorPlayer;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use Projectionist\Bootstrap\App;
-use Tests\Fakes\Projectors\RunFromLaunch;
-use Tests\Fakes\Projectors\RunFromStart;
+use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
+use ProjectonistTests\Fakes\Projectors\RunFromStart;
 
 class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
 {

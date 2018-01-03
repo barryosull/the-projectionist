@@ -1,4 +1,4 @@
-<?php namespace Tests\Fakes\Services\EventStore;
+<?php namespace ProjectonistTests\Fakes\Services\EventStore;
 
 class ThingHappened implements \Projectionist\Services\EventStore\Event
 {

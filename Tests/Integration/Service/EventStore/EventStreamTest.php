@@ -1,4 +1,4 @@
-<?php namespace Tests\Integration\Projectionist\Service\EventStore;
+<?php namespace ProjectonistTests\Integration\Projectionist\Service\EventStore;
 
 use Projectionist\Services\EventStore\Event;
 use Projectionist\Services\EventStore\EventStream;

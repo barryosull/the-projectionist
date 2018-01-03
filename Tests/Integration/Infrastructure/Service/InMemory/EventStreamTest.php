@@ -1,10 +1,10 @@
-<?php namespace Tests\Integration\Infrastructure\Projectionist\Service\InMemory;
+<?php namespace ProjectonistTests\Integration\Infrastructure\Projectionist\Service\InMemory;
 
 use Projectionist\Services\EventStore\EventStream;
 use Projectionist\Infrastructure\Services\InMemory;
-use Tests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 
-class EventStreamTest extends \Tests\Integration\Projectionist\Service\EventStore\EventStreamTest
+class EventStreamTest extends \ProjectonistTests\Integration\Projectionist\Service\EventStore\EventStreamTest
 {
     protected function makeEventStream(): EventStream
     {

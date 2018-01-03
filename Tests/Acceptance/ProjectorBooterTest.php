@@ -1,4 +1,4 @@
-<?php namespace Tests\Acceptance;
+<?php namespace ProjectonistTests\Acceptance;
 
 use Projectionist\Adapter;
 use Projectionist\Services\ProjectorPositionLedger;
@@ -7,11 +7,11 @@ use Projectionist\Usecases\ProjectorBooter;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use Projectionist\Bootstrap\App;
-use Tests\Fakes\Projectors\RunFromLaunch;
-use Tests\Fakes\Projectors\RunFromStart;
-use Tests\Fakes\Projectors\RunOnce;
+use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
+use ProjectonistTests\Fakes\Projectors\RunFromStart;
+use ProjectonistTests\Fakes\Projectors\RunOnce;
 use Projectionist\Adapter\InMemory\EventStore;
-use Tests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 
 class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
 {

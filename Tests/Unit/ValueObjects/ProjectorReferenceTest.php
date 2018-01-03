@@ -1,9 +1,9 @@
-<?php namespace Tests\Unit\ValueObjects;
+<?php namespace ProjectonistTests\Unit\ValueObjects;
 
 use Projectionist\ValueObjects\ProjectorMode;
 use Projectionist\ValueObjects\ProjectorReference;
-use Tests\Fakes\Projectors\NoModeProjector;
-use Tests\Fakes\Projectors\RunOnce;
+use ProjectonistTests\Fakes\Projectors\NoModeProjector;
+use ProjectonistTests\Fakes\Projectors\RunOnce;
 
 class ProjectorReferenceTest extends \PHPUnit_Framework_TestCase
 {

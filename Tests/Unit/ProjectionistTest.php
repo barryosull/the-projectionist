@@ -1,4 +1,4 @@
-<?php namespace Tests\Unit\Projectionist;
+<?php namespace ProjectonistTests\Unit\Projectionist;
 
 use Projectionist\Adapter;
 use Projectionist\Services\EventStore;
@@ -10,8 +10,8 @@ use Projectionist\Services\ProjectorPositionLedger;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;
 use Prophecy\Argument;
-use Tests\Fakes\Projectors\BrokenProjector;
-use Tests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Projectors\BrokenProjector;
+use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 
 class ProjectionistTest extends \PHPUnit_Framework_TestCase
 {

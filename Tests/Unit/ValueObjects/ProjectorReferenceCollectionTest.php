@@ -1,10 +1,10 @@
-<?php namespace Tests\Unit\ValueObjects;
+<?php namespace ProjectonistTests\Unit\ValueObjects;
 
 use Projectionist\ValueObjects\ProjectorMode;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
-use Tests\Fakes\Projectors\RunFromStart;
-use Tests\Fakes\Projectors\RunOnce;
+use ProjectonistTests\Fakes\Projectors\RunFromStart;
+use ProjectonistTests\Fakes\Projectors\RunOnce;
 
 class ProjectorReferenceCollectionTest extends \PHPUnit_Framework_TestCase
 {

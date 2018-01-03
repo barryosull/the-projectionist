@@ -1,4 +1,4 @@
-<?php namespace Tests\Fakes\Projectors;
+<?php namespace ProjectonistTests\Fakes\Projectors;
 
 use Projectionist\ValueObjects\ProjectorMode;
 

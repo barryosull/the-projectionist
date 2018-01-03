@@ -1,12 +1,12 @@
-<?php namespace Tests\Integration\Projectionist\Service;
+<?php namespace ProjectonistTests\Integration\Projectionist\Service;
 
 use Projectionist\Services\ProjectorPositionLedger;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
-use Tests\Fakes\Projectors\RunFromLaunch;
-use Tests\Fakes\Projectors\RunFromStart;
-use Tests\Fakes\Projectors\RunOnce;
+use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
+use ProjectonistTests\Fakes\Projectors\RunFromStart;
+use ProjectonistTests\Fakes\Projectors\RunOnce;
 
 abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCase
 {
