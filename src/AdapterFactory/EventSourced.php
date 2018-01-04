@@ -1,7 +1,7 @@
 <?php namespace Projectionist\AdapterFactory;
 
 use Projectionist\AdapterFactory;
-use Projectionist\Adapter\EventHandler;
+use Projectionist\Strategy\EventHandler;
 
 class EventSourced implements AdapterFactory
 {
@@ -21,7 +21,7 @@ class EventSourced implements AdapterFactory
         return $this->event_store;
     }
 
-    public function projectorPlayer(): \Projectionist\Adapter\EventHandler
+    public function projectorPlayer(): \Projectionist\Strategy\EventHandler
     {
         return $this->projector_player;
     }

@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Adapter;
+<?php namespace Projectionist\Strategy;
 
 interface EventHandler
 {

@@ -2,8 +2,8 @@
 
 use Projectionist\AdapterFactory;
 use Projectionist\Adapter\EventStore;
-use Projectionist\Adapter\EventHandler;
-use Projectionist\Adapter\EventHandler\ClassName;
+use Projectionist\Strategy\EventHandler;
+use Projectionist\Strategy\EventHandler\ClassName;
 use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;
