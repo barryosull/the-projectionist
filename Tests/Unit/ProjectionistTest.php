@@ -1,16 +1,16 @@
 <?php namespace ProjectonistTests\Unit\Projectionist;
 
 use Projectionist\AdapterFactory;
-use Projectionist\Services\EventStore;
-use Projectionist\AdapterFactory\ProjectorPlayer\ClassName;
-use Projectionist\Projectionist;
-use Projectionist\Services\ProjectorPlayer;
-use Projectionist\Services\ProjectorPositionLedger;
+use Projectionist\Adapter\EventStore;
+use Projectionist\Adapter\ProjectorPlayer;
+use Projectionist\Adapter\ProjectorPlayer\ClassName;
+use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;
-use Prophecy\Argument;
+use Projectionist\Projectionist;
 use ProjectonistTests\Fakes\Projectors\BrokenProjector;
 use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
+use Prophecy\Argument;
 
 class ProjectionistTest extends \PHPUnit_Framework_TestCase
 {

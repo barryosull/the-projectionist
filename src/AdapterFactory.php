@@ -1,8 +1,8 @@
 <?php namespace Projectionist;
 
-use Projectionist\Services\EventStore;
-use Projectionist\Services\ProjectorPlayer;
-use Projectionist\Services\ProjectorPositionLedger;
+use Projectionist\Adapter\EventStore;
+use Projectionist\Adapter\ProjectorPlayer;
+use Projectionist\Adapter\ProjectorPositionLedger;
 
 interface AdapterFactory
 {

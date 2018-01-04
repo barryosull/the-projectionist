@@ -2,7 +2,7 @@
 
 use Projectionist\Services;
 
-class EventStore implements Services\EventStore
+class EventStore implements \Projectionist\Adapter\EventStore
 {
     private static $events = [];
 
@@ -16,7 +16,7 @@ class EventStore implements Services\EventStore
         return count(self::$events) != 0;
     }
 
-    public function latestEvent(): Services\EventStore\Event
+    public function latestEvent(): \Projectionist\Adapter\EventStore\Event
     {
         $event = last(self::$events);
         if (!$event) {
@@ -25,7 +25,7 @@ class EventStore implements Services\EventStore
         return new Event($event);
     }
 
-    public function getStream($last_event_id): Services\EventStore\EventStream
+    public function getStream($last_event_id): \Projectionist\Adapter\EventStore\EventStream
     {
         return new EventStream(self::$events);
     }

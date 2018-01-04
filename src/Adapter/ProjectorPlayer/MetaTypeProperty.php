@@ -1,7 +1,7 @@
-<?php namespace Projectionist\AdapterFactory\ProjectorPlayer;
+<?php namespace Projectionist\Adapter\ProjectorPlayer;
 
-use Projectionist\Services\EventStore\Event;
-use Projectionist\Services\ProjectorPlayer;
+use Projectionist\Adapter\EventStore\Event;
+use Projectionist\Adapter\ProjectorPlayer;
 
 class MetaTypeProperty implements ProjectorPlayer
 {

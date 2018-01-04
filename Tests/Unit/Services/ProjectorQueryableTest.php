@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Unit\Projectionist\Services;
 
-use Projectionist\Services\ProjectorPositionLedger;
+use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\Services\ProjectorQueryable;
 use Projectionist\Services\ProjectorRegisterer;
 use Projectionist\ValueObjects\ProjectorPosition;

@@ -1,7 +1,7 @@
 <?php namespace Projectionist\AdapterFactory;
 
 use Projectionist\AdapterFactory;
-use Projectionist\Services;
+use Projectionist\Adapter\ProjectorPlayer;
 
 class EventSourced implements AdapterFactory
 {
@@ -16,17 +16,17 @@ class EventSourced implements AdapterFactory
         $this->projector_position_ledger = new AdapterFactory\EventSourced\ProjectorPositionLedger();
     }
 
-    public function eventStore(): Services\EventStore
+    public function eventStore(): \Projectionist\Adapter\EventStore
     {
         return $this->event_store;
     }
 
-    public function projectorPlayer(): Services\ProjectorPlayer
+    public function projectorPlayer(): \Projectionist\Adapter\ProjectorPlayer
     {
         return $this->projector_player;
     }
 
-    public function projectorPositionLedger(): Services\ProjectorPositionLedger
+    public function projectorPositionLedger(): \Projectionist\Adapter\ProjectorPositionLedger
     {
         return $this->projector_position_ledger;
     }

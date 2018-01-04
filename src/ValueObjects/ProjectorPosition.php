@@ -1,6 +1,6 @@
 <?php namespace Projectionist\ValueObjects;
 
-use Projectionist\Services\EventStore\Event;
+use Projectionist\Adapter\EventStore\Event;
 
 class ProjectorPosition
 {

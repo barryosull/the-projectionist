@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Services;
+<?php namespace Projectionist\Adapter;
 
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;

@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Services\EventStore;
+<?php namespace Projectionist\Adapter\EventStore;
 
 interface Event
 {

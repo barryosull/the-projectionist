@@ -1,7 +1,7 @@
-<?php namespace Projectionist\AdapterFactory\ProjectorPlayer;
+<?php namespace Projectionist\Adapter\ProjectorPlayer;
 
-use Projectionist\Services\EventStore;
-use Projectionist\Services\ProjectorPlayer;
+use Projectionist\Adapter\EventStore;
+use Projectionist\Adapter\ProjectorPlayer;
 
 class ClassName implements ProjectorPlayer
 {

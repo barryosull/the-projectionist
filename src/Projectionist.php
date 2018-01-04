@@ -1,7 +1,7 @@
 <?php namespace Projectionist;
 
-use Projectionist\Services\EventStore\Event;
-use Projectionist\Services\ProjectorPlayer;
+use Projectionist\Adapter\EventStore\Event;
+use Projectionist\Adapter\ProjectorPlayer;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use Projectionist\ValueObjects\ProjectorPosition;

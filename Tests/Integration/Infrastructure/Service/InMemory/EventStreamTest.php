@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Integration\Infrastructure\Projectionist\Service\InMemory;
 
-use Projectionist\Services\EventStore\EventStream;
+use Projectionist\Adapter\EventStore\EventStream;
 use Projectionist\Infrastructure\Services\InMemory;
 use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 

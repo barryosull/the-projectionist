@@ -1,7 +1,7 @@
 <?php namespace ProjectonistTests\Acceptance;
 
 use Projectionist\AdapterFactory;
-use Projectionist\Services\ProjectorPositionLedger;
+use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\Services\ProjectorRegisterer;
 use Projectionist\Usecases\ProjectorBooter;
 use Projectionist\ValueObjects\ProjectorReference;

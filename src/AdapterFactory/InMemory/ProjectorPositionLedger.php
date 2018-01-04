@@ -4,7 +4,7 @@ use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
 
-class ProjectorPositionLedger implements \Projectionist\Services\ProjectorPositionLedger
+class ProjectorPositionLedger implements \Projectionist\Adapter\ProjectorPositionLedger
 {
     private $store;
 
