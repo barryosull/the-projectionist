@@ -2,7 +2,6 @@
 
 use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\Services\ProjectorQueryable;
-use Projectionist\Services\ProjectorRegisterer;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;

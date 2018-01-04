@@ -4,15 +4,10 @@ use Projectionist\AdapterFactory;
 use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\Projectionist;
 use Projectionist\ProjectionistFactory;
-use Projectionist\Services\ProjectorRegisterer;
-use Projectionist\Usecases\ProjectorBooter;
-use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
-use ProjectionistTests\Bootstrap\App;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
-use Projectionist\AdapterFactory\InMemory\EventStore;
 use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 
 class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
