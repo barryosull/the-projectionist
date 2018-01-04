@@ -40,3 +40,14 @@ class Projector extends BaseTestProjector
     - Pass in projectors as array, instead of ProjectorReferenceCollection
 - Write tutorial for the adapters
 - Have a smarter projectionist that groups projectors by position, then plays events one by one to projectors if they're at the same position. One stream, multiple projectors.
+
+## Idea for new interface, remove "Usecases" altogether
+```php
+$projectionist_factory = new ProjectionistFactory($adapter_factory);
+
+$projectionist = $projectionist_factory->make($projectors);
+
+$projectionist->boot();
+
+$projectionist->play();
+```
