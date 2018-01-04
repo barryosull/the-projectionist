@@ -33,9 +33,9 @@ class Projector extends BaseTestProjector
 ```
 
 ## TODO
-- Remove projector loader (this is a big job, it's embedded deep into the code)
-    - Make ReferenceCollection contain actual projectors
-    - Use ReferenceCollection internally in projectionist
-- Move Event Player Strategies into their own adapter
+- CLean up adapters, make them easier to write/understand
+- Separate player strategies, make them easier to use? (Might be hard)
+- Remove usecases, give functionality to projectionist
+    - Pass in projectors as array, instead of ProjectorReferenceCollection
 - Write tutorial for the adapters
 - Have a smarter projectionist that groups projectors by position, then plays events one by one to projectors if they're at the same position. One stream, multiple projectors.
