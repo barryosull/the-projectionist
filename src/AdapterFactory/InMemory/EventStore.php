@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Adapter\InMemory;
+<?php namespace Projectionist\AdapterFactory\InMemory;
 
 use Projectionist\Services;
 

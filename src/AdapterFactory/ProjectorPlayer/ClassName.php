@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Adapter\ProjectorPlayer;
+<?php namespace Projectionist\AdapterFactory\ProjectorPlayer;
 
 use Projectionist\Services\EventStore;
 use Projectionist\Services\ProjectorPlayer;

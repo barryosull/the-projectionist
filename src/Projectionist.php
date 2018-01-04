@@ -12,7 +12,7 @@ class Projectionist
     private $event_store;
     private $projector_player;
 
-    public function __construct(Adapter $adapter)
+    public function __construct(AdapterFactory $adapter)
     {
         $this->projector_position_ledger = $adapter->projectorPositionLedger();
         $this->event_store = $adapter->eventStore();

@@ -1,6 +1,6 @@
 <?php namespace Projectionist\Usecases;
 
-use Projectionist\Adapter;
+use Projectionist\AdapterFactory;
 use Projectionist\Services\ProjectorQueryable;
 use Projectionist\Projectionist;
 use Projectionist\Services\ProjectorRegisterer;
@@ -11,7 +11,7 @@ class ProjectorBooter
     private $projector_queryable;
     private $projectionist;
 
-    public function __construct(Adapter $adapter)
+    public function __construct(AdapterFactory $adapter)
     {
         $this->projector_queryable = new ProjectorQueryable(
             $adapter->projectorPositionLedger(),

@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Adapter\InMemory;
+<?php namespace Projectionist\AdapterFactory\InMemory;
 
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;

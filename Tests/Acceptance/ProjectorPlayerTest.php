@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Acceptance;
 
-use Projectionist\Adapter;
+use Projectionist\AdapterFactory;
 use Projectionist\Usecases\ProjectorPlayer;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
@@ -15,8 +15,8 @@ class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
         /** @var ProjectorPlayer $player */
         $player = App::make(ProjectorPlayer::class);
 
-        /** @var \Projectionist\Adapter\InMemory\ProjectorPositionLedger $projector_position_repo */
-        $projector_position_repo = App::make(Adapter::class)->projectorPositionLedger();
+        /** @var \Projectionist\AdapterFactory\InMemory\ProjectorPositionLedger $projector_position_repo */
+        $projector_position_repo = App::make(AdapterFactory::class)->projectorPositionLedger();
         $projector_position_repo->reset();
 
         $player->play();

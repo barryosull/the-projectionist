@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Adapter\EventSourced;
+<?php namespace Projectionist\AdapterFactory\EventSourced;
 
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;

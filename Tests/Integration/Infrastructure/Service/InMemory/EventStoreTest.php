@@ -6,6 +6,6 @@ class EventStoreTest extends \ProjectonistTests\Integration\Projectionist\Servic
 {
     protected function makeEventStore(): \Projectionist\Services\EventStore
     {
-        return new \Projectionist\Adapter\InMemory\EventStore();
+        return new \Projectionist\AdapterFactory\InMemory\EventStore();
     }
 }

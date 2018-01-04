@@ -1,8 +1,8 @@
 <?php namespace ProjectonistTests\Unit\Projectionist;
 
-use Projectionist\Adapter;
+use Projectionist\AdapterFactory;
 use Projectionist\Services\EventStore;
-use Projectionist\Adapter\ProjectorPlayer\ClassName;
+use Projectionist\AdapterFactory\ProjectorPlayer\ClassName;
 use Projectionist\Projectionist;
 use Projectionist\Services\ProjectorPlayer;
 use Projectionist\Services\ProjectorPositionLedger;
@@ -21,7 +21,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
         $ref = ProjectorReference::makeFromProjector(new BrokenProjector);
         $projector_position = ProjectorPosition::makeNewUnplayed($ref);
         $projector = new BrokenProjector();
-        $event = new Adapter\InMemory\Event(new ThingHappened(''));
+        $event = new AdapterFactory\InMemory\Event(new ThingHappened(''));
 
         $projector_position = Projectionist::playEventIntoProjector($player, $event, $projector_position, $projector);
 
@@ -46,9 +46,9 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
         $player->play(Argument::cetera())->shouldNotHaveBeenCalled();
     }
 
-    private function makeAdapter(ProjectorPlayer $player, ProjectorPositionLedger $ledger): Adapter
+    private function makeAdapter(ProjectorPlayer $player, ProjectorPositionLedger $ledger): AdapterFactory
     {
-        $adapter = $this->prophesize(Adapter::class);
+        $adapter = $this->prophesize(AdapterFactory::class);
 
         $adapter->projectorPlayer()->willReturn($player);
         $adapter->projectorPositionLedger()->willReturn($ledger);

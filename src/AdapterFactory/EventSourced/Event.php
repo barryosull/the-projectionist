@@ -1,7 +1,7 @@
-<?php namespace Projectionist\Adapter\EventSourced;
+<?php namespace Projectionist\AdapterFactory\EventSourced;
 
 // TODO: Make compatible with actual snapshot concept
-use Projectionist\Adapter\EventSourced\Snapshot;
+use Projectionist\AdapterFactory\EventSourced\Snapshot;
 
 class Event implements \Projectionist\Services\EventStore\Event
 {

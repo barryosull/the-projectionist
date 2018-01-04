@@ -1,7 +1,7 @@
 <?php namespace ProjectionistTests;
 
 use Illuminate\Container\Container;
-use Projectionist\Adapter;
+use Projectionist\AdapterFactory;
 
 class TestProvider
 {
@@ -26,6 +26,6 @@ class TestProvider
                 }
         );
 
-        $this->container->singleton(Adapter::class, Adapter\InMemory::class);
+        $this->container->singleton(AdapterFactory::class, AdapterFactory\InMemory::class);
     }
 }
