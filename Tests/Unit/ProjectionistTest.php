@@ -8,6 +8,7 @@ use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\Projectionist;
+use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use ProjectonistTests\Fakes\Projectors\BrokenProjector;
 use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 use Prophecy\Argument;
@@ -28,6 +29,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($projector_position->is_broken);
     }
 
+    // TODO: Cleanup, turn into actual unit test
     public function test_ignores_broken_projectors()
     {
         $player = $this->prophesize(ProjectorPlayer::class);
@@ -39,9 +41,9 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
 
         $adapter = $this->makeAdapter($player->reveal(), $position_ledger->reveal());
 
-        $projectionist = new Projectionist($adapter);
+        $projectionist = new Projectionist($adapter, ProjectorReferenceCollection::fromProjectors([new BrokenProjector]));
 
-        $projectionist->playProjector($ref);
+        $projectionist->play();
 
         $player->play(Argument::cetera())->shouldNotHaveBeenCalled();
     }
