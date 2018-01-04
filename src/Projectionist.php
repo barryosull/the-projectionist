@@ -87,7 +87,7 @@ class Projectionist
         $projector
     ) {
         try {
-            $projector_player->play($event, $projector);
+            $projector_player->handle($event, $projector);
             $projector_position = $projector_position->played($event);
         } catch (\Throwable $t) {
             $projector_position = $projector_position->broken();

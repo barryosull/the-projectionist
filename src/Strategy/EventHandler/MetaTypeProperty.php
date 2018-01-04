@@ -5,7 +5,7 @@ use Projectionist\Strategy\EventHandler;
 
 class MetaTypeProperty implements EventHandler
 {
-    public function play(Event $event, $projector)
+    public function handle(Event $event, $projector)
     {
         $this->playEvent($event, $projector);
     }

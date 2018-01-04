@@ -45,7 +45,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
 
         $projectionist->play();
 
-        $player->play(Argument::cetera())->shouldNotHaveBeenCalled();
+        $player->handle(Argument::cetera())->shouldNotHaveBeenCalled();
     }
 
     private function makeAdapter(EventHandler $player, ProjectorPositionLedger $ledger): AdapterFactory

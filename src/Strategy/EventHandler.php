@@ -2,5 +2,5 @@
 
 interface EventHandler
 {
-    public function play(\Projectionist\Adapter\EventStore\Event $event, $projector);
+    public function handle(\Projectionist\Adapter\EventStore\Event $event, $projector);
 }

@@ -5,7 +5,7 @@ use Projectionist\Strategy\EventHandler;
 
 class ClassName implements EventHandler
 {
-    public function play(EventStore\Event $event, $projector)
+    public function handle(EventStore\Event $event, $projector)
     {
         $event_content = $event->content();
 
