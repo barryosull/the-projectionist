@@ -22,7 +22,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
         $ref = ProjectorReference::makeFromProjector(new BrokenProjector);
         $projector_position = ProjectorPosition::makeNewUnplayed($ref);
         $projector = new BrokenProjector();
-        $event = new Config\InMemory\Event(new ThingHappened(''));
+        $event = new \Projectionist\Adapter\Event\InMemory(new ThingHappened(''));
 
         $projector_position = Projectionist::playEventIntoProjector($player, $event, $projector_position, $projector);
 

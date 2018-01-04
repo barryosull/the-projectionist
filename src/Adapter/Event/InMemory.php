@@ -1,8 +1,8 @@
-<?php namespace Projectionist\Config\InMemory;
+<?php namespace Projectionist\Adapter\Event;
 
 use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 
-class Event implements \Projectionist\Adapter\Event
+class InMemory implements \Projectionist\Adapter\Event
 {
     private $wrapped_event;
 

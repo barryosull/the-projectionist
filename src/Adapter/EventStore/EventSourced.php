@@ -1,9 +1,9 @@
-<?php namespace Projectionist\Config\EventSourced;
+<?php namespace Projectionist\Adapter\EventStore;
 
 use Projectionist\Adapter\Event;
 use Projectionist\Adapter\EventStream;
 
-class EventStore implements \Projectionist\Adapter\EventStore
+class EventSourced implements \Projectionist\Adapter\EventStore
 {
     public function latestEvent(): Event
     {
@@ -13,5 +13,10 @@ class EventStore implements \Projectionist\Adapter\EventStore
     public function getStream($last_event_id): EventStream
     {
         // TODO: Implement getStream() method.
+    }
+
+    public function hasEvents(): bool
+    {
+        // TODO: Implement hasEvents() method.
     }
 }

@@ -11,7 +11,7 @@ class InMemory implements Config
 
     public function __construct()
     {
-        $this->event_store = new Config\InMemory\EventStore();
+        $this->event_store = new \Projectionist\Adapter\EventStore\InMemory();
         $this->projector_player = new EventHandler\ClassName();
         $this->projector_position_ledger = new \Projectionist\Adapter\ProjectorPositionLedger\InMemory();
     }

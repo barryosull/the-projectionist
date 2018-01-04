@@ -5,7 +5,7 @@ use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
 
 // TODO: Write integration test
-class ProjectorPositionLedger implements \Projectionist\Adapter\ProjectorPositionLedger
+class EventSourced implements \Projectionist\Adapter\ProjectorPositionLedger
 {
     private $table;
 

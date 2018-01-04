@@ -11,9 +11,9 @@ class EventSourced implements Config
 
     public function __construct()
     {
-        $this->event_store = new Config\EventSourced\EventStore();
+        $this->event_store = new \Projectionist\Adapter\EventStore\EventSourced();
         $this->projector_player = new EventHandler\ClassName();
-        $this->projector_position_ledger = new Config\EventSourced\ProjectorPositionLedger();
+        $this->projector_position_ledger = new \Projectionist\Adapter\EventStore\EventSourced();
     }
 
     public function eventStore(): \Projectionist\Adapter\EventStore

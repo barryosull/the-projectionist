@@ -1,7 +1,8 @@
-<?php namespace Projectionist\Config\EventSourced;
+<?php namespace Projectionist\Adapter\Event;
 
+// TODO: Give this a better namespace, this doesn't work
 // TODO: Add back real types when this is transitioned to EventSourced
-class Snapshot
+class EventSourcedSnapshot
 {
     protected $version;
     protected $occurred_at;

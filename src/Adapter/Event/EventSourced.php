@@ -1,14 +1,13 @@
-<?php namespace Projectionist\Config\EventSourced;
+<?php namespace Projectionist\Adapter\Event;
 
 // TODO: Make compatible with actual snapshot concept
-use Projectionist\Config\EventSourced\Snapshot;
 
-class Event implements \Projectionist\Adapter\Event
+class EventSourced implements \Projectionist\Adapter\Event
 {
     public $meta;
     public $content;
 
-    public function __construct(Snapshot $snapshot)
+    public function __construct(EventSourced $snapshot)
     {
         $this->meta = $snapshot;
     }
