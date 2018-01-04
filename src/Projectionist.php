@@ -38,6 +38,14 @@ class Projectionist
         $this->playCollection($play_to_now_projectors);
     }
 
+    public function play()
+    {
+        $projectors = $this->projector_queryable->allProjectors();
+
+        $active_projectors = $projectors->exclude(ProjectorMode::RUN_ONCE);
+        $this->playCollection($active_projectors);
+    }
+
     private function playCollection(ProjectorReferenceCollection $projector_references)
     {
         foreach ($projector_references as $projector_reference) {

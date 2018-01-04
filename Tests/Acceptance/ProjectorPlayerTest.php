@@ -1,6 +1,7 @@
 <?php namespace ProjectonistTests\Acceptance;
 
 use Projectionist\AdapterFactory;
+use Projectionist\ProjectionistFactory;
 use Projectionist\Usecases\ProjectorPlayer;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
@@ -12,23 +13,19 @@ class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
 {
     public function test_does_not_play_run_once_projectors()
     {
-        /** @var ProjectorPlayer $player */
-        $player = App::make(ProjectorPlayer::class);
+        $adapter_factory = new AdapterFactory\InMemory();
+        $projectionist_factory = new ProjectionistFactory($adapter_factory);
+        $projectors = [new RunFromLaunch, new RunFromStart];
+        $projectionist = $projectionist_factory->make($projectors);
+        $adapter_factory->projectorPositionLedger()->reset();
 
-        /** @var \Projectionist\AdapterFactory\InMemory\ProjectorPositionLedger $projector_position_repo */
-        $projector_position_repo = App::make(AdapterFactory::class)->projectorPositionLedger();
-        $projector_position_repo->reset();
+        $projectionist->play();
 
-        $player->play();
-
-        $stored_projector_positions = $projector_position_repo->all();
+        $stored_projector_positions = $adapter_factory->projectorPositionLedger()->all();
 
         $actual = $stored_projector_positions->references();
 
-        $expected = new ProjectorReferenceCollection([
-            ProjectorReference::makeFromProjector(new RunFromLaunch),
-            ProjectorReference::makeFromProjector(new RunFromStart)
-        ]);
+        $expected = ProjectorReferenceCollection::fromProjectors($projectors);
 
         $this->assertEquals($expected, $actual);
     }
