@@ -13,7 +13,7 @@ class InMemory implements Config
     {
         $this->event_store = new Config\InMemory\EventStore();
         $this->projector_player = new EventHandler\ClassName();
-        $this->projector_position_ledger = new Config\InMemory\ProjectorPositionLedger();
+        $this->projector_position_ledger = new \Projectionist\Adapter\ProjectorPositionLedger\InMemory();
     }
 
     public function eventStore(): \Projectionist\Adapter\EventStore

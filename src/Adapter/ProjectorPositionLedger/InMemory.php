@@ -1,10 +1,10 @@
-<?php namespace Projectionist\Config\InMemory;
+<?php namespace Projectionist\Adapter\ProjectorPositionLedger;
 
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
 
-class ProjectorPositionLedger implements \Projectionist\Adapter\ProjectorPositionLedger
+class InMemory implements \Projectionist\Adapter\ProjectorPositionLedger
 {
     private $store;
 
