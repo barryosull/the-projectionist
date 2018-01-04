@@ -2,53 +2,55 @@
 
 class ProjectorReference
 {
-    public $class_path;
+    public $projector;
     public $version;
     public $mode;
 
-    private function __construct(string $class_path, int $version)
+    private function __construct($projector, int $version)
     {
-        if (!class_exists($class_path)) {
-            throw new \Exception("Cannot load class '$class_path'");
-        }
-        $this->class_path = $class_path;
+        $this->projector = $projector;
         $this->version = $version;
-        $this->mode = $this->mode($class_path);
+        $this->mode = $this->mode($projector);
     }
 
     public function equals(ProjectorReference $reference)
     {
-        return $this->class_path == $reference->class_path && $this->version == $reference->version;
+        return $this->projector == $reference->projector && $this->version == $reference->version;
     }
 
     public function toString()
     {
-        return $this->class_path."-".$this->version;
+        return get_class($this->projector)."-".$this->version;
+    }
+
+    public function projector()
+    {
+        return $this->projector;
     }
 
     const DEFAULT_MODE = ProjectorMode::RUN_FROM_START;
 
-    private function mode($class_path)
+    private function mode($projector)
     {
-        if (defined("$class_path::MODE")) {
-            return $class_path::MODE;
+        if (defined($projector::MODE)) {
+            return $projector::MODE;
         }
         return self::DEFAULT_MODE;
     }
 
     const DEFAULT_VERSION = 1;
 
-    public static function makeFromClass(string $class_path): ProjectorReference
+    public static function makeFromProjector($projector): ProjectorReference
     {
         $version = self::DEFAULT_VERSION;
-        if (defined("$class_path::VERSION")) {
-            $version = $class_path::VERSION;
+        if (defined($projector::VERSION)) {
+            $version = $projector::VERSION;
         }
-        return new ProjectorReference($class_path, $version);
+        return new ProjectorReference($projector, $version);
     }
 
-    public static function make(string $class_path, int $version): ProjectorReference
+    public static function make(string $projector, int $version): ProjectorReference
     {
-        return new ProjectorReference($class_path, $version);
+        return new ProjectorReference($projector, $version);
     }
 }

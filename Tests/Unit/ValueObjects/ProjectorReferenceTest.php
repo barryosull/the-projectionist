@@ -9,14 +9,14 @@ class ProjectorReferenceTest extends \PHPUnit_Framework_TestCase
 {
     public function test_reads_mode_from_projector()
     {
-        $ref = ProjectorReference::makeFromClass(RunOnce::class);
+        $ref = ProjectorReference::makeFromProjector(new RunOnce);
 
         $this->assertEquals(ProjectorMode::RUN_ONCE, $ref->mode);
     }
 
     public function test_gives_default_mode_if_none_set()
     {
-        $ref = ProjectorReference::makeFromClass(NoModeProjector::class);
+        $ref = ProjectorReference::makeFromProjector(new NoModeProjector);
 
         $this->assertEquals(ProjectorMode::RUN_FROM_START, $ref->mode);
     }

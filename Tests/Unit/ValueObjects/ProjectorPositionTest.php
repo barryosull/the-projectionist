@@ -8,7 +8,7 @@ class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
 {
     public function test_make_a_new_unplayed_position_from_a_reference()
     {
-        $reference = ProjectorReference::makeFromClass(RunOnce::class);
+        $reference = ProjectorReference::makeFromProjector(new RunOnce);
         $actual = ProjectorPosition::makeNewUnplayed($reference);
 
         $this->assertTrue($reference->equals($actual->projector_reference));

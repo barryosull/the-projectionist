@@ -7,7 +7,7 @@ class ProjectorRegisterer
 {
     private static $projectors = [];
 
-    public function register($projectors)
+    public function register(array $projectors)
     {
         self::$projectors = array_unique(
             array_merge_recursive(self::$projectors, $projectors),
@@ -17,8 +17,6 @@ class ProjectorRegisterer
 
     public function all(): ProjectorReferenceCollection
     {
-        return new ProjectorReferenceCollection(array_map(function($projector_class){
-            return ProjectorReference::makeFromClass($projector_class);
-        }, self::$projectors));
+        return ProjectorReferenceCollection::fromProjectors(self::$projectors);
     }
 }

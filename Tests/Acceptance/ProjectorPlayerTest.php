@@ -26,8 +26,8 @@ class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
         $actual = $stored_projector_positions->references();
 
         $expected = new ProjectorReferenceCollection([
-            ProjectorReference::makeFromClass(RunFromLaunch::class),
-            ProjectorReference::makeFromClass(RunFromStart::class)
+            ProjectorReference::makeFromProjector(new RunFromLaunch),
+            ProjectorReference::makeFromProjector(new RunFromStart)
         ]);
 
         $this->assertEquals($expected, $actual);

@@ -39,4 +39,14 @@ class ProjectorReferenceCollection extends Collection
             return !$projector_positions->hasReference($projector_reference);
         })->values();
     }
+
+    public static function fromProjectors(array $projectors)
+    {
+        return new ProjectorReferenceCollection(array_map(function($projector){
+            if (!is_object($projector)) {
+                throw new \Exception("One of the projectors is not an object, cannot be used as a projector");
+            }
+            return $projector;
+        }, $projectors));
+    }
 }

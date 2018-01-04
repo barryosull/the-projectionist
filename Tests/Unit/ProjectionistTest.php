@@ -4,7 +4,6 @@ use Projectionist\Adapter;
 use Projectionist\Services\EventStore;
 use Projectionist\Adapter\ProjectorPlayer\ClassName;
 use Projectionist\Projectionist;
-use Projectionist\Services\ProjectorLoader;
 use Projectionist\Services\ProjectorPlayer;
 use Projectionist\Services\ProjectorPositionLedger;
 use Projectionist\ValueObjects\ProjectorPosition;
@@ -19,7 +18,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
     public function test_can_handle_broken_projector()
     {
         $player = new ClassName();
-        $ref = ProjectorReference::makeFromClass(BrokenProjector::class);
+        $ref = ProjectorReference::makeFromProjector(new BrokenProjector);
         $projector_position = ProjectorPosition::makeNewUnplayed($ref);
         $projector = new BrokenProjector();
         $event = new Adapter\InMemory\Event(new ThingHappened(''));
@@ -34,7 +33,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
         $player = $this->prophesize(ProjectorPlayer::class);
         $position_ledger = $this->prophesize(ProjectorPositionLedger::class);
 
-        $ref = ProjectorReference::makeFromClass(BrokenProjector::class);
+        $ref = ProjectorReference::makeFromProjector(new BrokenProjector);
         $position = ProjectorPosition::makeNewUnplayed($ref)->broken();
         $position_ledger->fetch($ref)->willReturn($position);
 
@@ -53,9 +52,6 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
 
         $adapter->projectorPlayer()->willReturn($player);
         $adapter->projectorPositionLedger()->willReturn($ledger);
-        $adapter->projectorLoader()->willReturn(
-            $this->prophesize(ProjectorLoader::class)->reveal()
-        );
         $adapter->eventStore()->willReturn(
             $this->prophesize(EventStore::class)->reveal()
         );

@@ -18,7 +18,7 @@ abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCa
     public function setUp()
     {
         $this->repo = $this->makeRepository();
-        $this->ref = ProjectorReference::makeFromClass(RunFromStart::class);
+        $this->ref = ProjectorReference::makeFromProjector(new RunFromStart);
         $this->position = ProjectorPosition::makeNewUnplayed($this->ref);
     }
 

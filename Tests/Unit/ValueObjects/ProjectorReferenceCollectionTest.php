@@ -13,14 +13,14 @@ class ProjectorReferenceCollectionTest extends \PHPUnit_Framework_TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("Duplicate projector references, not allowed");
 
-        $ref_1 = ProjectorReference::makeFromClass(RunFromStart::class);
+        $ref_1 = ProjectorReference::makeFromProjector(new RunFromStart);
         new ProjectorReferenceCollection([$ref_1, $ref_1]);
     }
 
     public function test_excluding_by_mode()
     {
-        $ref_1 = ProjectorReference::makeFromClass(RunFromStart::class);
-        $ref_2 = ProjectorReference::makeFromClass(RunOnce::class);
+        $ref_1 = ProjectorReference::makeFromProjector(new RunFromStart);
+        $ref_2 = ProjectorReference::makeFromProjector(new RunOnce);
         $collection = new ProjectorReferenceCollection([$ref_1, $ref_2]);
 
         $excluded = $collection->exclude(ProjectorMode::RUN_ONCE);
@@ -30,8 +30,8 @@ class ProjectorReferenceCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function test_extracting_by_mode()
     {
-        $ref_1 = ProjectorReference::makeFromClass(RunFromStart::class);
-        $ref_2 = ProjectorReference::makeFromClass(RunOnce::class);
+        $ref_1 = ProjectorReference::makeFromProjector(new RunFromStart);
+        $ref_2 = ProjectorReference::makeFromProjector(new RunOnce);
         $collection = new ProjectorReferenceCollection([$ref_1, $ref_2]);
 
         $extracted = $collection->extract(ProjectorMode::RUN_ONCE);

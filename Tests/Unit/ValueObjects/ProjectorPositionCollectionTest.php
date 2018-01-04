@@ -10,9 +10,9 @@ class ProjectorPositionCollectionTest extends \PHPUnit_Framework_TestCase
 {
     public function test_if_a_collection_has_a_reference()
     {
-        $ref_1 = ProjectorReference::makeFromClass(RunFromStart::class);
+        $ref_1 = ProjectorReference::makeFromProjector(new RunFromStart);
         $ref_1_bumped = ProjectorReference::make(RunFromStart::class, 2);
-        $ref_2 = ProjectorReference::makeFromClass(RunOnce::class);
+        $ref_2 = ProjectorReference::makeFromProjector(new RunOnce);
 
         $collection = new ProjectorPositionCollection([
             ProjectorPosition::makeNewUnplayed($ref_1),
@@ -29,7 +29,7 @@ class ProjectorPositionCollectionTest extends \PHPUnit_Framework_TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("Duplicate projector references, not allowed");
 
-        $ref_1 = ProjectorReference::makeFromClass(RunFromStart::class);
+        $ref_1 = ProjectorReference::makeFromProjector(new RunFromStart);
         new ProjectorPositionCollection([
             ProjectorPosition::makeNewUnplayed($ref_1),
             ProjectorPosition::makeNewUnplayed($ref_1),

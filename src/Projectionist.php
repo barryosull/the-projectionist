@@ -9,14 +9,12 @@ use Projectionist\ValueObjects\ProjectorPosition;
 class Projectionist
 {
     private $projector_position_ledger;
-    private $projector_loader;
     private $event_store;
     private $projector_player;
 
     public function __construct(Adapter $adapter)
     {
         $this->projector_position_ledger = $adapter->projectorPositionLedger();
-        $this->projector_loader = $adapter->projectorLoader();
         $this->event_store = $adapter->eventStore();
         $this->projector_player = $adapter->projectorPlayer();
     }
@@ -39,8 +37,6 @@ class Projectionist
             return;
         }
 
-        $projector = $this->projector_loader->load($projector_reference);
-
         $event_stream = $this->event_store->getStream($projector_position->last_event_id);
 
         while ($event = $event_stream->next()) {
@@ -48,7 +44,7 @@ class Projectionist
                 break;
             }
 
-            $projector_position = self::playEventIntoProjector($this->projector_player, $event, $projector_position, $projector);
+            $projector_position = self::playEventIntoProjector($this->projector_player, $event, $projector_position, $projector_reference->projector());
 
             if ($projector_position->is_broken) {
                 break;
