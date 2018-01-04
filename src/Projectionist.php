@@ -1,8 +1,8 @@
 <?php namespace Projectionist;
 
 use Projectionist\Adapter\Event;
-use Projectionist\Strategy\EventHandler;
 use Projectionist\Services\ProjectorQueryable;
+use Projectionist\Strategy\ProjectorPlayer;
 use Projectionist\ValueObjects\ProjectorMode;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
@@ -13,18 +13,22 @@ class Projectionist
     private $projector_queryable;
     private $projector_position_ledger;
     private $event_store;
-    private $projector_player;
+    private $event_handler;
 
     private $projector_references;
+
+    private $projector_player;
 
     public function __construct(Config $adapter, ProjectorReferenceCollection $projector_references)
     {
         $this->projector_position_ledger = $adapter->projectorPositionLedger();
         $this->event_store = $adapter->eventStore();
-        $this->projector_player = $adapter->projectorPlayer();
+        $this->event_handler = $adapter->eventHandler();
         $this->projector_queryable = new ProjectorQueryable($adapter->projectorPositionLedger(), $projector_references);
 
         $this->projector_references = $projector_references;
+
+        $this->projector_player = new ProjectorPlayer($adapter);
     }
 
     public function boot()
@@ -49,50 +53,8 @@ class Projectionist
     private function playCollection(ProjectorReferenceCollection $projector_references)
     {
         foreach ($projector_references as $projector_reference) {
-            $this->playProjector($projector_reference);
+            $this->projector_player->play($projector_reference);
         }
-    }
-
-    private function playProjector(ProjectorReference $projector_reference)
-    {
-        $projector_position = $this->projector_position_ledger->fetch($projector_reference);
-        if (!$projector_position) {
-            $projector_position = ProjectorPosition::makeNewUnplayed($projector_reference);
-        }
-
-        if ($projector_position->is_broken) {
-            return;
-        }
-
-        $event_stream = $this->event_store->getStream($projector_position->last_event_id);
-
-        while ($event = $event_stream->next()) {
-            if ($event == null) {
-                break;
-            }
-
-            $projector_position = self::playEventIntoProjector($this->projector_player, $event, $projector_position, $projector_reference->projector());
-
-            if ($projector_position->is_broken) {
-                break;
-            }
-        }
-        $this->projector_position_ledger->store($projector_position);
-    }
-
-    public static function playEventIntoProjector(
-        EventHandler $projector_player,
-        Event $event,
-        ProjectorPosition $projector_position,
-        $projector
-    ) {
-        try {
-            $projector_player->handle($event, $projector);
-            $projector_position = $projector_position->played($event);
-        } catch (\Throwable $t) {
-            $projector_position = $projector_position->broken();
-        }
-        return $projector_position;
     }
 
     private function skipToLastEvent(ProjectorReferenceCollection $projector_references)

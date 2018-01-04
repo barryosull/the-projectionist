@@ -5,6 +5,7 @@ use Projectionist\Adapter\EventStore;
 use Projectionist\Strategy\EventHandler;
 use Projectionist\Strategy\EventHandler\ClassName;
 use Projectionist\Adapter\ProjectorPositionLedger;
+use Projectionist\Strategy\ProjectorPlayer;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\Projectionist;
@@ -15,6 +16,7 @@ use Prophecy\Argument;
 
 class ProjectionistTest extends \PHPUnit_Framework_TestCase
 {
+    // TODO: Move to own ProjectorPositionTest
     // TODO: Clean this up, too much messy logic
     public function test_can_handle_broken_projector()
     {
@@ -24,7 +26,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
         $projector = new BrokenProjector();
         $event = new \Projectionist\Adapter\Event\InMemory(new ThingHappened(''));
 
-        $projector_position = Projectionist::playEventIntoProjector($player, $event, $projector_position, $projector);
+        $projector_position = ProjectorPlayer::playEventIntoProjector($player, $event, $projector_position, $projector);
 
         $this->assertTrue($projector_position->is_broken);
     }
@@ -52,7 +54,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
     {
         $adapter = $this->prophesize(Config::class);
 
-        $adapter->projectorPlayer()->willReturn($player);
+        $adapter->eventHandler()->willReturn($player);
         $adapter->projectorPositionLedger()->willReturn($ledger);
         $adapter->eventStore()->willReturn(
             $this->prophesize(EventStore::class)->reveal()

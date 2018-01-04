@@ -8,7 +8,7 @@ interface Config
 {
     public function eventStore(): EventStore;
 
-    public function projectorPlayer(): EventHandler;
+    public function eventHandler(): EventHandler;
 
     public function projectorPositionLedger(): ProjectorPositionLedger;
 }

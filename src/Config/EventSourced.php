@@ -21,7 +21,7 @@ class EventSourced implements Config
         return $this->event_store;
     }
 
-    public function projectorPlayer(): \Projectionist\Strategy\EventHandler
+    public function eventHandler(): \Projectionist\Strategy\EventHandler
     {
         return $this->projector_player;
     }
