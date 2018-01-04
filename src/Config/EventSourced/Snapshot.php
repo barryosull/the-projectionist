@@ -1,4 +1,4 @@
-<?php namespace Projectionist\AdapterFactory\EventSourced;
+<?php namespace Projectionist\Config\EventSourced;
 
 // TODO: Add back real types when this is transitioned to EventSourced
 class Snapshot

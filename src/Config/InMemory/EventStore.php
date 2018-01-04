@@ -1,6 +1,4 @@
-<?php namespace Projectionist\AdapterFactory\InMemory;
-
-use Projectionist\Services;
+<?php namespace Projectionist\Config\InMemory;
 
 class EventStore implements \Projectionist\Adapter\EventStore
 {

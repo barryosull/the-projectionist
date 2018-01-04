@@ -1,4 +1,4 @@
-<?php namespace Projectionist\AdapterFactory\EventSourced;
+<?php namespace Projectionist\Config\EventSourced;
 
 // TODO: Write implementation that uses ES Event stream under the hood
 class EventStream

@@ -4,7 +4,7 @@ use Projectionist\Adapter\EventStore;
 use Projectionist\Strategy\EventHandler;
 use Projectionist\Adapter\ProjectorPositionLedger;
 
-interface AdapterFactory
+interface Config
 {
     public function eventStore(): EventStore;
 

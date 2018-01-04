@@ -6,7 +6,7 @@ class ProjectionistFactory
 {
     private $adapter_factory;
 
-    public function __construct(AdapterFactory $adapter_factory)
+    public function __construct(Config $adapter_factory)
     {
         $this->adapter_factory = $adapter_factory;
     }

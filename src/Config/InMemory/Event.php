@@ -1,4 +1,4 @@
-<?php namespace Projectionist\AdapterFactory\InMemory;
+<?php namespace Projectionist\Config\InMemory;
 
 use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 

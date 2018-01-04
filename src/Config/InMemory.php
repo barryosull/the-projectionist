@@ -1,9 +1,9 @@
-<?php namespace Projectionist\AdapterFactory;
+<?php namespace Projectionist\Config;
 
-use Projectionist\AdapterFactory;
+use Projectionist\Config;
 use Projectionist\Strategy\EventHandler;
 
-class EventSourced implements AdapterFactory
+class InMemory implements Config
 {
     private $event_store;
     private $projector_player;
@@ -11,9 +11,9 @@ class EventSourced implements AdapterFactory
 
     public function __construct()
     {
-        $this->event_store = new AdapterFactory\EventSourced\EventStore();
+        $this->event_store = new Config\InMemory\EventStore();
         $this->projector_player = new EventHandler\ClassName();
-        $this->projector_position_ledger = new AdapterFactory\EventSourced\ProjectorPositionLedger();
+        $this->projector_position_ledger = new Config\InMemory\ProjectorPositionLedger();
     }
 
     public function eventStore(): \Projectionist\Adapter\EventStore

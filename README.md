@@ -34,11 +34,9 @@ class Projector extends BaseTestProjector
 
 ## TODO
 - Separate event handler strategies, make them easier to use? (Might be hard) 
-    - Rename classes and namespaces
     - Rename adapters to config
 - Remove App from tests
 - Clean up new projectionist
-
 - Write tutorial for the adapters
 - Have a smarter projectionist that groups projectors by position, then plays events one by one to projectors if they're at the same position. One stream, multiple projectors.
 

@@ -17,7 +17,7 @@ class Projectionist
 
     private $projector_references;
 
-    public function __construct(AdapterFactory $adapter, ProjectorReferenceCollection $projector_references)
+    public function __construct(Config $adapter, ProjectorReferenceCollection $projector_references)
     {
         $this->projector_position_ledger = $adapter->projectorPositionLedger();
         $this->event_store = $adapter->eventStore();

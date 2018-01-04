@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Acceptance;
 
-use Projectionist\AdapterFactory;
+use Projectionist\Config;
 use Projectionist\ProjectionistFactory;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
@@ -10,7 +10,7 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit_Framework_TestCase
 {
     public function test_does_not_play_run_once_projectors()
     {
-        $adapter_factory = new AdapterFactory\InMemory();
+        $adapter_factory = new Config\InMemory();
         $projectionist_factory = new ProjectionistFactory($adapter_factory);
         $projectors = [new RunFromLaunch, new RunFromStart];
         $projectionist = $projectionist_factory->make($projectors);

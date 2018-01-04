@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Acceptance;
 
-use Projectionist\AdapterFactory;
+use Projectionist\Config;
 use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\Projectionist;
 use Projectionist\ProjectionistFactory;
@@ -15,7 +15,7 @@ class ProjectionistProjectorBootTest extends \PHPUnit_Framework_TestCase
     /** @var  ProjectorPositionLedger $projector_position_repo */
     private $projector_position_repo;
 
-    /** @var AdapterFactory */
+    /** @var Config */
     private $adapter_factory;
 
     /** @var Projectionist $booter */
@@ -25,7 +25,7 @@ class ProjectionistProjectorBootTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->adapter_factory = new AdapterFactory\InMemory();
+        $this->adapter_factory = new Config\InMemory();
 
         $projectionist_factory = new ProjectionistFactory($this->adapter_factory);
 

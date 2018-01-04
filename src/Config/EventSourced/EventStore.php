@@ -1,4 +1,4 @@
-<?php namespace Projectionist\AdapterFactory\EventSourced;
+<?php namespace Projectionist\Config\EventSourced;
 
 use Projectionist\Adapter\EventStore\Event;
 use Projectionist\Adapter\EventStore\EventStream;

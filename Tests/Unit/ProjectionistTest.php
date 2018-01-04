@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Unit\Projectionist;
 
-use Projectionist\AdapterFactory;
+use Projectionist\Config;
 use Projectionist\Adapter\EventStore;
 use Projectionist\Strategy\EventHandler;
 use Projectionist\Strategy\EventHandler\ClassName;
@@ -22,7 +22,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
         $ref = ProjectorReference::makeFromProjector(new BrokenProjector);
         $projector_position = ProjectorPosition::makeNewUnplayed($ref);
         $projector = new BrokenProjector();
-        $event = new AdapterFactory\InMemory\Event(new ThingHappened(''));
+        $event = new Config\InMemory\Event(new ThingHappened(''));
 
         $projector_position = Projectionist::playEventIntoProjector($player, $event, $projector_position, $projector);
 
@@ -48,9 +48,9 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
         $player->handle(Argument::cetera())->shouldNotHaveBeenCalled();
     }
 
-    private function makeAdapter(EventHandler $player, ProjectorPositionLedger $ledger): AdapterFactory
+    private function makeAdapter(EventHandler $player, ProjectorPositionLedger $ledger): Config
     {
-        $adapter = $this->prophesize(AdapterFactory::class);
+        $adapter = $this->prophesize(Config::class);
 
         $adapter->projectorPlayer()->willReturn($player);
         $adapter->projectorPositionLedger()->willReturn($ledger);
