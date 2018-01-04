@@ -33,6 +33,7 @@ class Projector extends BaseTestProjector
 ```
 
 ## TODO
+- Rename Adapter to AdapterFactory
 - CLean up adapters, make them easier to write/understand
 - Separate player strategies, make them easier to use? (Might be hard)
 - Remove usecases, give functionality to projectionist
