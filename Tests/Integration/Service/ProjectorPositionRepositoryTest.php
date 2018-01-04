@@ -40,18 +40,18 @@ abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCa
         $this->assertEquals($this->position, $actual);
     }
 
-    private function makePosition(string $projector_class)
+    private function makePosition($projector)
     {
         return ProjectorPosition::makeNewUnplayed(
-            ProjectorReference::makeFromClass($projector_class)
+            ProjectorReference::makeFromProjector($projector)
         );
     }
 
     public function test_can_get_all()
     {
-        $pos_1 = $this->makePosition(RunFromStart::class);
-        $pos_2 = $this->makePosition(RunFromLaunch::class);
-        $pos_3 = $this->makePosition(RunOnce::class);
+        $pos_1 = $this->makePosition(new RunFromStart);
+        $pos_2 = $this->makePosition(new RunFromLaunch);
+        $pos_3 = $this->makePosition(new RunOnce);
 
         $this->repo->store($pos_1);
         $this->repo->store($pos_2);
@@ -64,9 +64,9 @@ abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCa
 
     public function test_stores_by_reference_and_version()
     {
-        $pos_1 = $this->makePosition(RunFromStart::class);
+        $pos_1 = $this->makePosition(new RunFromStart);
         $pos_1_bumped_version = ProjectorPosition::makeNewUnplayed(
-            ProjectorReference::make(RunFromStart::class, 2)
+            ProjectorReference::make(new RunFromStart, 2)
         );
 
         $this->repo->store($pos_1);
