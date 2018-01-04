@@ -2,6 +2,8 @@
 
 use Projectionist\AdapterFactory;
 use Projectionist\Adapter\ProjectorPositionLedger;
+use Projectionist\Projectionist;
+use Projectionist\ProjectionistFactory;
 use Projectionist\Services\ProjectorRegisterer;
 use Projectionist\Usecases\ProjectorBooter;
 use Projectionist\ValueObjects\ProjectorReference;
@@ -18,36 +20,39 @@ class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
     /** @var  ProjectorPositionLedger $projector_position_repo */
     private $projector_position_repo;
 
-    /** @var ProjectorBooter $booter */
-    private $booter;
+    /** @var AdapterFactory */
+    private $adapter_factory;
+
+    /** @var Projectionist $booter */
+    private $projectionist;
+
+    private $projectors;
 
     public function setUp()
     {
-        $this->registerProjectors();
+        $this->adapter_factory = new AdapterFactory\InMemory();
+
+        $projectionist_factory = new ProjectionistFactory($this->adapter_factory);
+
+        $this->projectors = require "Tests/projectors.php";
+
+        $this->projectionist = $projectionist_factory->make($this->projectors);
+
         $this->resetProjectorPositionRepo();
-        $this->prepareEventStore();
-
-        $this->booter = App::make(ProjectorBooter::class);
-    }
-
-    private function registerProjectors()
-    {
-        /** @var ProjectorRegisterer $registerer */
-        $registerer = App::make(ProjectorRegisterer::class);
-        $registerer->register(require "Tests/projectors.php");
+        $this->seedEvents();
     }
 
     private function resetProjectorPositionRepo()
     {
-        $this->projector_position_repo = App::make(AdapterFactory::class)->projectorPositionLedger();
+        $this->projector_position_repo = $this->adapter_factory->projectorPositionLedger();
         $this->projector_position_repo->reset();
     }
 
-    private function prepareEventStore()
+    private function seedEvents()
     {
         $event = new ThingHappened('94ae0b60-ddb4-4cf0-bb75-4b588fea3c3c');
 
-        $event_store = App::make(EventStore::class);
+        $event_store = $this->adapter_factory->eventStore();
         $event_store->setEvents([$event]);
     }
 
@@ -55,24 +60,20 @@ class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEmpty($this->projector_position_repo->all());
 
-        $this->booter->boot();
+        $this->projectionist->boot();
 
         $stored_projector_positions = $this->projector_position_repo->all();
 
         $actual = $stored_projector_positions->references();
 
-        $expected = new ProjectorReferenceCollection([
-            ProjectorReference::makeFromProjector(new RunFromLaunch),
-            ProjectorReference::makeFromProjector(new RunFromStart),
-            ProjectorReference::makeFromProjector(new RunOnce)
-        ]);
+        $expected = ProjectorReferenceCollection::fromProjectors($this->projectors);
 
         $this->assertEquals($expected, $actual);
     }
 
     public function test_events_are_not_played_into_run_from_launch_projectors()
     {
-        $this->booter->boot();
+        $this->projectionist->boot();
 
         $this->assertTrue(RunFromStart::hasSeenEvent());
         $this->assertTrue(RunOnce::hasSeenEvent());

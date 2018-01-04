@@ -33,11 +33,9 @@ class Projector extends BaseTestProjector
 ```
 
 ## TODO
-- Rename Adapter to AdapterFactory
-- CLean up adapters, make them easier to write/understand
-- Separate player strategies, make them easier to use? (Might be hard)
 - Remove usecases, give functionality to projectionist
     - Pass in projectors as array, instead of ProjectorReferenceCollection
+- Separate player strategies, make them easier to use? (Might be hard) 
 - Write tutorial for the adapters
 - Have a smarter projectionist that groups projectors by position, then plays events one by one to projectors if they're at the same position. One stream, multiple projectors.
 
