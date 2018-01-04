@@ -1,7 +1,7 @@
 <?php namespace Projectionist\Adapter;
 
-use Projectionist\Adapter\EventStore\Event;
-use Projectionist\Adapter\EventStore\EventStream;
+use Projectionist\Adapter\Event;
+use Projectionist\Adapter\EventStream;
 
 interface EventStore
 {

@@ -1,6 +1,6 @@
 <?php namespace Projectionist\Strategy\EventHandler;
 
-use Projectionist\Adapter\EventStore\Event;
+use Projectionist\Adapter\Event;
 use Projectionist\Strategy\EventHandler;
 
 class MetaTypeProperty implements EventHandler

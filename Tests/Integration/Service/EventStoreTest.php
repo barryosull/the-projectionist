@@ -14,6 +14,6 @@ abstract class EventStoreTest extends \PHPUnit_Framework_TestCase
 
         $stream = $event_store->getStream(self::EVENT_ID);
 
-        $this->assertInstanceOf(EventStore\EventStream::class, $stream);
+        $this->assertInstanceOf(\Projectionist\Adapter\EventStream::class, $stream);
     }
 }

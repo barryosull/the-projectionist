@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Adapter\EventStore;
+<?php namespace Projectionist\Adapter;
 
 interface EventStream
 {

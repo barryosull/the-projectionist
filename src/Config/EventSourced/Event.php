@@ -3,7 +3,7 @@
 // TODO: Make compatible with actual snapshot concept
 use Projectionist\Config\EventSourced\Snapshot;
 
-class Event implements \Projectionist\Adapter\EventStore\Event
+class Event implements \Projectionist\Adapter\Event
 {
     public $meta;
     public $content;

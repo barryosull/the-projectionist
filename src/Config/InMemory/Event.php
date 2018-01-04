@@ -2,7 +2,7 @@
 
 use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 
-class Event implements \Projectionist\Adapter\EventStore\Event
+class Event implements \Projectionist\Adapter\Event
 {
     private $wrapped_event;
 

@@ -3,7 +3,7 @@
 use Projectionist\Services;
 use Illuminate\Support\Collection;
 
-class EventStream implements \Projectionist\Adapter\EventStore\EventStream
+class EventStream implements \Projectionist\Adapter\EventStream
 {
     private $events;
 
@@ -12,7 +12,7 @@ class EventStream implements \Projectionist\Adapter\EventStore\EventStream
         $this->events = new Collection($events);
     }
 
-    /** @return \Projectionist\Adapter\EventStore\Event */
+    /** @return \Projectionist\Adapter\Event */
     public function next()
     {
         $event = $this->events->shift();

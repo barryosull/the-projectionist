@@ -14,7 +14,7 @@ class EventStore implements \Projectionist\Adapter\EventStore
         return count(self::$events) != 0;
     }
 
-    public function latestEvent(): \Projectionist\Adapter\EventStore\Event
+    public function latestEvent(): \Projectionist\Adapter\Event
     {
         $event = last(self::$events);
         if (!$event) {
@@ -23,7 +23,7 @@ class EventStore implements \Projectionist\Adapter\EventStore
         return new Event($event);
     }
 
-    public function getStream($last_event_id): \Projectionist\Adapter\EventStore\EventStream
+    public function getStream($last_event_id): \Projectionist\Adapter\EventStream
     {
         return new EventStream(self::$events);
     }
