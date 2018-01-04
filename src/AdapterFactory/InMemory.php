@@ -1,7 +1,7 @@
 <?php namespace Projectionist\AdapterFactory;
 
 use Projectionist\AdapterFactory;
-use Projectionist\Adapter\ProjectorPlayer;
+use Projectionist\Adapter\EventHandler;
 
 class InMemory implements AdapterFactory
 {
@@ -12,7 +12,7 @@ class InMemory implements AdapterFactory
     public function __construct()
     {
         $this->event_store = new AdapterFactory\InMemory\EventStore();
-        $this->projector_player = new ProjectorPlayer\ClassName();
+        $this->projector_player = new EventHandler\ClassName();
         $this->projector_position_ledger = new AdapterFactory\InMemory\ProjectorPositionLedger();
     }
 
@@ -21,7 +21,7 @@ class InMemory implements AdapterFactory
         return $this->event_store;
     }
 
-    public function projectorPlayer(): \Projectionist\Adapter\ProjectorPlayer
+    public function projectorPlayer(): \Projectionist\Adapter\EventHandler
     {
         return $this->projector_player;
     }

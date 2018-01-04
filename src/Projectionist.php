@@ -1,7 +1,7 @@
 <?php namespace Projectionist;
 
 use Projectionist\Adapter\EventStore\Event;
-use Projectionist\Adapter\ProjectorPlayer;
+use Projectionist\Adapter\EventHandler;
 use Projectionist\Services\ProjectorQueryable;
 use Projectionist\ValueObjects\ProjectorMode;
 use Projectionist\ValueObjects\ProjectorReference;
@@ -81,7 +81,7 @@ class Projectionist
     }
 
     public static function playEventIntoProjector(
-        ProjectorPlayer $projector_player,
+        EventHandler $projector_player,
         Event $event,
         ProjectorPosition $projector_position,
         $projector

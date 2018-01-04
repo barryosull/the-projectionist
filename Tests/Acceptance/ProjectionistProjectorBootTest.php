@@ -10,7 +10,7 @@ use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 
-class ProjectorBooterTest extends \PHPUnit_Framework_TestCase
+class ProjectionistProjectorBootTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  ProjectorPositionLedger $projector_position_repo */
     private $projector_position_repo;

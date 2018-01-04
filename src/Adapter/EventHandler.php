@@ -1,6 +1,6 @@
 <?php namespace Projectionist\Adapter;
 
-interface ProjectorPlayer
+interface EventHandler
 {
     public function play(\Projectionist\Adapter\EventStore\Event $event, $projector);
 }

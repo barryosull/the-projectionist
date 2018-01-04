@@ -1,9 +1,9 @@
-<?php namespace Projectionist\Adapter\ProjectorPlayer;
+<?php namespace Projectionist\Adapter\EventHandler;
 
 use Projectionist\Adapter\EventStore;
-use Projectionist\Adapter\ProjectorPlayer;
+use Projectionist\Adapter\EventHandler;
 
-class ClassName implements ProjectorPlayer
+class ClassName implements EventHandler
 {
     public function play(EventStore\Event $event, $projector)
     {

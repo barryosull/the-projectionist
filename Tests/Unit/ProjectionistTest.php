@@ -2,8 +2,8 @@
 
 use Projectionist\AdapterFactory;
 use Projectionist\Adapter\EventStore;
-use Projectionist\Adapter\ProjectorPlayer;
-use Projectionist\Adapter\ProjectorPlayer\ClassName;
+use Projectionist\Adapter\EventHandler;
+use Projectionist\Adapter\EventHandler\ClassName;
 use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;
@@ -32,7 +32,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
     // TODO: Cleanup, turn into actual unit test
     public function test_ignores_broken_projectors()
     {
-        $player = $this->prophesize(ProjectorPlayer::class);
+        $player = $this->prophesize(EventHandler::class);
         $position_ledger = $this->prophesize(ProjectorPositionLedger::class);
 
         $ref = ProjectorReference::makeFromProjector(new BrokenProjector);
@@ -48,7 +48,7 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
         $player->play(Argument::cetera())->shouldNotHaveBeenCalled();
     }
 
-    private function makeAdapter(ProjectorPlayer $player, ProjectorPositionLedger $ledger): AdapterFactory
+    private function makeAdapter(EventHandler $player, ProjectorPositionLedger $ledger): AdapterFactory
     {
         $adapter = $this->prophesize(AdapterFactory::class);
 
