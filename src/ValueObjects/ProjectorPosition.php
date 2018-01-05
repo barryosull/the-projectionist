@@ -1,6 +1,6 @@
 <?php namespace Projectionist\ValueObjects;
 
-use Projectionist\Adapter\Event;
+use Projectionist\Adapter\EventWrapper;
 
 class ProjectorPosition
 {
@@ -25,7 +25,7 @@ class ProjectorPosition
         $this->is_broken = $is_broken;
     }
 
-    public function played(Event $event): ProjectorPosition
+    public function played(EventWrapper $event): ProjectorPosition
     {
         $event_count = $this->processed_events + 1;
 

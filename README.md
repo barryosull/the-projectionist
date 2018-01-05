@@ -33,6 +33,6 @@ class Projector extends BaseTestProjector
 ```
 
 ## TODO
-- Fix namespaces for Adapters (check TODO comments)
+- Add REDIS adapters
 - Write tutorial for the adapters
 - Have a smarter projectionist that groups projectors by position, then plays events one by one to projectors if they're at the same position. One stream, multiple projectors.

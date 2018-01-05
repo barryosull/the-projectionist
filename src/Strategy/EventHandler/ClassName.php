@@ -5,14 +5,14 @@ use Projectionist\Strategy\EventHandler;
 
 class ClassName implements EventHandler
 {
-    public function handle(\Projectionist\Adapter\Event $event, $projector)
+    public function handle(\Projectionist\Adapter\EventWrapper $event, $projector)
     {
-        $event_content = $event->content();
+        $event_content = $event->wrappedEvent();
 
         $method = $this->handlerFunctionName($this->className($event_content));
 
         if (method_exists($projector, $method)) {
-            $projector->$method($event->content());
+            $projector->$method($event->wrappedEvent());
         }
     }
 

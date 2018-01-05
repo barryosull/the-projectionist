@@ -1,8 +1,8 @@
 <?php namespace Projectionist\Adapter;
 
-interface Event
+interface EventWrapper
 {
     public function id();
 
-    public function content();
+    public function wrappedEvent();
 }

@@ -2,7 +2,8 @@
   "require": {
     "illuminate/support": "^5.5",
     "phpunit/phpunit": "~5.7",
-    "illuminate/container": "^5.5"
+    "illuminate/container": "^5.5",
+    "predis/predis": "^1.1"
   },
 
   "autoload": {
@@ -17,4 +18,3 @@
     ]
   }
 }
-

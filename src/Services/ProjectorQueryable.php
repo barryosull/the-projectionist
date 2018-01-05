@@ -9,9 +9,9 @@ class ProjectorQueryable
     private $projector_position_repository;
     private $projector_references;
 
-    public function __construct(Config $config, ProjectorReferenceCollection $projector_references)
+    public function __construct(ProjectorPositionLedger $projector_position_ledger, ProjectorReferenceCollection $projector_references)
     {
-        $this->projector_position_repository = $config->projectorPositionLedger();
+        $this->projector_position_repository = $projector_position_ledger;
         $this->projector_references = $projector_references;
     }
 

@@ -2,6 +2,6 @@
 
 interface EventStream
 {
-    /** @return Event */
+    /** @return EventWrapper */
     public function next();
 }

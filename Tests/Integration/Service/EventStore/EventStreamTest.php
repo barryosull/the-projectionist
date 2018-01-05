@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Integration\Projectionist\Service\EventStore;
 
-use Projectionist\Adapter\Event;
+use Projectionist\Adapter\EventWrapper;
 use Projectionist\Adapter\EventStream;
 
 abstract class EventStreamTest extends \PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ abstract class EventStreamTest extends \PHPUnit_Framework_TestCase
 
         $event = $stream->next();
 
-        $this->assertInstanceOf(Event::class, $event);
+        $this->assertInstanceOf(EventWrapper::class, $event);
     }
 
     public function test_returns_null_when_no_more_events()

@@ -1,6 +1,6 @@
 <?php namespace Projectionist\Strategy;
 
-use Projectionist\Adapter\Event;
+use Projectionist\Adapter\EventWrapper;
 use Projectionist\Config;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
@@ -29,7 +29,7 @@ class ProjectorSkipper
         }
     }
 
-    private function skipProjectorToEvent(ProjectorReference $projector_reference, Event $latest_event)
+    private function skipProjectorToEvent(ProjectorReference $projector_reference, EventWrapper $latest_event)
     {
         $projector_position = $this->projector_position_ledger->fetch($projector_reference);
         if (!$projector_position) {

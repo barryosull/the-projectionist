@@ -16,7 +16,7 @@ class Projectionist
 
     public function __construct(Config $adapter, ProjectorReferenceCollection $projector_references)
     {
-        $this->projector_queryable = new ProjectorQueryable($adapter, $projector_references);
+        $this->projector_queryable = new ProjectorQueryable($adapter->projectorPositionLedger(), $projector_references);
         $this->projector_player = new ProjectorPlayer($adapter);
         $this->projector_skipper = new ProjectorSkipper($adapter);
 

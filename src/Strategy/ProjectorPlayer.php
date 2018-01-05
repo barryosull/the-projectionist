@@ -1,6 +1,6 @@
 <?php namespace Projectionist\Strategy;
 
-use Projectionist\Adapter\Event;
+use Projectionist\Adapter\EventWrapper;
 use Projectionist\Config;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorPosition;
@@ -56,7 +56,7 @@ class ProjectorPlayer
     // TODO: Remove or refactor, update test
     public static function playEventIntoProjector(
         EventHandler $projector_player,
-        Event $event,
+        EventWrapper $event,
         ProjectorPosition $projector_position,
         $projector
     ) {

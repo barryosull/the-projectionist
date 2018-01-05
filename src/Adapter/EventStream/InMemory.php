@@ -1,7 +1,6 @@
 <?php namespace Projectionist\Adapter\EventStream;
 
-use Projectionist\Adapter\Event\InMemory;
-use Projectionist\Services;
+use Projectionist\Adapter\EventWrapper\Identifiable;
 use Illuminate\Support\Collection;
 
 class InMemory implements \Projectionist\Adapter\EventStream
@@ -13,12 +12,12 @@ class InMemory implements \Projectionist\Adapter\EventStream
         $this->events = new Collection($events);
     }
 
-    /** @return \Projectionist\Adapter\Event */
+    /** @return \Projectionist\Adapter\EventWrapper */
     public function next()
     {
         $event = $this->events->shift();
         if ($event) {
-            return new InMemory($event);
+            return new Identifiable($event);
         }
         return null;
     }

@@ -1,6 +1,6 @@
 <?php namespace Projectionist\Adapter\EventStore;
 
-use Projectionist\Adapter\Event;
+use Projectionist\Adapter\EventWrapper;
 use Projectionist\Adapter\EventStream;
 
 class InMemory implements \Projectionist\Adapter\EventStore
@@ -17,13 +17,13 @@ class InMemory implements \Projectionist\Adapter\EventStore
         return count(self::$events) != 0;
     }
 
-    public function latestEvent(): \Projectionist\Adapter\Event
+    public function latestEvent(): \Projectionist\Adapter\EventWrapper
     {
         $event = last(self::$events);
         if (!$event) {
             throw new \Exception("No events in the EventStore");
         }
-        return new Event\InMemory($event);
+        return new EventWrapper\Identifiable($event);
     }
 
     public function getStream($last_event_id): \Projectionist\Adapter\EventStream

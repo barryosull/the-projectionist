@@ -1,6 +1,6 @@
 <?php namespace Projectionist\Adapter\EventStore;
 
-use Projectionist\Adapter\Event;
+use Projectionist\Adapter\EventWrapper;
 use Projectionist\Adapter\EventStream;
 
 class EventSourced implements \Projectionist\Adapter\EventStore
