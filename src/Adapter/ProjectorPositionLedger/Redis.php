@@ -6,6 +6,7 @@ use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
 use Predis;
 
+// TODO: Write test
 class Redis implements ProjectorPositionLedger
 {
     private $redis;
