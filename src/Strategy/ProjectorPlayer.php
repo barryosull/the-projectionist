@@ -4,6 +4,7 @@ use Projectionist\Adapter\Event;
 use Projectionist\Config;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorPosition;
+use Projectionist\ValueObjects\ProjectorReferenceCollection;
 
 class ProjectorPlayer
 {
@@ -18,7 +19,14 @@ class ProjectorPlayer
         $this->event_handler = $adapter->eventHandler();
     }
 
-    public function play(ProjectorReference $projector_reference)
+    public function play(ProjectorReferenceCollection $projector_references)
+    {
+        foreach ($projector_references as $projector_reference) {
+            $this->playProjector($projector_reference);
+        }
+    }
+
+    private function playProjector(ProjectorReference $projector_reference)
     {
         $projector_position = $this->projector_position_ledger->fetch($projector_reference);
         if (!$projector_position) {

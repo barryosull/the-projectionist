@@ -1,6 +1,7 @@
 <?php namespace Projectionist\Services;
 
 use Projectionist\Adapter\ProjectorPositionLedger;
+use Projectionist\Config;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 
 class ProjectorQueryable
@@ -8,9 +9,9 @@ class ProjectorQueryable
     private $projector_position_repository;
     private $projector_references;
 
-    public function __construct(ProjectorPositionLedger $position_ledger, ProjectorReferenceCollection $projector_references)
+    public function __construct(Config $config, ProjectorReferenceCollection $projector_references)
     {
-        $this->projector_position_repository = $position_ledger;
+        $this->projector_position_repository = $config->projectorPositionLedger();
         $this->projector_references = $projector_references;
     }
 
