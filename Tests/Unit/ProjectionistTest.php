@@ -18,7 +18,6 @@ use Prophecy\Argument;
 class ProjectionistTest extends \PHPUnit_Framework_TestCase
 {
     // TODO: Move to own Projectorlayer test class
-    // TODO: Clean this up, too much messy logic
     public function test_broken_projectors_are_marked_as_broken_and_the_error_is_bubbled_up()
     {
         $player = new ClassName();

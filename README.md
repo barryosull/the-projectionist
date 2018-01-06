@@ -124,9 +124,6 @@ class Projector
 }
 ```
 
-## Broken projectors
-Sometimes projector break, like when an API call or SQL query fails. When this happens, they'll throw and exception and the projectionist will catch it and mark the projector as broken, before throwing the exception itself. Broken projectors should not run and thus will not run. This projector must be fixed and have it's version bumped before it can run again.
-
 ## Versioning and the power of seamless deploys
 Projectors can be versioned. This means that while it is the same projector, it has changed in some way that requires all the events to be played though again.
 
@@ -147,14 +144,13 @@ class Projector
 
 Be default each projector is assumed to be version 1. When you need to bump the version, simple define the const and bump the number, the projectionist will take care of the rest.
 
+
+## Broken projectors
+Sometimes projectors break, like when an API call or SQL query fails. The projectionist catches any uncaught throwables, and marks the projector as broken, before wrapping the exception and throwing it again. This way your error handler can still process the error. Broken projectors should not run and thus will not run. This projector must be fixed and have it's version bumped before it can run again.
+
+
 ## TODOs
 My list of todos for this project
-
-- Figure out how to handle exceptions properly. 
-Harder than it sounds, we need to report the error, but also mark the projectionist as broken
-Should work differently depending on if it's a boot, or a play.
-On boot, report the error and stop the process
-On play, mark the projector as broken and report the error
   
 - Get Redis ProjectorPositionLedger tests to pass
 - Restructure test folders to make more sense
