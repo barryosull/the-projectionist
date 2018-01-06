@@ -2,6 +2,10 @@
 
 use Projectionist\Strategy\EventHandler;
 
+/**
+ *
+ *
+ */
 class ClassName implements EventHandler
 {
     public function handle($event, $projector)
