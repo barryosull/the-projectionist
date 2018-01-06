@@ -61,7 +61,7 @@ class ProjectorPlayer
         $projector
     ) {
         try {
-            $projector_player->handle($event, $projector);
+            $projector_player->handle($event->wrappedEvent(), $projector);
             $projector_position = $projector_position->played($event);
         } catch (\Throwable $t) {
             $projector_position = $projector_position->broken();
