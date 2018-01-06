@@ -1,7 +1,7 @@
 <?php namespace Projectionist\Strategy;
 
-use Projectionist\Adapter\EventWrapper;
 use Projectionist\Config;
+use Projectionist\Services\ProjectorException;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
@@ -43,29 +43,15 @@ class ProjectorPlayer
             if ($event == null) {
                 break;
             }
-
-            $projector_position = self::playEventIntoProjector($this->event_handler, $event, $projector_position, $projector_reference->projector());
-
-            if ($projector_position->is_broken) {
-                break;
+            try {
+                $this->event_handler->handle($event->wrappedEvent(), $projector_reference->projector());
+                $projector_position = $projector_position->played($event);
+            } catch (\Throwable $t) {
+                $projector_position = $projector_position->broken();
+                $this->projector_position_ledger->store($projector_position);
+                throw new ProjectorException("A projector threw an unexpected failure, marking as broken", $t->getCode(), $t);
             }
         }
         $this->projector_position_ledger->store($projector_position);
-    }
-
-    // TODO: Remove or refactor, update test
-    public static function playEventIntoProjector(
-        EventHandler $projector_player,
-        EventWrapper $event,
-        ProjectorPosition $projector_position,
-        $projector
-    ) {
-        try {
-            $projector_player->handle($event->wrappedEvent(), $projector);
-            $projector_position = $projector_position->played($event);
-        } catch (\Throwable $t) {
-            $projector_position = $projector_position->broken();
-        }
-        return $projector_position;
     }
 }

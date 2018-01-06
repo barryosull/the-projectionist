@@ -39,6 +39,7 @@ class Projectionist
         $projectors = $this->projector_queryable->allProjectors();
 
         $active_projectors = $projectors->exclude(ProjectorMode::RUN_ONCE);
+
         $this->projector_player->play($active_projectors);
     }
 }

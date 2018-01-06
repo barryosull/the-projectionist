@@ -2,7 +2,7 @@
 
 If you are building an EventSourced/CQRS system in PHP, you need a solid system to handle building your projections. Enter the "projectionist".
 
-This is a library that makes it easy to consume events and manage the lifecycle of projectors in PHP. It's based on a lot of trial and error from building these kinds of systems, so my hope is that it will allow others to leapfrog us and gain from our mistakes.
+This is a library that makes it easy to consume events and manage the lifecycle of projectors in PHP, keeping track of where each projector is in the event stream. It's based on a lot of trial and error from building these kinds of systems, so my hope is that it will allow others to leapfrog us and gain from our mistakes.
 
 ![Projectionist in action](https://res.cloudinary.com/practicaldev/image/fetch/s--0Wje2n09--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/ea3uvjpnhca5wokt6tnx.png)
 
@@ -124,6 +124,9 @@ class Projector
 }
 ```
 
+## Broken projectors
+Sometimes projector break, like when an API call or SQL query fails. When this happens, they'll throw and exception and the projectionist will catch it and mark the projector as broken, before throwing the exception itself. Broken projectors should not run and thus will not run. This projector must be fixed and have it's version bumped before it can run again.
+
 ## Versioning and the power of seamless deploys
 Projectors can be versioned. This means that while it is the same projector, it has changed in some way that requires all the events to be played though again.
 
@@ -147,6 +150,12 @@ Be default each projector is assumed to be version 1. When you need to bump the 
 ## TODOs
 My list of todos for this project
 
+- Figure out how to handle exceptions properly. 
+Harder than it sounds, we need to report the error, but also mark the projectionist as broken
+Should work differently depending on if it's a boot, or a play.
+On boot, report the error and stop the process
+On play, mark the projector as broken and report the error
+  
 - Get Redis ProjectorPositionLedger tests to pass
 - Restructure test folders to make more sense
 - Write a better tutorial for the adapters
