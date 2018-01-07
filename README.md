@@ -151,7 +151,9 @@ Sometimes projectors break, like when an API call or SQL query fails. The projec
 
 ## TODOs
 My list of todos for this project
-  
+- Broken projectors update
+    - boot should attempt to play any broken projectors forward, to make releasing fixes easier
+    - play should ignore broken projectors  
 - Get Redis ProjectorPositionLedger tests to pass
 - Restructure test folders to make more sense
 - Write a better tutorial for the adapters
