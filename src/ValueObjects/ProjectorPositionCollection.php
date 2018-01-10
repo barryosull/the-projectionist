@@ -21,11 +21,18 @@ class ProjectorPositionCollection extends Collection
 
     public function hasReference(ProjectorReference $projector_reference): bool
     {
-        $position = $this->first(function(ProjectorPosition $position) use ($projector_reference){
+        return $this->getByReference($projector_reference) != null;
+    }
+
+    /**
+     * @param ProjectorReference $projector_reference
+     * @return ProjectorPosition
+     */
+    public function getByReference(ProjectorReference $projector_reference)
+    {
+         return $this->first(function(ProjectorPosition $position) use ($projector_reference){
             return $position->projector_reference->equals($projector_reference);
         });
-
-        return $position != null;
     }
 
     public function references(): ProjectorReferenceCollection

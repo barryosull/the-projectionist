@@ -41,7 +41,7 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
         $expected = new ProjectorReferenceCollection([$ref]);
 
-        $actual = $this->makeQueryable([$projector])->newProjectors();
+        $actual = $this->makeQueryable([$projector])->newOrBrokenProjectors();
 
         $this->assertEquals($expected, $actual);
     }
@@ -58,7 +58,21 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
         $expected = new ProjectorReferenceCollection([$ref_2, $ref_3]);
 
-        $actual = $this->makeQueryable([new RunFromStart, new RunOnce, new RunFromLaunch])->newProjectors();
+        $actual = $this->makeQueryable([new RunFromStart, new RunOnce, new RunFromLaunch])->newOrBrokenProjectors();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function test_broken_projectors_are_returned()
+    {
+        $ref_1 = ProjectorReference::makeFromProjector(new RunFromStart);
+        $pos_1 = ProjectorPosition::makeNewUnplayed($ref_1)->broken();
+
+        $this->repo->all()->willReturn(new ProjectorPositionCollection([$pos_1]));
+
+        $expected = new ProjectorReferenceCollection([$ref_1]);
+
+        $actual = $this->makeQueryable([$ref_1->projector()])->newOrBrokenProjectors();
 
         $this->assertEquals($expected, $actual);
     }
@@ -78,7 +92,7 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
         $expected = new ProjectorReferenceCollection([$ref_higher_version]);
 
-        $actual = $this->makeQueryable([$projector])->newProjectors();
+        $actual = $this->makeQueryable([$projector])->newOrBrokenProjectors();
 
         $this->assertEquals($expected, $actual);
     }

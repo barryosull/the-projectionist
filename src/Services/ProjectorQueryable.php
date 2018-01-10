@@ -15,11 +15,11 @@ class ProjectorQueryable
         $this->projector_references = $projector_references;
     }
 
-    public function newProjectors(): ProjectorReferenceCollection
+    public function newOrBrokenProjectors(): ProjectorReferenceCollection
     {
         $projector_positions = $this->projector_position_repository->all();
 
-        return $this->projector_references->extractNewProjectors($projector_positions);
+        return $this->projector_references->extractNewOrBrokenProjectors($projector_positions);
     }
 
     public function allProjectors(): ProjectorReferenceCollection

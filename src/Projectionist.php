@@ -25,7 +25,7 @@ class Projectionist
 
     public function boot()
     {
-        $new_projectors = $this->projector_queryable->newProjectors();
+        $new_projectors = $this->projector_queryable->newOrBrokenProjectors();
 
         $skip_to_now_projectors = $new_projectors->extract(ProjectorMode::RUN_FROM_LAUNCH);
         $this->projector_skipper->skip($skip_to_now_projectors);

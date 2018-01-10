@@ -33,10 +33,14 @@ class ProjectorReferenceCollection extends Collection
         })->values();
     }
 
-    public function extractNewProjectors(ProjectorPositionCollection $projector_positions)
+    public function extractNewOrBrokenProjectors(ProjectorPositionCollection $projector_positions)
     {
         return $this->filter(function(ProjectorReference $projector_reference) use ($projector_positions){
-            return !$projector_positions->hasReference($projector_reference);
+            $projection_pos = $projector_positions->getByReference($projector_reference);
+            if (!$projection_pos) {
+                return true;
+            }
+            return $projection_pos->is_broken;
         })->values();
     }
 
