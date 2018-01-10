@@ -32,9 +32,9 @@ class ProjectorPosition
         return new ProjectorPosition(
             $this->projector_reference,
             $event_count,
-            $event->id(),
             date('Y-m-d H:i:s'),
-            $this->is_broken
+            $event->id(),
+            false
         );
     }
 
@@ -43,8 +43,8 @@ class ProjectorPosition
         return new ProjectorPosition(
             $this->projector_reference,
             $this->processed_events,
-            $this->last_event_id,
             date('Y-m-d H:i:s'),
+            $this->last_event_id,
             true
         );
     }

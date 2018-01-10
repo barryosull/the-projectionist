@@ -19,21 +19,31 @@ class ProjectorPlayer
         $this->event_handler = $adapter->eventHandler();
     }
 
-    public function play(ProjectorReferenceCollection $projector_references)
+    public function playAll(ProjectorReferenceCollection $projector_references)
     {
+        $play_broken = true;
         foreach ($projector_references as $projector_reference) {
-            $this->playProjector($projector_reference);
+            $this->playProjector($projector_reference, $play_broken);
         }
     }
 
-    private function playProjector(ProjectorReference $projector_reference)
+    public function playUnbroken(ProjectorReferenceCollection $projector_references)
+    {
+        $play_broken = false;
+        foreach ($projector_references as $projector_reference) {
+            $this->playProjector($projector_reference, $play_broken);
+        }
+    }
+
+    private function playProjector(ProjectorReference $projector_reference, bool $play_broken)
     {
         $projector_position = $this->projector_position_ledger->fetch($projector_reference);
+
         if (!$projector_position) {
             $projector_position = ProjectorPosition::makeNewUnplayed($projector_reference);
         }
 
-        if ($projector_position->is_broken) {
+        if ($projector_position->is_broken && !$play_broken) {
             return;
         }
 
@@ -52,6 +62,7 @@ class ProjectorPlayer
                 throw new ProjectorException("A projector threw an unexpected failure, marking as broken", $t->getCode(), $t);
             }
         }
+
         $this->projector_position_ledger->store($projector_position);
     }
 }
