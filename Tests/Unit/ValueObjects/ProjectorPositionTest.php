@@ -1,8 +1,10 @@
 <?php namespace ProjectonistTests\Projectionist\ValueObjects;
 
+use Projectionist\Adapter\EventWrapper\Identifiable;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
+use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 
 class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,6 +27,29 @@ class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
 
         $broken = $position->broken();
 
-        $this->assertTrue($broken->is_broken);
+        $this->assertIsBroken($broken);
+        $this->assertLastValidEventIdIsStillSet($last_event_id, $broken);
+    }
+
+    private function assertIsBroken(ProjectorPosition $actual)
+    {
+        $this->assertTrue($actual->is_broken);
+    }
+
+    private function assertLastValidEventIdIsStillSet($expected, ProjectorPosition $actual)
+    {
+        $this->assertEquals($expected, $actual->last_event_id);
+    }
+
+    public function test_marking_an_event_as_processed()
+    {
+        $ref = ProjectorReference::make(new RunOnce, 1);
+        $event_id = '6c040404-80fd-4a4d-98d6-547344d4873a';
+        $position = ProjectorPosition::makeNewUnplayed($ref);
+
+        $position = $position->played(new Identifiable(new ThingHappened($event_id)));
+
+        $this->assertEquals($event_id, $position->last_event_id);
+        $this->assertEquals(1, $position->processed_events);
     }
 }
