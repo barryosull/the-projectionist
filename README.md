@@ -144,16 +144,16 @@ class Projector
 
 Be default each projector is assumed to be version 1. When you need to bump the version, simple define the const and bump the number, the projectionist will take care of the rest.
 
-
 ## Broken projectors
-Sometimes projectors break, like when an API call or SQL query fails. The projectionist catches any uncaught throwables, and marks the projector as broken, before wrapping the exception and throwing it again. This way your error handler can still process the error. Broken projectors should not run and thus will not run. This projector must be fixed and have it's version bumped before it can run again.
+Sometimes projectors break, say you have a bug in your code, or an API call, or an SQL query fails, etc... The projectionist catches any uncaught throwables, and marks the projector as broken, before wrapping the exception and throwing it again. This way your error handler can still process the error. 
 
+Broken projectors are ignored by the `play` method, if they're broken they should be ignored, while working projectors should carry on as normal. 
+
+Fixing broken projectors is easy. The `boot` method will attempt to play broken projectors from where they left off, so if your you release a fix for a projector, `boot` will play it to the latest event from it's last valid position.
 
 ## TODOs
 My list of todos for this project
-- Broken projectors update
-    - boot should attempt to play any broken projectors forward, to make releasing fixes easier
-    - play should ignore broken projectors  
+- Broken projectors should keep track of their last valid position
 - Get Redis ProjectorPositionLedger tests to pass
 - Restructure test folders to make more sense
 - Write a better tutorial for the adapters
