@@ -155,9 +155,57 @@ If a projector fails during boot, all other projectors are marked as "stalled", 
 
 ## TODOs
 My list of todos for this project
-- Simplify 'fetchCollection' logic embedded in tests, its's getting hard to decipher and may not be required anymore
+
 - Create Concrete config class
-- Change last_event_id to "position", more generic and makes more sense
+```php
+<?php
+
+class Config {
+
+    private $projector_position_ledger;
+    private $event_store;
+    private $event_handler;
+
+    public function __construct(
+        ProjectorPositionLedger $projector_position_ledger,
+        EventStore $event_store,
+        EventHandler $event_handler
+    ) {
+        $this->projector_position_ledger = $projector_position_ledger;
+        $this->event_store = $event_store;
+        $this->event_handler = $event_handler;
+    }
+    
+    public function projectorPositionLedger(): ProjectorPositionLedger
+    {
+        return $this->projector_position_ledger;
+    }
+    
+    public function eventStore(): EventStore
+    {
+        return $this->event_store;
+    }
+
+    public function eventHandler(): EventHandler
+    {
+        return $this->event_handler;
+    }
+}
+
+class InMemory
+{
+    public static function make(): Config
+    {
+        $projector_position_ledger = new Adapter\ProjectorPositionLedger\InMemory();
+        $event_store = new Adapter\EventStore\InMemory();
+        $event_handler = new EventHandler\ClassName();
+        
+        return new Config($projector_position_ledger, $event_store, $event_handler);
+    }
+}
+```
+
+- Simplify 'fetchCollection' logic embedded in tests, its's getting hard to decipher and may not be required anymore
 - Get Redis ProjectorPositionLedger tests to pass
 - Restructure test folders to make more sense
 - Write a better tutorial for the adapters
