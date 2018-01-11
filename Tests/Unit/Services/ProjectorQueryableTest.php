@@ -38,13 +38,14 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
     {
         $projector = new RunFromStart;
         $ref = ProjectorReference::makeFromProjector($projector);
-        $this->repo->all()->willReturn(new ProjectorPositionCollection([]));
 
-        $expected = new ProjectorReferenceCollection([$ref]);
+        $references = new ProjectorReferenceCollection([$ref]);
+
+        $this->repo->fetchCollection($references)->willReturn(new ProjectorPositionCollection([]));
 
         $actual = $this->makeQueryable([$projector])->newOrBrokenProjectors();
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($references, $actual);
     }
 
     public function test_that_stored_projectors_are_not_considered_new()
@@ -55,11 +56,14 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
         $pos_1 = ProjectorPosition::makeNewUnplayed($ref_1);
 
-        $this->repo->all()->willReturn(new ProjectorPositionCollection([$pos_1]));
+        $projectors = [new RunFromStart, new RunOnce, new RunFromLaunch];
+        $references = ProjectorReferenceCollection::fromProjectors($projectors);
+
+        $this->repo->fetchCollection($references)->willReturn(new ProjectorPositionCollection([$pos_1]));
 
         $expected = new ProjectorReferenceCollection([$ref_2, $ref_3]);
 
-        $actual = $this->makeQueryable([new RunFromStart, new RunOnce, new RunFromLaunch])->newOrBrokenProjectors();
+        $actual = $this->makeQueryable($projectors)->newOrBrokenProjectors();
 
         $this->assertEquals($expected, $actual);
     }
@@ -69,7 +73,9 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
         $ref_1 = ProjectorReference::makeFromProjector(new RunFromStart);
         $pos_1 = ProjectorPosition::makeNewUnplayed($ref_1)->broken();
 
-        $this->repo->all()->willReturn(new ProjectorPositionCollection([$pos_1]));
+        $references = new ProjectorReferenceCollection([$ref_1]);
+
+        $this->repo->fetchCollection($references)->willReturn(new ProjectorPositionCollection([$pos_1]));
 
         $expected = new ProjectorReferenceCollection([$ref_1]);
 
@@ -81,15 +87,17 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
     public function test_projectors_with_a_higher_version_than_stored_are_considered_new()
     {
         $projector = new RunOnce;
-        $ref = ProjectorReference::make($projector, 1);
-        $ref_higher_version = ProjectorReference::make($projector, 2);
+        $ref = ProjectorReference::makeFromProjectorWithVersion($projector, 1);
+        $ref_higher_version = ProjectorReference::makeFromProjectorWithVersion($projector, 2);
 
         $processed_events = 2;
         $occurred_at = date('Y-m-d H:i:s');
         $last_event_id = '6c040404-80fd-4a4d-98d6-547344d4873a';
         $pos_1 = new ProjectorPosition($ref, $processed_events, $occurred_at, $last_event_id, ProjectorStatus::broken());
 
-        $this->repo->all()->willReturn(new ProjectorPositionCollection([$pos_1]));
+        $references = ProjectorReferenceCollection::fromProjectors([$projector]);
+
+        $this->repo->fetchCollection($references)->willReturn(new ProjectorPositionCollection([$pos_1]));
 
         $expected = new ProjectorReferenceCollection([$ref_higher_version]);
 

@@ -11,7 +11,7 @@ class ProjectorPositionCollectionTest extends \PHPUnit_Framework_TestCase
     public function test_if_a_collection_has_a_reference()
     {
         $ref_1 = ProjectorReference::makeFromProjector(new RunFromStart);
-        $ref_1_bumped = ProjectorReference::make(new RunFromStart, 2);
+        $ref_1_bumped = ProjectorReference::makeFromProjectorWithVersion(new RunFromStart, 2);
         $ref_2 = ProjectorReference::makeFromProjector(new RunOnce);
 
         $collection = new ProjectorPositionCollection([

@@ -29,15 +29,10 @@ class InMemory implements \Projectionist\Adapter\ProjectorPositionLedger
     public function fetch(ProjectorReference $projector_reference)
     {
         $key = $projector_reference->class_path.'-'.$projector_reference->version;
-        if (isset($this->store[$key])) {
-            return $this->store[$key];
+        if (!isset($this->store[$key])) {
+            return null;
         }
-        return null;
-    }
-
-    public function all(): ProjectorPositionCollection
-    {
-        return new ProjectorPositionCollection(array_values($this->store));
+        return $this->store[$key];
     }
 
     public function fetchCollection(ProjectorReferenceCollection $references): ProjectorPositionCollection
@@ -46,6 +41,6 @@ class InMemory implements \Projectionist\Adapter\ProjectorPositionLedger
             return $this->fetch($ref);
         }, $references->toArray());
 
-        return new ProjectorPositionCollection($positions);
+        return new ProjectorPositionCollection(array_filter($positions));
     }
 }

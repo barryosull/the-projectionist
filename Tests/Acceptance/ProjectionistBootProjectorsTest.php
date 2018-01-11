@@ -23,6 +23,9 @@ class ProjectionistBootProjectorsTest extends \PHPUnit_Framework_TestCase
 
     private $projectors;
 
+    /** @var ProjectorReferenceCollection $projector_refs */
+    private $projector_refs;
+
     public function setUp()
     {
         $this->adapter_factory = new Config\InMemory();
@@ -30,6 +33,7 @@ class ProjectionistBootProjectorsTest extends \PHPUnit_Framework_TestCase
         $projectionist_factory = new ProjectionistFactory($this->adapter_factory);
 
         $this->projectors = require "Tests/projectors.php";
+        $this->projector_refs = ProjectorReferenceCollection::fromProjectors($this->projectors);
 
         $this->projectionist = $projectionist_factory->make($this->projectors);
 
@@ -53,17 +57,15 @@ class ProjectionistBootProjectorsTest extends \PHPUnit_Framework_TestCase
 
     public function tests_boots_all_projectors_if_none_has_been_stored()
     {
-        $this->assertEmpty($this->projector_position_repo->all());
+        $this->assertEmpty($this->projector_position_repo->fetchCollection($this->projector_refs));
 
         $this->projectionist->boot();
 
-        $stored_projector_positions = $this->projector_position_repo->all();
+        $stored_projector_positions = $this->projector_position_repo->fetchCollection($this->projector_refs);
 
         $actual = $stored_projector_positions->references();
 
-        $expected = ProjectorReferenceCollection::fromProjectors($this->projectors);
-
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($this->projector_refs, $actual);
     }
 
     public function test_events_are_not_played_into_run_from_launch_projectors()

@@ -17,7 +17,7 @@ class ProjectorQueryable
 
     public function newOrBrokenProjectors(): ProjectorReferenceCollection
     {
-        $projector_positions = $this->projector_position_ledger->all();
+        $projector_positions = $this->projector_position_ledger->fetchCollection($this->projector_references);
 
         return $this->projector_references->extractNewOrFailedProjectors($projector_positions);
     }

@@ -45,10 +45,10 @@ class EventSourced implements \Projectionist\Adapter\ProjectorPositionLedger
             return null;
         }
 
-        return $this->convertRowToPosition($row);
+        return $this->convertRowToPosition($projector_reference, $row);
     }
 
-    public function all(): ProjectorPositionCollection
+    public function fetchCollection(): ProjectorPositionCollection
     {
         $rows = $this->table->get();
 
@@ -57,11 +57,10 @@ class EventSourced implements \Projectionist\Adapter\ProjectorPositionLedger
         }, $rows));
     }
 
-    private function convertRowToPosition($row): ProjectorPosition
+    private function convertRowToPosition(ProjectorReference $projector_reference, array $row): ProjectorPosition
     {
-        // TODO: figure out how to reload the projector, may need to store things differently
         return new ProjectorPosition(
-            $row['class_name'],
+            $projector_reference,
             $row['version'],
             $row['last_id'],
             $row['occurred_at'],

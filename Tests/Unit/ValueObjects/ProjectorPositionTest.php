@@ -20,7 +20,7 @@ class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
 
     public function test_marking_a_position_as_broken()
     {
-        $ref = ProjectorReference::make(new RunOnce, 1);
+        $ref = ProjectorReference::makeFromProjectorWithVersion(new RunOnce, 1);
         $processed_events = 2;
         $occurred_at = date('Y-m-d H:i:s');
         $last_event_id = '6c040404-80fd-4a4d-98d6-547344d4873a';
@@ -44,7 +44,7 @@ class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
 
     public function test_marking_an_event_as_processed()
     {
-        $ref = ProjectorReference::make(new RunOnce, 1);
+        $ref = ProjectorReference::makeFromProjectorWithVersion(new RunOnce, 1);
         $event_id = '6c040404-80fd-4a4d-98d6-547344d4873a';
         $position = ProjectorPosition::makeNewUnplayed($ref);
 

@@ -4,6 +4,17 @@ use Illuminate\Support\Collection;
 
 class ProjectorReferenceCollection extends Collection
 {
+    public static function fromProjectors(array $projectors): ProjectorReferenceCollection
+    {
+        return new ProjectorReferenceCollection(array_map(function($projector){
+            if (!is_object($projector)) {
+                throw new \Exception("One of the projectors is not an object, cannot be used as a projector");
+            }
+            return ProjectorReference::makeFromProjector($projector);
+        }, $projectors));
+    }
+
+
     public function __construct($items = [])
     {
         parent::__construct($items);
@@ -44,13 +55,10 @@ class ProjectorReferenceCollection extends Collection
         })->values();
     }
 
-    public static function fromProjectors(array $projectors): ProjectorReferenceCollection
+    public function projectors(): array
     {
-        return new ProjectorReferenceCollection(array_map(function($projector){
-            if (!is_object($projector)) {
-                throw new \Exception("One of the projectors is not an object, cannot be used as a projector");
-            }
-            return ProjectorReference::makeFromProjector($projector);
-        }, $projectors));
+        return array_map(function(ProjectorReference $reference){
+            return $reference->projector();
+        }, $this->toArray());
     }
 }

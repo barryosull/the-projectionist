@@ -4,6 +4,7 @@ use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
+use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
@@ -57,23 +58,31 @@ abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCa
         $this->repo->store($pos_2);
         $this->repo->store($pos_3);
 
+        $references = new ProjectorReferenceCollection([$pos_1->projector_reference, $pos_2->projector_reference, $pos_3->projector_reference]);
+
         $expected = new ProjectorPositionCollection([$pos_1, $pos_2, $pos_3]);
 
-        $this->assertEquals($expected, $this->repo->all());
+        $actual = $this->repo->fetchCollection($references);
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function test_stores_by_reference_and_version()
     {
         $pos_1 = $this->makePosition(new RunFromStart);
         $pos_1_bumped_version = ProjectorPosition::makeNewUnplayed(
-            ProjectorReference::make(new RunFromStart, 2)
+            ProjectorReference::makeFromProjectorWithVersion(new RunFromStart, 2)
         );
 
         $this->repo->store($pos_1);
         $this->repo->store($pos_1_bumped_version);
 
+        $references = new ProjectorReferenceCollection([$pos_1->projector_reference, $pos_1_bumped_version->projector_reference]);
+
         $expected = new ProjectorPositionCollection([$pos_1, $pos_1_bumped_version]);
 
-        $this->assertEquals($expected, $this->repo->all());
+        $actual = $this->repo->fetchCollection($references);
+
+        $this->assertEquals($expected, $actual);
     }
 }

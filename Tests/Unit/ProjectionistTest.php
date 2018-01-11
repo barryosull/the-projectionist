@@ -73,15 +73,17 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
         $ref = ProjectorReference::makeFromProjector($projector);
         $position = ProjectorPosition::makeNewUnplayed($ref)->broken();
 
+        $references = ProjectorReferenceCollection::fromProjectors([$projector]);
+
         $position_ledger->fetch($ref)->willReturn($position);
         $position_ledger->store(Argument::cetera())->shouldBeCalled();
-        $position_ledger->all()->willReturn(new ProjectorPositionCollection([$position]));
+        $position_ledger->fetchCollection($references)->willReturn(new ProjectorPositionCollection([$position]));
 
         $event = new ThingHappened('');
 
         $adapter = $this->makeAdapter($player->reveal(), $position_ledger->reveal(), [$event]);
 
-        $projectionist = new Projectionist($adapter, ProjectorReferenceCollection::fromProjectors([$projector]));
+        $projectionist = new Projectionist($adapter, $references);
 
         $projectionist->boot();
 

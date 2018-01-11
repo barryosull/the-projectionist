@@ -13,6 +13,4 @@ interface ProjectorPositionLedger
     public function fetch(ProjectorReference $projector_reference);
 
     public function fetchCollection(ProjectorReferenceCollection $references): ProjectorPositionCollection;
-
-    public function all(): ProjectorPositionCollection;
 }

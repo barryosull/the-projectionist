@@ -13,17 +13,16 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit_Framework_TestCase
         $adapter_factory = new Config\InMemory();
         $projectionist_factory = new ProjectionistFactory($adapter_factory);
         $projectors = [new RunFromLaunch, new RunFromStart];
+        $projector_refs = ProjectorReferenceCollection::fromProjectors($projectors);
         $projectionist = $projectionist_factory->make($projectors);
         $adapter_factory->projectorPositionLedger()->reset();
 
         $projectionist->play();
 
-        $stored_projector_positions = $adapter_factory->projectorPositionLedger()->all();
+        $stored_projector_positions = $adapter_factory->projectorPositionLedger()->fetchCollection($projector_refs);
 
         $actual = $stored_projector_positions->references();
 
-        $expected = ProjectorReferenceCollection::fromProjectors($projectors);
-
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($projector_refs, $actual);
     }
 }

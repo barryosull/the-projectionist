@@ -36,7 +36,7 @@ class Redis implements ProjectorPositionLedger
         return unserialize($serialized);
     }
 
-    public function all(): ProjectorPositionCollection
+    public function fetchCollection(): ProjectorPositionCollection
     {
         $positions_serialized = $this->redis->hgetall(self::STORE);
 
