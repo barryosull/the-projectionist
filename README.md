@@ -153,7 +153,8 @@ Fixing broken projectors is easy. The `boot` method will attempt to play broken 
 
 ## TODOs
 My list of todos for this project
-- Broken projectors should keep track of their last valid position
+- Boot should also play projectors that were stalled by a preview broken boot process. 
+    Ie. If one projector breaks, other booted projectors are still set at their last processed value, they should pick up from there
 - Get Redis ProjectorPositionLedger tests to pass
 - Restructure test folders to make more sense
 - Write a better tutorial for the adapters

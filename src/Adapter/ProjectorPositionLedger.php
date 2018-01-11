@@ -3,6 +3,7 @@
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
+use Projectionist\ValueObjects\ProjectorReferenceCollection;
 
 interface ProjectorPositionLedger
 {
@@ -10,6 +11,8 @@ interface ProjectorPositionLedger
 
     /** @return ProjectorPosition */
     public function fetch(ProjectorReference $projector_reference);
+
+    public function fetchCollection(ProjectorReferenceCollection $references): ProjectorPositionCollection;
 
     public function all(): ProjectorPositionCollection;
 }

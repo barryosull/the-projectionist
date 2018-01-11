@@ -41,4 +41,11 @@ class ProjectorPositionCollection extends Collection
             return $pos->projector_reference;
         }, $this->all()));
     }
+
+    public function filterOutBroken(): ProjectorPositionCollection
+    {
+        return $this->filter(function(ProjectorPosition $projector_position){
+            return $projector_position->is_broken === false;
+        });
+    }
 }
