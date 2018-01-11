@@ -39,7 +39,7 @@ class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
 
     private function assertLastValidEventIdIsStillSet($expected, ProjectorPosition $actual)
     {
-        $this->assertEquals($expected, $actual->last_event_id);
+        $this->assertEquals($expected, $actual->last_position);
     }
 
     public function test_marking_an_event_as_processed()
@@ -50,7 +50,7 @@ class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
 
         $position = $position->played(new Identifiable(new ThingHappened($event_id)));
 
-        $this->assertEquals($event_id, $position->last_event_id);
+        $this->assertEquals($event_id, $position->last_position);
         $this->assertEquals(1, $position->processed_events);
     }
 }

@@ -21,7 +21,7 @@ class EventSourced implements \Projectionist\Adapter\ProjectorPositionLedger
             'class_name' => $projector_position->projector_reference->class_path,
             'player_version' => $projector_position->projector_reference->version,
             'version' => $projector_position->processed_events,
-            'last_id' => $projector_position->last_event_id,
+            'last_id' => $projector_position->last_position,
             'status' => $projector_position->status,
             'occurred_at' => $projector_position->occurred_at
         ];

@@ -97,7 +97,7 @@ class ProjectorPlayer
 
     private function playProjector(ProjectorPosition $projector_position)
     {
-        $event_stream = $this->event_store->getStream($projector_position->last_event_id);
+        $event_stream = $this->event_store->getStream($projector_position->last_position);
         $projector = $projector_position->projector_reference->projector();
 
         while ($event = $event_stream->next()) {

@@ -6,7 +6,7 @@ class ProjectorPosition
 {
     public $projector_reference;
     public $processed_events;
-    public $last_event_id;
+    public $last_position;
     public $occurred_at;
     public $status;
 
@@ -14,13 +14,13 @@ class ProjectorPosition
         ProjectorReference $projector_reference,
         int $processed_events,
         string $occurred_at,
-        string $last_event_id,
+        string $last_position,
         ProjectorStatus $status
     )
     {
         $this->projector_reference = $projector_reference;
         $this->processed_events = $processed_events;
-        $this->last_event_id = $last_event_id;
+        $this->last_position = $last_position;
         $this->occurred_at = $occurred_at;
         $this->status = $status;
     }
@@ -55,7 +55,7 @@ class ProjectorPosition
             $this->projector_reference,
             $this->processed_events,
             date('Y-m-d H:i:s'),
-            $this->last_event_id,
+            $this->last_position,
             ProjectorStatus::broken()
         );
     }
@@ -66,7 +66,7 @@ class ProjectorPosition
             $this->projector_reference,
             $this->processed_events,
             date('Y-m-d H:i:s'),
-            $this->last_event_id,
+            $this->last_position,
             ProjectorStatus::stalled()
         );
     }
