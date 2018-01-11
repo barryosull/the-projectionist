@@ -153,9 +153,11 @@ Fixing broken projectors is easy. The `boot` method will attempt to play broken 
 
 ## TODOs
 My list of todos for this project
+- Simplify 'fetchCollection' logic embedded in tests, its's getting hard to decipher and may not be required anymore
 - Boot should also play projectors that were stalled by a preview broken boot process. 
     Ie. If one projector breaks, other booted projectors are still set at their last processed value, they should pick up from there
-- Update ProjectorPosition so it doesn't require an instance of a projector, since we won't have one when we load it from infra (eg. Redis, MySQL)
+- Create Concrete config class
+- Change last_event_id to "position", more generic and makes more sense
 - Get Redis ProjectorPositionLedger tests to pass
 - Restructure test folders to make more sense
 - Write a better tutorial for the adapters

@@ -1,28 +1,74 @@
 <?php namespace ProjectonistTests\Acceptance;
 
+use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\Config;
 use Projectionist\ProjectionistFactory;
+use Projectionist\Services\ProjectorException;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
+use ProjectonistTests\Fakes\Projectors\BrokenProjector;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
+use ProjectonistTests\Fakes\Projectors\RunOnce;
 
 class ProjectionistPlayProjectorsTest extends \PHPUnit_Framework_TestCase
 {
-    public function test_does_not_play_run_once_projectors()
+    /** @var ProjectionistFactory */
+    private $projectionist_factory;
+
+    /** @var ProjectorPositionLedger */
+    private $projector_position_ledger;
+
+    public function setUp()
     {
         $adapter_factory = new Config\InMemory();
-        $projectionist_factory = new ProjectionistFactory($adapter_factory);
-        $projectors = [new RunFromLaunch, new RunFromStart];
-        $projector_refs = ProjectorReferenceCollection::fromProjectors($projectors);
-        $projectionist = $projectionist_factory->make($projectors);
         $adapter_factory->projectorPositionLedger()->reset();
+        $this->projectionist_factory = new ProjectionistFactory($adapter_factory);
+        $this->projector_position_ledger = $adapter_factory->projectorPositionLedger();
+    }
+
+    public function test_does_not_play_run_once_projectors()
+    {
+        $projectors = [new RunFromLaunch, new RunFromStart, new RunOnce()];
+        $projector_refs = ProjectorReferenceCollection::fromProjectors($projectors);
+        $projectionist = $this->projectionist_factory->make($projectors);
 
         $projectionist->play();
 
-        $stored_projector_positions = $adapter_factory->projectorPositionLedger()->fetchCollection($projector_refs);
+        $stored_projector_positions = $this->projector_position_ledger->fetchCollection($projector_refs);
+
+        $expected = ProjectorReferenceCollection::fromProjectors([new RunFromLaunch, new RunFromStart]);
 
         $actual = $stored_projector_positions->references();
 
-        $this->assertEquals($projector_refs, $actual);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function test_playing_a_broken_projector_fails()
+    {
+        $projectors = [new RunFromLaunch, new RunFromStart, new BrokenProjector()];
+
+        $projectionist = $this->projectionist_factory->make($projectors);
+
+        $this->expectException(ProjectorException::class);
+
+        $projectionist->play();
+    }
+
+    public function test_playing_after_a_failure_continues_normally()
+    {
+        $projectors = [new RunFromLaunch, new RunFromStart, new BrokenProjector()];
+
+        $projectionist = $this->projectionist_factory->make($projectors);
+
+        $first_play_failed = false;
+        try {
+            $projectionist->play();
+        } catch (ProjectorException $e) {
+            $first_play_failed = true;
+        }
+
+        $this->assertTrue($first_play_failed);
+
+        $projectionist->play();
     }
 }

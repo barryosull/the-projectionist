@@ -44,8 +44,6 @@ class ProjectorPlayer
             if ($projector_position->isFailing()) {
                 return;
             }
-
-            $this->playProjector($projector_position);
         }
     }
 

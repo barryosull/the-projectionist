@@ -20,9 +20,6 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
 
     /** Under test */
 
-    /** @var ProjectorQueryable */
-    private $queryable;
-
     public function setUp()
     {
         $this->repo = $this->prophesize(ProjectorPositionLedger::class);
