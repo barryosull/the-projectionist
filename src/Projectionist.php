@@ -31,7 +31,7 @@ class Projectionist
         $this->projector_skipper->skip($skip_to_now_projectors);
 
         $play_to_now_projectors = $new_projectors->exclude(ProjectorMode::RUN_FROM_LAUNCH);
-        $this->projector_player->playAll($play_to_now_projectors);
+        $this->projector_player->boot($play_to_now_projectors);
     }
 
     public function play()
@@ -40,6 +40,6 @@ class Projectionist
 
         $active_projectors = $projectors->exclude(ProjectorMode::RUN_ONCE);
 
-        $this->projector_player->playUnbroken($active_projectors);
+        $this->projector_player->play($active_projectors);
     }
 }

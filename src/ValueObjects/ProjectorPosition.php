@@ -60,6 +60,17 @@ class ProjectorPosition
         );
     }
 
+    public function stalled(): ProjectorPosition
+    {
+        return new ProjectorPosition(
+            $this->projector_reference,
+            $this->processed_events,
+            date('Y-m-d H:i:s'),
+            $this->last_event_id,
+            ProjectorStatus::stalled()
+        );
+    }
+
     public function isSame(ProjectorReference $current_projector)
     {
         return $this->projector_reference->equals($current_projector);
