@@ -42,10 +42,10 @@ class ProjectorPositionCollection extends Collection
         }, $this->all()));
     }
 
-    public function filterOutBroken(): ProjectorPositionCollection
+    public function filterOutFailing(): ProjectorPositionCollection
     {
         return $this->filter(function(ProjectorPosition $projector_position){
-            return $projector_position->is_broken === false;
+            return $projector_position->isFailing() === false;
         });
     }
 }

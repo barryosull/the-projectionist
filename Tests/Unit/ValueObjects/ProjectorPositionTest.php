@@ -3,6 +3,7 @@
 use Projectionist\Adapter\EventWrapper\Identifiable;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;
+use Projectionist\ValueObjects\ProjectorStatus;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 
@@ -23,17 +24,17 @@ class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
         $processed_events = 2;
         $occurred_at = date('Y-m-d H:i:s');
         $last_event_id = '6c040404-80fd-4a4d-98d6-547344d4873a';
-        $position = new ProjectorPosition($ref, $processed_events, $occurred_at, $last_event_id, false);
+        $position = new ProjectorPosition($ref, $processed_events, $occurred_at, $last_event_id, ProjectorStatus::broken());
 
         $broken = $position->broken();
 
-        $this->assertIsBroken($broken);
+        $this->assertIsFailing($broken);
         $this->assertLastValidEventIdIsStillSet($last_event_id, $broken);
     }
 
-    private function assertIsBroken(ProjectorPosition $actual)
+    private function assertIsFailing(ProjectorPosition $actual)
     {
-        $this->assertTrue($actual->is_broken);
+        $this->assertTrue($actual->isFailing());
     }
 
     private function assertLastValidEventIdIsStillSet($expected, ProjectorPosition $actual)

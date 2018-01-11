@@ -6,6 +6,7 @@ use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\ValueObjects\ProjectorStatus;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
@@ -86,7 +87,7 @@ class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
         $processed_events = 2;
         $occurred_at = date('Y-m-d H:i:s');
         $last_event_id = '6c040404-80fd-4a4d-98d6-547344d4873a';
-        $pos_1 = new ProjectorPosition($ref, $processed_events, $occurred_at, $last_event_id, false);
+        $pos_1 = new ProjectorPosition($ref, $processed_events, $occurred_at, $last_event_id, ProjectorStatus::broken());
 
         $this->repo->all()->willReturn(new ProjectorPositionCollection([$pos_1]));
 

@@ -8,21 +8,32 @@ class ProjectorPosition
     public $processed_events;
     public $last_event_id;
     public $occurred_at;
-    public $is_broken;
+    public $status;
 
     public function __construct(
         ProjectorReference $projector_reference,
         int $processed_events,
         string $occurred_at,
         string $last_event_id,
-        bool $is_broken
+        ProjectorStatus $status
     )
     {
         $this->projector_reference = $projector_reference;
         $this->processed_events = $processed_events;
         $this->last_event_id = $last_event_id;
         $this->occurred_at = $occurred_at;
-        $this->is_broken = $is_broken;
+        $this->status = $status;
+    }
+
+    public static function makeNewUnplayed(ProjectorReference $projector_reference): ProjectorPosition
+    {
+        return new ProjectorPosition(
+            $projector_reference,
+            0,
+            '',
+            '',
+            ProjectorStatus::new()
+        );
     }
 
     public function played(EventWrapper $event): ProjectorPosition
@@ -34,7 +45,7 @@ class ProjectorPosition
             $event_count,
             date('Y-m-d H:i:s'),
             $event->id(),
-            false
+            ProjectorStatus::working()
         );
     }
 
@@ -45,7 +56,7 @@ class ProjectorPosition
             $this->processed_events,
             date('Y-m-d H:i:s'),
             $this->last_event_id,
-            true
+            ProjectorStatus::broken()
         );
     }
 
@@ -54,14 +65,8 @@ class ProjectorPosition
         return $this->projector_reference->equals($current_projector);
     }
 
-    public static function makeNewUnplayed(ProjectorReference $projector_reference): ProjectorPosition
+    public function isFailing()
     {
-        return new ProjectorPosition(
-            $projector_reference,
-            0,
-            '',
-            '',
-            false
-        );
+        return $this->status->is(ProjectorStatus::BROKEN) || $this->status->is(ProjectorStatus::STALLED);
     }
 }

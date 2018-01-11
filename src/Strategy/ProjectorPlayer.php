@@ -3,8 +3,6 @@
 use Projectionist\Adapter\EventWrapper;
 use Projectionist\Config;
 use Projectionist\Services\ProjectorException;
-use Projectionist\ValueObjects\ProjectorPositionCollection;
-use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 
@@ -43,10 +41,10 @@ class ProjectorPlayer
                 $projector_position = ProjectorPosition::makeNewUnplayed($projector_reference);
             }
 
-            if ($projector_position->is_broken) {
+            if ($projector_position->isFailing()) {
                 return;
             }
-            
+
             $this->playProjector($projector_position);
         }
     }

@@ -3,6 +3,7 @@
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
+use Projectionist\ValueObjects\ProjectorStatus;
 
 // TODO: Write integration test
 class EventSourced implements \Projectionist\Adapter\ProjectorPositionLedger
@@ -21,7 +22,7 @@ class EventSourced implements \Projectionist\Adapter\ProjectorPositionLedger
             'player_version' => $projector_position->projector_reference->version,
             'version' => $projector_position->processed_events,
             'last_id' => $projector_position->last_event_id,
-            'is_broken' => $projector_position->is_broken,
+            'status' => $projector_position->status,
             'occurred_at' => $projector_position->occurred_at
         ];
 
@@ -44,7 +45,7 @@ class EventSourced implements \Projectionist\Adapter\ProjectorPositionLedger
             return null;
         }
 
-        return $this->convertRowToSnapshot($row);
+        return $this->convertRowToPosition($row);
     }
 
     public function all(): ProjectorPositionCollection
@@ -52,18 +53,19 @@ class EventSourced implements \Projectionist\Adapter\ProjectorPositionLedger
         $rows = $this->table->get();
 
         return new ProjectorPositionCollection(array_map(function($row) {
-            return $this->convertRowToSnapshot($row);
+            return $this->convertRowToPosition($row);
         }, $rows));
     }
 
-    private function convertRowToSnapshot($row): ProjectorPosition
+    private function convertRowToPosition($row): ProjectorPosition
     {
+        // TODO: figure out how to reload the projector, may need to store things differently
         return new ProjectorPosition(
             $row['class_name'],
             $row['version'],
             $row['last_id'],
             $row['occurred_at'],
-            $row['is_broken']
+            new ProjectorStatus($row['status'])
         );
     }
 }
