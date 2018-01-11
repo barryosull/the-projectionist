@@ -36,13 +36,7 @@ class ProjectorPlayer
 
     public function playUnbroken(ProjectorReferenceCollection $projector_references)
     {
-        $projector_positions = $this->projector_position_ledger->fetchCollection($projector_references)
-            ->filterOutBroken();
-
-        $positons_group_by_position = $projector_positions->groupBy('last_event_id');
-
         foreach ($projector_references as $projector_reference) {
-
             $projector_position = $this->projector_position_ledger->fetch($projector_reference);
 
             if (!$projector_position) {
@@ -52,7 +46,7 @@ class ProjectorPlayer
             if ($projector_position->is_broken) {
                 return;
             }
-
+            
             $this->playProjector($projector_position);
         }
     }

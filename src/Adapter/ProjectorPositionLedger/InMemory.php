@@ -3,6 +3,7 @@
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
+use Projectionist\ValueObjects\ProjectorReferenceCollection;
 
 class InMemory implements \Projectionist\Adapter\ProjectorPositionLedger
 {
@@ -37,5 +38,14 @@ class InMemory implements \Projectionist\Adapter\ProjectorPositionLedger
     public function all(): ProjectorPositionCollection
     {
         return new ProjectorPositionCollection(array_values($this->store));
+    }
+
+    public function fetchCollection(ProjectorReferenceCollection $references): ProjectorPositionCollection
+    {
+        $positions = array_map(function(ProjectorReference $ref) {
+            return $this->fetch($ref);
+        }, $references->toArray());
+
+        return new ProjectorPositionCollection($positions);
     }
 }
