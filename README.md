@@ -149,13 +149,13 @@ Sometimes projectors break, say you have a bug in your code, or an API call, or 
 
 Broken projectors are ignored by the `play` method, if they're broken they should be ignored, while working projectors should carry on as normal. 
 
-Fixing broken projectors is easy. The `boot` method will attempt to play broken projectors from where they left off, so if your you release a fix for a projector, `boot` will play it to the latest event from it's last valid position.
+Fixing broken projectors is easy. The `boot` method will attempt to play broken or stalled projectors from where they left off, so if your you release a fix for a projector, `boot` will play it to the latest event from it's last valid position.
+
+If a projector fails during boot, all other projectors are marked as "stalled", allowing the next call to boot to attempt to play them forward from their last valid position.
 
 ## TODOs
 My list of todos for this project
 - Simplify 'fetchCollection' logic embedded in tests, its's getting hard to decipher and may not be required anymore
-- Boot should also play projectors that were stalled by a preview broken boot process. 
-    Ie. If one projector breaks, other booted projectors are still set at their last processed value, they should pick up from there
 - Create Concrete config class
 - Change last_event_id to "position", more generic and makes more sense
 - Get Redis ProjectorPositionLedger tests to pass
