@@ -48,4 +48,14 @@ class ProjectorPositionCollection extends Collection
             return $projector_position->isFailing() === false;
         });
     }
+
+    public function markUnbrokenAsStalled()
+    {
+        return $this->map(function(ProjectorPosition $position){
+            if ($position->isFailing())  {
+                return $position;
+            }
+            return $position->stalled();
+        });
+    }
 }
