@@ -4,6 +4,7 @@ use Projectionist\Adapter\EventWrapper;
 use Projectionist\Config;
 use Projectionist\Services\ProjectorException;
 use Projectionist\ValueObjects\ProjectorPosition;
+use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 
@@ -20,21 +21,55 @@ class ProjectorPlayer
         $this->event_handler = $adapter->eventHandler();
     }
 
+    private $broken_projector_pos;
+
     public function boot(ProjectorReferenceCollection $projector_references)
     {
-        $broken_projector_ref = null;
-        foreach ($projector_references as $projector_reference) {
-            $projector_position = $this->getProjectorPosition($projector_reference);
+        $this->broken_projector_exception = null;
 
-            $this->playProjector($projector_position);
+        $positions = new ProjectorPositionCollection(
+            array_map(function(ProjectorReference $ref){
+                return $this->getProjectorPosition($ref);
+            }, $projector_references->toArray())
+        );
+
+        $this->broken_projector_pos = null;
+
+        $positions = $positions->map(function(ProjectorPosition $position) {
 
             if ($this->broken_projector_exception != null) {
-                $broken_projector_ref = $projector_reference;
-                break;
+                return $position;
             }
+
+            $position = $this->playProjector($position);
+
+            if ($position->isFailing()) {
+                $this->broken_projector_pos = $position;
+            }
+
+            return $position;
+        });
+
+        if ($this->broken_projector_pos) {
+            $positions = $positions->map(function(ProjectorPosition $position){
+                if ($position->projector_reference->equals($this->broken_projector_pos->projector_reference))  {
+                    return $position;
+                }
+                return $position->stalled();
+            });
         }
-        if ($broken_projector_ref) {
-            $this->markProjectorsUnbrokenProjectosAsStalled($projector_references, $broken_projector_ref);
+        
+        foreach ($positions as $position) {
+            $this->projector_position_ledger->store($position);
+        }
+
+
+        if ($this->broken_projector_exception != null) {
+            throw new ProjectorException(
+                "A projector had an unexpected failure",
+                $this->broken_projector_exception->getCode(),
+                $this->broken_projector_exception
+            );
         }
     }
 
@@ -49,53 +84,41 @@ class ProjectorPlayer
         return ProjectorPosition::makeNewUnplayed($projector_reference);
     }
 
-    private function markProjectorsUnbrokenProjectosAsStalled(ProjectorReferenceCollection $references, ProjectorReference $broken_ref)
-    {
-        $unbroken_projector_ref = $references->filter(function(ProjectorReference$reference) use ($broken_ref) {
-            return !$broken_ref->equals($reference);
-        });
-
-        foreach ($unbroken_projector_ref as $projector_reference) {
-            $projector_position = $this->getProjectorPosition($projector_reference);
-
-            $projector_position = $projector_position->stalled();
-
-            $this->projector_position_ledger->store($projector_position);
-        }
-
-        throw new ProjectorException(
-            "A projector had an unexpected failure, marking unbroken as stalled",
-            $this->broken_projector_exception->getCode(),
-            $this->broken_projector_exception
-        );
-    }
-
     public function play(ProjectorReferenceCollection $projector_references)
     {
-        foreach ($projector_references as $projector_reference) {
-            $projector_position = $this->projector_position_ledger->fetch($projector_reference);
+        $this->broken_projector_exception = null;
 
-            if (!$projector_position) {
-                $projector_position = ProjectorPosition::makeNewUnplayed($projector_reference);
-            }
+        $positions = new ProjectorPositionCollection(
+            array_map(function(ProjectorReference $ref){
+                return $this->getProjectorPosition($ref);
+            }, $projector_references->toArray())
+        );
 
-            if ($projector_position->isFailing()) {
-                return;
-            }
+        $positions = $positions->filterOutFailing();
 
-            $this->playProjector($projector_position);
+        $positions = $positions->map(function(ProjectorPosition $position){
 
             if ($this->broken_projector_exception != null) {
-                throw new ProjectorException(
-                    "A projector had an unexpected failure",
-                    $this->broken_projector_exception->getCode(),
-                    $this->broken_projector_exception
-                );
+                return $position;
             }
+
+            return $this->playProjector($position);
+        });
+
+        foreach ($positions as $position) {
+            $this->projector_position_ledger->store($position);
+        }
+
+        if ($this->broken_projector_exception != null) {
+            throw new ProjectorException(
+                "A projector had an unexpected failure",
+                $this->broken_projector_exception->getCode(),
+                $this->broken_projector_exception
+            );
         }
     }
 
-    private function playProjector(ProjectorPosition $projector_position)
+    private function playProjector(ProjectorPosition $projector_position): ProjectorPosition
     {
         $event_stream = $this->event_store->getStream($projector_position->last_position);
         $projector = $projector_position->projector_reference->projector();
@@ -111,7 +134,7 @@ class ProjectorPlayer
             }
         }
 
-        $this->projector_position_ledger->store($projector_position);
+        return $projector_position;
     }
 
     private $broken_projector_exception;
