@@ -1,5 +1,6 @@
 <?php namespace Projectionist\Strategy;
 
+use Illuminate\Support\Collection;
 use Projectionist\Adapter\EventWrapper;
 use Projectionist\Config;
 use Projectionist\Services\ProjectorException;
@@ -40,9 +41,7 @@ class ProjectorPlayer
     {
         $positions = $this->getProjectorPositions($projector_references);
 
-        $positions = $positions->map(function(ProjectorPosition $position) {
-            return $this->playProjector($position);
-        });
+        $positions = $this->playProjectors($positions);
 
         if ($this->thereWasAFailure()) {
             $positions = $positions->markUnbrokenAsStalled();
@@ -61,9 +60,7 @@ class ProjectorPlayer
     {
         $positions = $this->getProjectorPositions($projector_references)->filterOutFailing();
 
-        $positions = $positions->map(function(ProjectorPosition $position){
-            return $this->playProjector($position);
-        });
+        $positions = $this->playProjectors($positions);
 
         foreach ($positions as $position) {
             $this->projector_position_ledger->store($position);
@@ -74,31 +71,47 @@ class ProjectorPlayer
         }
     }
 
-    private function playProjector(ProjectorPosition $position): ProjectorPosition
+    private function playProjectors(ProjectorPositionCollection $positions): ProjectorPositionCollection
     {
-        if ($this->thereWasAFailure()) {
-            return $position;
+        $group_by_position = [];
+        foreach ($positions as $position) {
+            $group_by_position[$position->last_position][] = $position;
         }
 
-        $event_stream = $this->event_store->getStream($position->last_position);
-        $projector = $position->projector_reference->projector();
+        $group_by_position = (new Collection($group_by_position))->map(function($grouped_positions, $last_position){
 
-        while ($event = $event_stream->next()) {
-            if ($event == null) {
-                break;
+            if ($this->thereWasAFailure()) {
+                return $grouped_positions;
             }
-            $position = $this->playEventIntoProjector($position, $projector, $event);
 
-            if ($position->isFailing()) {
-                break;
+            $event_stream = $this->event_store->getStream($last_position);
+
+            while ($event = $event_stream->next()) {
+                if ($event == null) {
+                    break;
+                }
+                $grouped_positions = $this->playEventIntoProjectors($event, new ProjectorPositionCollection($grouped_positions));
+
+                if ($this->thereWasAFailure()) {
+                    return $grouped_positions;
+                }
             }
-        }
+            return $grouped_positions;
+        });
 
-        return $position;
+        return new ProjectorPositionCollection($group_by_position->flatten()->toArray());
     }
-    
-    private function playEventIntoProjector(ProjectorPosition $projector_position, $projector, EventWrapper $event): ProjectorPosition
+
+    private function playEventIntoProjectors(EventWrapper $event, ProjectorPositionCollection $positions)
     {
+        return $positions->map(function(ProjectorPosition $position) use ($event) {
+           return $this->playEventIntoProjector($event, $position);
+        });
+    }
+
+    private function playEventIntoProjector(EventWrapper $event, ProjectorPosition $projector_position): ProjectorPosition
+    {
+        $projector = $projector_position->projector_reference->projector();
         try {
             $this->event_handler->handle($event->wrappedEvent(), $projector);
             return $projector_position->played($event);
