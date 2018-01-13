@@ -23,17 +23,27 @@ class ProjectorPlayer
 
     private $broken_projector_pos;
 
+    private function getProjectorPositions(ProjectorReferenceCollection $projector_references): ProjectorPositionCollection
+    {
+        return new ProjectorPositionCollection(
+            array_map(function(ProjectorReference $ref){
+                $position = $this->projector_position_ledger->fetch($ref);
+
+                if ($position) {
+                    return $position;
+                }
+
+                return ProjectorPosition::makeNewUnplayed($ref);
+            }, $projector_references->toArray())
+        );
+    }
+
     public function boot(ProjectorReferenceCollection $projector_references)
     {
         $this->broken_projector_exception = null;
-
-        $positions = new ProjectorPositionCollection(
-            array_map(function(ProjectorReference $ref){
-                return $this->getProjectorPosition($ref);
-            }, $projector_references->toArray())
-        );
-
         $this->broken_projector_pos = null;
+
+        $positions = $this->getProjectorPositions($projector_references);
 
         $positions = $positions->map(function(ProjectorPosition $position) {
 
@@ -58,7 +68,7 @@ class ProjectorPlayer
                 return $position->stalled();
             });
         }
-        
+
         foreach ($positions as $position) {
             $this->projector_position_ledger->store($position);
         }
@@ -88,14 +98,8 @@ class ProjectorPlayer
     {
         $this->broken_projector_exception = null;
 
-        $positions = new ProjectorPositionCollection(
-            array_map(function(ProjectorReference $ref){
-                return $this->getProjectorPosition($ref);
-            }, $projector_references->toArray())
-        );
-
-        $positions = $positions->filterOutFailing();
-
+        $positions = $this->getProjectorPositions($projector_references)->filterOutFailing();
+        
         $positions = $positions->map(function(ProjectorPosition $position){
 
             if ($this->broken_projector_exception != null) {
