@@ -58,4 +58,17 @@ class ProjectorPositionCollection extends Collection
             return $position->stalled();
         });
     }
+
+    public function groupByLastPosition(): Collection
+    {
+        $group_by_position = [];
+        foreach ($this as $position) {
+            $group_by_position[$position->last_position][] = $position;
+        }
+
+        return (new Collection($group_by_position))
+            ->map(function($grouped_positions){
+                return new ProjectorPositionCollection($grouped_positions);
+            });
+    }
 }

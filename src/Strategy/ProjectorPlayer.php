@@ -1,6 +1,5 @@
 <?php namespace Projectionist\Strategy;
 
-use Illuminate\Support\Collection;
 use Projectionist\Adapter\EventWrapper;
 use Projectionist\Config;
 use Projectionist\Services\ProjectorException;
@@ -73,33 +72,34 @@ class ProjectorPlayer
 
     private function playProjectors(ProjectorPositionCollection $positions): ProjectorPositionCollection
     {
-        $group_by_position = [];
-        foreach ($positions as $position) {
-            $group_by_position[$position->last_position][] = $position;
-        }
+        $group_by_position = $positions->groupByLastPosition();
 
-        $group_by_position = (new Collection($group_by_position))->map(function($grouped_positions, $last_position){
-
-            if ($this->thereWasAFailure()) {
-                return $grouped_positions;
-            }
-
-            $event_stream = $this->event_store->getStream($last_position);
-
-            while ($event = $event_stream->next()) {
-                if ($event == null) {
-                    break;
-                }
-                $grouped_positions = $this->playEventIntoProjectors($event, new ProjectorPositionCollection($grouped_positions));
-
-                if ($this->thereWasAFailure()) {
-                    return $grouped_positions;
-                }
-            }
-            return $grouped_positions;
+        $group_by_position = $group_by_position->map(function($grouped_positions, $last_position){
+            return $this->playProjectorsFromPosition($grouped_positions, $last_position);
         });
 
         return new ProjectorPositionCollection($group_by_position->flatten()->toArray());
+    }
+
+    private function playProjectorsFromPosition(ProjectorPositionCollection $positions, $last_position): ProjectorPositionCollection
+    {
+        if ($this->thereWasAFailure()) {
+            return $positions;
+        }
+
+        $event_stream = $this->event_store->getStream($last_position);
+
+        while ($event = $event_stream->next()) {
+            if ($event == null) {
+                break;
+            }
+            $positions = $this->playEventIntoProjectors($event, $positions);
+
+            if ($this->thereWasAFailure()) {
+                return $positions;
+            }
+        }
+        return $positions;
     }
 
     private function playEventIntoProjectors(EventWrapper $event, ProjectorPositionCollection $positions)
