@@ -36,6 +36,13 @@ class ProjectorPlayer
         );
     }
 
+    private function storeProjectorPositions(ProjectorPositionCollection $positions)
+    {
+        foreach ($positions as $position) {
+            $this->projector_position_ledger->store($position);
+        }
+    }
+
     public function boot(ProjectorReferenceCollection $projector_references)
     {
         $positions = $this->getProjectorPositions($projector_references);
@@ -46,9 +53,7 @@ class ProjectorPlayer
             $positions = $positions->markUnbrokenAsStalled();
         }
 
-        foreach ($positions as $position) {
-            $this->projector_position_ledger->store($position);
-        }
+        $this->storeProjectorPositions($positions);
 
         if ($this->thereWasAFailure()) {
             $this->reportFailure();
@@ -61,9 +66,7 @@ class ProjectorPlayer
 
         $positions = $this->playProjectors($positions);
 
-        foreach ($positions as $position) {
-            $this->projector_position_ledger->store($position);
-        }
+        $this->storeProjectorPositions($positions);
 
         if ($this->thereWasAFailure()) {
             $this->reportFailure();
