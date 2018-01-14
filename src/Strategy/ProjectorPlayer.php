@@ -108,6 +108,9 @@ class ProjectorPlayer
 
     private function playEventIntoProjector(EventWrapper $event, ProjectorPosition $projector_position): ProjectorPosition
     {
+        if ($this->thereWasAFailure()) {
+            return $projector_position;
+        }
         $projector = $projector_position->projector_reference->projector();
         try {
             $this->event_handler->handle($event->wrappedEvent(), $projector);
