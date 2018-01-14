@@ -92,9 +92,6 @@ class ProjectorPlayer
         $event_stream = $this->event_store->getStream($last_position);
 
         while ($event = $event_stream->next()) {
-            if ($event == null) {
-                break;
-            }
             $positions = $positions->map(function(ProjectorPosition $position) use ($event) {
                 return $this->playEventIntoProjector($event, $position);
             });

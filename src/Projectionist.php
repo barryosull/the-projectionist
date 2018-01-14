@@ -27,11 +27,11 @@ class Projectionist
     {
         $new_projectors = $this->projector_queryable->newOrBrokenProjectors();
 
-        $skip_to_now_projectors = $new_projectors->extract(ProjectorMode::RUN_FROM_LAUNCH);
-        $this->projector_skipper->skip($skip_to_now_projectors);
-
         $play_to_now_projectors = $new_projectors->exclude(ProjectorMode::RUN_FROM_LAUNCH);
         $this->projector_player->boot($play_to_now_projectors);
+
+        $skip_to_now_projectors = $new_projectors->extract(ProjectorMode::RUN_FROM_LAUNCH);
+        $this->projector_skipper->skip($skip_to_now_projectors);
     }
 
     public function play()
