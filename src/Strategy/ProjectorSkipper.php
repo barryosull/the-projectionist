@@ -6,6 +6,7 @@ use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use Projectionist\ValueObjects\ProjectorPosition;
 
+// TODO: Write unit tests for this
 class ProjectorSkipper
 {
     private $projector_position_ledger;

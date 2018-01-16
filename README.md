@@ -204,7 +204,6 @@ class InMemory
     }
 }
 ```
-- Refactor/Restructure tests, move more logic into "acceptance" tests and restructure the unit/integration tests
 - Simplify 'fetchCollection' logic embedded in tests, its's getting hard to decipher and may not be required anymore
 - Get Redis ProjectorPositionLedger tests to pass
 - Restructure test folders to make more sense
