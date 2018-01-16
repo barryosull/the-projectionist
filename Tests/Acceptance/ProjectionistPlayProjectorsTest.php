@@ -84,7 +84,7 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit_Framework_TestCase
 
         $projectionist->play();
 
-        $this->assertTrue(RunOnce::hasProjectedEvent(self::EVENT_1_ID));
+        $this->assertFalse(RunOnce::hasProjectedEvent(self::EVENT_1_ID));
     }
 
     public function test_playing_a_broken_projector_fails_elegantly()

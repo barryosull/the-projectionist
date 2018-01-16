@@ -11,9 +11,9 @@ class MetaTypeProperty implements EventHandler
 
     private function playEvent($event, $projector)
     {
-        $method = $this->handlerFunctionName($event->content()->type());
+        $method = $this->handlerFunctionName($event->type());
         if (method_exists($projector, $method)) {
-            $projector->$method($event->content()->event, $event->content());
+            $projector->$method($event->event, $event);
         }
     }
 
