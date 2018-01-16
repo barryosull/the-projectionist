@@ -8,6 +8,7 @@ use Projectionist\Services\ProjectorException;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\ValueObjects\ProjectorStatus;
 use ProjectonistTests\Fakes\Projectors\BrokenProjector;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
@@ -56,14 +57,15 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit_Framework_TestCase
         $stored_projector_positions = $this->projector_position_ledger->fetchCollection($projector_refs);
 
         $this->assertProjectorsAreAtPosition($projectors, self::EVENT_1_ID, $stored_projector_positions);
-        $this->assertProjectorsHaveProcessedEvent($projectors, self::EVENT_1_ID);
     }
 
     private function assertProjectorsAreAtPosition(array $projectors, string $expected_position, ProjectorPositionCollection $positions)
     {
         $this->assertCount(count($projectors), $positions);
+        $this->assertProjectorsHaveProcessedEvent($projectors, $expected_position);
         $positions->each(function(ProjectorPosition $position) use ($expected_position) {
            $this->assertEquals($expected_position, $position->last_position);
+           $this->assertEquals(ProjectorStatus::working(), $position->status);
         });
     }
 
@@ -82,14 +84,7 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit_Framework_TestCase
 
         $projectionist->play();
 
-        $projector_refs = ProjectorReferenceCollection::fromProjectors($projectors);
-        $stored_projector_positions = $this->projector_position_ledger->fetchCollection($projector_refs);
-
-        $expected = ProjectorReferenceCollection::fromProjectors([new RunFromLaunch, new RunFromStart]);
-
-        $actual = $stored_projector_positions->references();
-
-        $this->assertEquals($expected, $actual);
+        $this->assertTrue(RunOnce::hasProjectedEvent(self::EVENT_1_ID));
     }
 
     public function test_playing_a_broken_projector_fails_elegantly()

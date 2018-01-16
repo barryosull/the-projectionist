@@ -1,4 +1,4 @@
-<?php namespace ProjectonistTests\Unit;
+<?php namespace ProjectonistTests\Unit\Strategy;
 
 use Projectionist\Adapter\EventStream;
 use Projectionist\Adapter\EventWrapper\Identifiable;
@@ -8,65 +8,43 @@ use Projectionist\Services\ProjectorException;
 use Projectionist\Strategy\EventHandler;
 use Projectionist\Strategy\EventHandler\ClassName;
 use Projectionist\Adapter\ProjectorPositionLedger;
+use Projectionist\Strategy\ProjectorPlayer;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
-use Projectionist\Projectionist;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\BrokenProjector;
 use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
 use Prophecy\Argument;
 
-class ProjectionistTest extends \PHPUnit_Framework_TestCase
+class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
 {
-    // TODO: Move to own Projectorlayer test class
     public function test_broken_projectors_are_marked_as_broken_and_the_error_is_bubbled_up()
     {
-        $player = new ClassName();
+        $event_handler = new ClassName();
         $position_ledger = $this->prophesize(ProjectorPositionLedger::class);
+        $event = new ThingHappened('');
+        $adapter = $this->makeAdapter($event_handler, $position_ledger->reveal(), [$event]);
 
+        // Expectations
         $broken_projector = new BrokenProjector();
-
         $ref = ProjectorReference::makeFromProjector($broken_projector);
         $projector_position = ProjectorPosition::makeNewUnplayed($ref);
+
         $position_ledger->fetch($ref)->willReturn(null);
         $position_ledger->store($projector_position->broken())->shouldBeCalled();
-
-        $event = new ThingHappened('');
-
-        $adapter = $this->makeAdapter($player, $position_ledger->reveal(), [$event]);
-
-        $projector_refs = ProjectorReferenceCollection::fromProjectors([$broken_projector]);
-
-        $projectionist = new Projectionist($adapter, $projector_refs);
-
         $this->expectException(ProjectorException::class);
 
-        $projectionist->play();
-    }
-
-    public function test_play_ignores_broken_projectors()
-    {
-        $player = $this->prophesize(EventHandler::class);
-        $position_ledger = $this->prophesize(ProjectorPositionLedger::class);
-
-        $ref = ProjectorReference::makeFromProjector(new BrokenProjector);
-        $position = ProjectorPosition::makeNewUnplayed($ref)->broken();
-        $position_ledger->fetch($ref)->willReturn($position);
-
-        $adapter = $this->makeAdapter($player->reveal(), $position_ledger->reveal());
-
-        $projectionist = new Projectionist($adapter, ProjectorReferenceCollection::fromProjectors([new BrokenProjector]));
-
-        $projectionist->play();
-
-        $player->handle(Argument::cetera())->shouldNotHaveBeenCalled();
+        // Run
+        $projector_player = new ProjectorPlayer($adapter);
+        $projector_refs = ProjectorReferenceCollection::fromProjectors([$broken_projector]);
+        $projector_player->play($projector_refs);
     }
 
     public function test_boot_attempts_to_play_broken_projectors()
     {
-        $player = $this->prophesize(EventHandler::class);
+        $event_handler = $this->prophesize(EventHandler::class);
         $position_ledger = $this->prophesize(ProjectorPositionLedger::class);
 
         $projector = new RunFromStart;
@@ -81,13 +59,33 @@ class ProjectionistTest extends \PHPUnit_Framework_TestCase
 
         $event = new ThingHappened('');
 
-        $adapter = $this->makeAdapter($player->reveal(), $position_ledger->reveal(), [$event]);
+        $adapter = $this->makeAdapter($event_handler->reveal(), $position_ledger->reveal(), [$event]);
 
-        $projectionist = new Projectionist($adapter, $references);
+        $projector_player = new ProjectorPlayer($adapter);
 
-        $projectionist->boot();
+        $projector_player->boot($references);
 
-        $player->handle(Argument::cetera())->shouldHaveBeenCalled();
+        $event_handler->handle(Argument::cetera())->shouldHaveBeenCalled();
+    }
+
+    public function test_play_ignores_broken_projectors()
+    {
+        $player = $this->prophesize(EventHandler::class);
+        $position_ledger = $this->prophesize(ProjectorPositionLedger::class);
+
+        $ref = ProjectorReference::makeFromProjector(new BrokenProjector);
+        $position = ProjectorPosition::makeNewUnplayed($ref)->broken();
+        $position_ledger->fetch($ref)->willReturn($position);
+
+        $adapter = $this->makeAdapter($player->reveal(), $position_ledger->reveal());
+
+        $projector_player = new ProjectorPlayer($adapter);
+
+        $refs = ProjectorReferenceCollection::fromProjectors([new BrokenProjector]);
+
+        $projector_player->play($refs);
+
+        $player->handle(Argument::cetera())->shouldNotHaveBeenCalled();
     }
 
     private function makeAdapter(EventHandler $player, ProjectorPositionLedger $ledger, $events=[]): Config
