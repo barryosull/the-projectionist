@@ -8,27 +8,30 @@ class BaseTestProjector
     const MODE = ProjectorMode::RUN_FROM_START;
     const VERSION = 1;
 
+    protected static $projected_events = [];
+
     public function whenThingHappened(ThingHappened $event)
     {
-        static::$has_seen_event = true;
+        static::$projected_events[$event->id()] = true;
     }
 
-    protected static $has_seen_event = false;
-
-    public static function hasSeenEvent(): bool
+    public static function hasProjectedEvent(string $event_id): bool
     {
-        return static::$has_seen_event;
+        return isset(static::$projected_events[$event_id]);
+    }
+
+    public static function projectedEvents()
+    {
+        return static::$projected_events;
+    }
+
+    public static function reset()
+    {
+        return static::$projected_events = [];
     }
 
     public static function version()
     {
         return static::VERSION;
     }
-
-    public static function reset()
-    {
-        return static::$has_seen_event = false;
-    }
-
-
 }

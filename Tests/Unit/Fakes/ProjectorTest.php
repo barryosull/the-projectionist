@@ -8,11 +8,11 @@ class ProjectorTest extends \PHPUnit_Framework_TestCase
 {
     private $event;
 
+    const EVENT_ID = '94ae0b60-ddb4-4cf0-bb75-4b588fea3c3c';
+
     public function setUp()
     {
-        $this->event = new ThingHappened(
-            '94ae0b60-ddb4-4cf0-bb75-4b588fea3c3c'
-        );
+        $this->event = new ThingHappened(self::EVENT_ID);
     }
 
     public function test_can_check_if_fake_projector_got_event()
@@ -24,8 +24,8 @@ class ProjectorTest extends \PHPUnit_Framework_TestCase
 
         $projector_a->whenThingHappened($this->event);
 
-        $this->assertTrue($projector_a->hasSeenEvent());
-        $this->assertFalse($projector_b->hasSeenEvent());
+        $this->assertTrue($projector_a->hasProjectedEvent(self::EVENT_ID));
+        $this->assertFalse($projector_b->hasProjectedEvent(self::EVENT_ID));
     }
 
     public function test_can_reset_fake_projectors()
@@ -36,6 +36,6 @@ class ProjectorTest extends \PHPUnit_Framework_TestCase
 
         $projector_a->reset();
 
-        $this->assertFalse($projector_a->hasSeenEvent());
+        $this->assertFalse($projector_a->hasProjectedEvent(self::EVENT_ID));
     }
 }

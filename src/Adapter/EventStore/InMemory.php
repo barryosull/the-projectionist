@@ -7,9 +7,14 @@ class InMemory implements \Projectionist\Adapter\EventStore
 {
     private static $events = [];
 
-    public static function setEvents(array $events)
+    public function appendEvent($event)
     {
-        self::$events = $events;
+        self::$events[] = $event;
+    }
+
+    public function reset()
+    {
+        self::$events = [];
     }
 
     public function hasEvents(): bool
