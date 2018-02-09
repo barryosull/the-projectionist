@@ -204,6 +204,7 @@ class InMemory
     }
 }
 ```
+- Need to a way to handle broken releases/projectors, so you can switch back to the previous codebase and ensure the projectors are all up to speed
 - Simplify 'fetchCollection' logic embedded in tests, its's getting hard to decipher and may not be required anymore
 - Restructure test folders to make more sense
 - Write a better tutorial for the adapters
