@@ -29,7 +29,7 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $adapter_factory = new Config\InMemory();
-        $adapter_factory->projectorPositionLedger()->reset();
+        $adapter_factory->projectorPositionLedger()->clear();
         $this->projectionist_factory = new ProjectionistFactory($adapter_factory);
         $this->projector_position_ledger = $adapter_factory->projectorPositionLedger();
         $this->event_store = $adapter_factory->eventStore();

@@ -14,7 +14,7 @@ class InMemory implements \Projectionist\Adapter\ProjectorPositionLedger
         $this->store = [];
     }
 
-    public function reset()
+    public function clear()
     {
         $this->store = [];
     }

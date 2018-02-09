@@ -4,7 +4,6 @@ use Projectionist\Adapter\ProjectorPositionLedger;
 use Predis;
 
 // TODO: Test this works, until then disable
-/**
 class ProjectorPositionRepositoryTest extends \ProjectonistTests\Integration\Projectionist\Service\ProjectorPositionRepositoryTest
 {
     protected function makeRepository(): ProjectorPositionLedger
@@ -12,4 +11,4 @@ class ProjectorPositionRepositoryTest extends \ProjectonistTests\Integration\Pro
         $client = new Predis\Client();
         return new ProjectorPositionLedger\Redis($client);
     }
-}*/
+}

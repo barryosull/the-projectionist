@@ -5,8 +5,9 @@ use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
 use Projectionist\ValueObjects\ProjectorReference;
 use Predis;
+use Projectionist\ValueObjects\ProjectorReferenceCollection;
+use function Sodium\crypto_box_seed_keypair;
 
-// TODO: Write test
 class Redis implements ProjectorPositionLedger
 {
     private $redis;
@@ -16,6 +17,11 @@ class Redis implements ProjectorPositionLedger
     public function __construct(Predis\Client $redis)
     {
         $this->redis = $redis;
+    }
+
+    public function clear()
+    {
+        $this->redis->del([self::STORE]);
     }
 
     public function store(ProjectorPosition $projector_position)
@@ -36,9 +42,13 @@ class Redis implements ProjectorPositionLedger
         return unserialize($serialized);
     }
 
-    public function fetchCollection(): ProjectorPositionCollection
+    public function fetchCollection(ProjectorReferenceCollection $references): ProjectorPositionCollection
     {
-        $positions_serialized = $this->redis->hgetall(self::STORE);
+        $fields = $references->toStrings();
+        
+        $positions_serialized = $this->redis->hmget(self::STORE, $fields);
+
+        $positions_serialized = array_filter($positions_serialized);
 
         return new ProjectorPositionCollection(array_map(function($position_serialized){
             return unserialize($position_serialized);

@@ -61,4 +61,11 @@ class ProjectorReferenceCollection extends Collection
             return $reference->projector();
         }, $this->toArray());
     }
+
+    public function toStrings(): array
+    {
+        return array_map(function(ProjectorReference $reference){
+            return $reference->toString();
+        }, $this->toArray());
+    }
 }

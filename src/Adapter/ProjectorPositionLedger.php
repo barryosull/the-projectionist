@@ -7,6 +7,8 @@ use Projectionist\ValueObjects\ProjectorReferenceCollection;
 
 interface ProjectorPositionLedger
 {
+    public function clear();
+
     public function store(ProjectorPosition $projector_position);
 
     /** @return ProjectorPosition */
