@@ -1,7 +1,7 @@
 <?php namespace ProjectonistTests\Acceptance;
 
 use Projectionist\Adapter\EventStore;
-use Projectionist\Config;
+use Projectionist\ConfigFactory;
 use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\Projectionist;
 use Projectionist\ProjectionistFactory;
@@ -41,12 +41,12 @@ class ProjectionistBootProjectorsTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $adapter_factory = new Config\InMemory();
-        $this->event_store = $adapter_factory->eventStore();
+        $config = (new ConfigFactory\InMemory)->make();
+        $this->event_store = $config->eventStore();
         $this->event_store->reset();
-        $this->projector_position_repo = $adapter_factory->projectorPositionLedger();
+        $this->projector_position_repo = $config->projectorPositionLedger();
 
-        $this->projectionist_factory = new ProjectionistFactory($adapter_factory);
+        $this->projectionist_factory = new ProjectionistFactory($config);
         $this->projectors = [new RunFromLaunch, new RunFromStart, new RunOnce];
         $this->projectionist = $this->projectionist_factory->make($this->projectors);
         $this->projector_refs = ProjectorReferenceCollection::fromProjectors($this->projectors);

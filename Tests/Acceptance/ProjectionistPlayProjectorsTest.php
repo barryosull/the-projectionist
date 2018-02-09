@@ -2,7 +2,7 @@
 
 use Projectionist\Adapter\EventStore;
 use Projectionist\Adapter\ProjectorPositionLedger;
-use Projectionist\Config;
+use Projectionist\ConfigFactory;
 use Projectionist\ProjectionistFactory;
 use Projectionist\Services\ProjectorException;
 use Projectionist\ValueObjects\ProjectorPosition;
@@ -28,11 +28,11 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $adapter_factory = new Config\InMemory();
-        $adapter_factory->projectorPositionLedger()->clear();
-        $this->projectionist_factory = new ProjectionistFactory($adapter_factory);
-        $this->projector_position_ledger = $adapter_factory->projectorPositionLedger();
-        $this->event_store = $adapter_factory->eventStore();
+        $config = (new ConfigFactory\InMemory)->make();
+        $config->projectorPositionLedger()->clear();
+        $this->projectionist_factory = new ProjectionistFactory($config);
+        $this->projector_position_ledger = $config->projectorPositionLedger();
+        $this->event_store = $config->eventStore();
         $this->event_store->reset();
     }
 
