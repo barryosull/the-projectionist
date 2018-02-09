@@ -45,7 +45,7 @@ class Redis implements ProjectorPositionLedger
     public function fetchCollection(ProjectorReferenceCollection $references): ProjectorPositionCollection
     {
         $fields = $references->toStrings();
-        
+
         $positions_serialized = $this->redis->hmget(self::STORE, $fields);
 
         $positions_serialized = array_filter($positions_serialized);

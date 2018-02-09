@@ -205,7 +205,5 @@ class InMemory
 }
 ```
 - Simplify 'fetchCollection' logic embedded in tests, its's getting hard to decipher and may not be required anymore
-- Get Redis ProjectorPositionLedger tests to pass
 - Restructure test folders to make more sense
 - Write a better tutorial for the adapters
-- Have a smarter projectionist that groups projectors by position, then plays events one by one to projectors if they're at the same position. One stream, multiple projectors.
