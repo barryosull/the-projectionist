@@ -1,5 +1,7 @@
 # The Projectionist
 
+[![CircleCI](https://circleci.com/gh/barryosull/the-projectionist/tree/master.svg?style=svg)](https://circleci.com/gh/barryosull/the-projectionist/tree/master)
+
 If you are building an EventSourced/CQRS system in PHP, you need a solid system to handle building your projections. Enter the "projectionist".
 
 This is a library that makes it easy to consume events and manage the lifecycle of projectors in PHP, keeping track of where each projector is in the event stream. It's based on a lot of trial and error from building these kinds of systems, so my hope is that it will allow others to leapfrog us and gain from our mistakes.
