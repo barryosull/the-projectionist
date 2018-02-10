@@ -17,11 +17,12 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-{{ checksum "composer.json" }}x
           - v1-dependencies-
 
       - run: composer install -n --prefer-dist
+
+      - run: /etc/init.d/redis-server restart
 
       - save_cache:
           paths:
