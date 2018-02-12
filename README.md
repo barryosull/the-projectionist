@@ -45,7 +45,7 @@ To do this, you have to implement the config for the projectonist.
 Config is an interface that outputs three adapters and one strategy, these also need to be implemented.
 
 - Adapters:
-  - EventStore - Check if there are events, get the latest event, or get a stream of events after an event ID.
+  - EventLog - Check if there are events, get the latest event, or get a stream of events after an event ID.
   - EventStream - Get events one at a time, until there are none left
   - EventWrapper - Wraps your event, you just need to implement how you get the id, so the projectionist can keep track of the projectors position.
 
