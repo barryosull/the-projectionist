@@ -20,7 +20,7 @@ This how you create a projectionist.
 
 ```php
 // Define the config for the projectionist system
-$config = new Config\InMemory(); 
+$config = (new ConfigFactory\InMemory())->make(); 
 
 // Create a factory
 $projectionist_factory = new ProjectionistFactory($config); 
