@@ -95,7 +95,6 @@ class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
         $event_stream = new EventStream\InMemory($events);
 
         $event_log = $this->prophesize(EventLog::class);
-        $event_log->hasEvents()->willReturn(true);
         $event_log->latestEvent()->willReturn(new Identifiable(last($events)));
         $event_log->getStream("")->willReturn($event_stream);
 

@@ -14,9 +14,4 @@ class EventSourced implements \Projectionist\Adapter\EventLog
     {
         // TODO: Implement getStream() method.
     }
-
-    public function hasEvents(): bool
-    {
-        // TODO: Implement hasEvents() method.
-    }
 }

@@ -17,16 +17,11 @@ class InMemory implements \Projectionist\Adapter\EventLog
         self::$events = [];
     }
 
-    public function hasEvents(): bool
-    {
-        return count(self::$events) != 0;
-    }
-
     public function latestEvent(): \Projectionist\Adapter\EventWrapper
     {
         $event = last(self::$events);
         if (!$event) {
-            throw new \Exception("No events in the EventLog");
+            return null;
         }
         return new EventWrapper\Identifiable($event);
     }
@@ -35,6 +30,4 @@ class InMemory implements \Projectionist\Adapter\EventLog
     {
         return new EventStream\InMemory(self::$events);
     }
-
-
 }

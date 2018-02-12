@@ -20,11 +20,10 @@ class ProjectorSkipper
 
     public function skip(ProjectorReferenceCollection $projector_references)
     {
-        if (!$this->event_log->hasEvents()) {
+        $latest_event = $this->event_log->latestEvent();
+        if ($latest_event == null) {
             return;
         }
-
-        $latest_event = $this->event_log->latestEvent();
         foreach ($projector_references as $projector_reference) {
             $this->skipProjectorToEvent($projector_reference, $latest_event);
         }
