@@ -1,22 +1,22 @@
 <?php namespace Projectionist;
 
-use Projectionist\Adapter\EventStore;
+use Projectionist\Adapter\EventLog;
 use Projectionist\Strategy\EventHandler;
 use Projectionist\Adapter\ProjectorPositionLedger;
 
 class Config {
 
     private $projector_position_ledger;
-    private $event_store;
+    private $event_log;
     private $event_handler;
 
     public function __construct(
         ProjectorPositionLedger $projector_position_ledger,
-        EventStore $event_store,
+        EventLog $event_log,
         EventHandler $event_handler
     ) {
         $this->projector_position_ledger = $projector_position_ledger;
-        $this->event_store = $event_store;
+        $this->event_log = $event_log;
         $this->event_handler = $event_handler;
     }
 
@@ -25,9 +25,9 @@ class Config {
         return $this->projector_position_ledger;
     }
 
-    public function eventStore(): EventStore
+    public function eventLog(): EventLog
     {
-        return $this->event_store;
+        return $this->event_log;
     }
 
     public function eventHandler(): EventHandler

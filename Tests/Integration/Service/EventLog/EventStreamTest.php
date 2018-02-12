@@ -1,4 +1,4 @@
-<?php namespace ProjectonistTests\Integration\Projectionist\Service\EventStore;
+<?php namespace ProjectonistTests\Integration\Projectionist\Service\EventLog;
 
 use Projectionist\Adapter\EventWrapper;
 use Projectionist\Adapter\EventStream;

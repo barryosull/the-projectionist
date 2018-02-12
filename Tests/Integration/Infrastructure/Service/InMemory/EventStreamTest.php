@@ -2,9 +2,9 @@
 
 use Projectionist\Adapter\EventStream;
 use Projectionist\Infrastructure\Services\InMemory;
-use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
-class EventStreamTest extends \ProjectonistTests\Integration\Projectionist\Service\EventStore\EventStreamTest
+class EventStreamTest extends \ProjectonistTests\Integration\Projectionist\Service\EventLog\EventStreamTest
 {
     protected function makeEventStream(): EventStream
     {

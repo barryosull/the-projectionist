@@ -5,7 +5,7 @@ use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorStatus;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
-use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
 class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
 {

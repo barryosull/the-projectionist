@@ -1,7 +1,7 @@
 <?php namespace ProjectonistTests\Fakes\Projectors;
 
 use Projectionist\ValueObjects\ProjectorMode;
-use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
 class BaseTestProjector
 {

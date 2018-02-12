@@ -1,4 +1,4 @@
-<?php namespace ProjectonistTests\Fakes\Services\EventStore;
+<?php namespace ProjectonistTests\Fakes\Services\EventLog;
 
 class ThingHappened
 {

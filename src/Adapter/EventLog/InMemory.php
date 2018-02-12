@@ -1,9 +1,9 @@
-<?php namespace Projectionist\Adapter\EventStore;
+<?php namespace Projectionist\Adapter\EventLog;
 
 use Projectionist\Adapter\EventWrapper;
 use Projectionist\Adapter\EventStream;
 
-class InMemory implements \Projectionist\Adapter\EventStore
+class InMemory implements \Projectionist\Adapter\EventLog
 {
     private static $events = [];
 
@@ -26,7 +26,7 @@ class InMemory implements \Projectionist\Adapter\EventStore
     {
         $event = last(self::$events);
         if (!$event) {
-            throw new \Exception("No events in the EventStore");
+            throw new \Exception("No events in the EventLog");
         }
         return new EventWrapper\Identifiable($event);
     }

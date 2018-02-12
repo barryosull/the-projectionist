@@ -15,9 +15,9 @@ class Redis
 
     public function make(): Config
     {
-        $event_store = new Adapter\EventStore\InMemory();
+        $event_log = new Adapter\EventLog\InMemory();
         $event_handler = new EventHandler\ClassName();
 
-        return new Config($this->projector_position_ledger, $event_store, $event_handler);
+        return new Config($this->projector_position_ledger, $event_log, $event_handler);
     }
 }

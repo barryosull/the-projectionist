@@ -3,7 +3,7 @@
 use Projectionist\Adapter\EventWrapper;
 use Projectionist\Adapter\EventStream;
 
-interface EventStore
+interface EventLog
 {
     public function hasEvents(): bool;
 

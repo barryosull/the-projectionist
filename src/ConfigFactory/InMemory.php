@@ -9,9 +9,9 @@ class InMemory
     public function make(): Config
     {
         $projector_position_ledger = new Adapter\ProjectorPositionLedger\InMemory();
-        $event_store = new Adapter\EventStore\InMemory();
+        $event_log = new Adapter\EventLog\InMemory();
         $event_handler = new EventHandler\ClassName();
 
-        return new Config($projector_position_ledger, $event_store, $event_handler);
+        return new Config($projector_position_ledger, $event_log, $event_handler);
     }
 }

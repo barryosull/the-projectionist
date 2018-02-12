@@ -10,21 +10,21 @@ use Projectionist\ValueObjects\ProjectorPosition;
 class ProjectorSkipper
 {
     private $projector_position_ledger;
-    private $event_store;
+    private $event_log;
 
     public function __construct(Config $adapter)
     {
         $this->projector_position_ledger = $adapter->projectorPositionLedger();
-        $this->event_store = $adapter->eventStore();
+        $this->event_log = $adapter->eventLog();
     }
 
     public function skip(ProjectorReferenceCollection $projector_references)
     {
-        if (!$this->event_store->hasEvents()) {
+        if (!$this->event_log->hasEvents()) {
             return;
         }
 
-        $latest_event = $this->event_store->latestEvent();
+        $latest_event = $this->event_log->latestEvent();
         foreach ($projector_references as $projector_reference) {
             $this->skipProjectorToEvent($projector_reference, $latest_event);
         }

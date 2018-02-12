@@ -3,7 +3,7 @@
 use Projectionist\Adapter\EventStream;
 use Projectionist\Adapter\EventWrapper\Identifiable;
 use Projectionist\Config;
-use Projectionist\Adapter\EventStore;
+use Projectionist\Adapter\EventLog;
 use Projectionist\Services\ProjectorException;
 use Projectionist\Strategy\EventHandler;
 use Projectionist\Strategy\EventHandler\ClassName;
@@ -15,7 +15,7 @@ use Projectionist\ValueObjects\ProjectorReference;
 use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\BrokenProjector;
-use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 use Prophecy\Argument;
 
 class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
@@ -94,14 +94,14 @@ class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
 
         $event_stream = new EventStream\InMemory($events);
 
-        $event_store = $this->prophesize(EventStore::class);
-        $event_store->hasEvents()->willReturn(true);
-        $event_store->latestEvent()->willReturn(new Identifiable(last($events)));
-        $event_store->getStream("")->willReturn($event_stream);
+        $event_log = $this->prophesize(EventLog::class);
+        $event_log->hasEvents()->willReturn(true);
+        $event_log->latestEvent()->willReturn(new Identifiable(last($events)));
+        $event_log->getStream("")->willReturn($event_stream);
 
         $adapter->eventHandler()->willReturn($player);
         $adapter->projectorPositionLedger()->willReturn($ledger);
-        $adapter->eventStore()->willReturn($event_store);
+        $adapter->eventLog()->willReturn($event_log);
 
         return $adapter->reveal();
     }

@@ -1,9 +1,9 @@
-<?php namespace Projectionist\Adapter\EventStore;
+<?php namespace Projectionist\Adapter\EventLog;
 
 use Projectionist\Adapter\EventWrapper;
 use Projectionist\Adapter\EventStream;
 
-class EventSourced implements \Projectionist\Adapter\EventStore
+class EventSourced implements \Projectionist\Adapter\EventLog
 {
     public function latestEvent(): Event
     {

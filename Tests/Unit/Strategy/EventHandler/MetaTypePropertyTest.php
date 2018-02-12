@@ -3,7 +3,7 @@
 use Projectionist\Strategy\EventHandler\ClassName;
 use Projectionist\Strategy\EventHandler\MetaTypeProperty;
 use ProjectonistTests\Fakes\Projectors\BaseTestProjector;
-use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
 class MetaTypePropertyTest extends \PHPUnit_Framework_TestCase
 {

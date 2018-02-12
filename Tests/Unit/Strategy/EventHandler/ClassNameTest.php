@@ -2,7 +2,7 @@
 
 use Projectionist\Strategy\EventHandler\ClassName;
 use ProjectonistTests\Fakes\Projectors\BaseTestProjector;
-use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
 class ClassNameTest extends \PHPUnit_Framework_TestCase
 {

@@ -11,13 +11,13 @@ use Projectionist\ValueObjects\ProjectorReferenceCollection;
 class ProjectorPlayer
 {
     private $projector_position_ledger;
-    private $event_store;
+    private $event_log;
     private $event_handler;
 
     public function __construct(Config $adapter)
     {
         $this->projector_position_ledger = $adapter->projectorPositionLedger();
-        $this->event_store = $adapter->eventStore();
+        $this->event_log = $adapter->eventLog();
         $this->event_handler = $adapter->eventHandler();
     }
 
@@ -89,7 +89,7 @@ class ProjectorPlayer
 
     private function playProjectorsFromPosition(ProjectorPositionCollection $positions, $last_position): ProjectorPositionCollection
     {
-        $event_stream = $this->event_store->getStream($last_position);
+        $event_stream = $this->event_log->getStream($last_position);
 
         while ($event = $event_stream->next()) {
             $positions = $positions->map(function(ProjectorPosition $position) use ($event) {

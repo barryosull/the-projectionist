@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Acceptance;
 
-use Projectionist\Adapter\EventStore;
+use Projectionist\Adapter\EventLog;
 use Projectionist\ConfigFactory;
 use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\Projectionist;
@@ -15,7 +15,7 @@ use ProjectonistTests\Fakes\Projectors\BrokenProjector;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
-use ProjectonistTests\Fakes\Services\EventStore\ThingHappened;
+use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
 class ProjectionistBootProjectorsTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,16 +34,16 @@ class ProjectionistBootProjectorsTest extends \PHPUnit_Framework_TestCase
     /** @var ProjectorReferenceCollection $projector_refs */
     private $projector_refs;
 
-    /** @var EventStore\InMemory $event_store */
-    private $event_store;
+    /** @var EventLog\InMemory $event_log */
+    private $event_log;
 
     const EVENT_ID_1 = 'a6b3fdda-94f7-4d28-a48e-c46c259d55ae';
 
     public function setUp()
     {
         $config = (new ConfigFactory\InMemory)->make();
-        $this->event_store = $config->eventStore();
-        $this->event_store->reset();
+        $this->event_log = $config->eventLog();
+        $this->event_log->reset();
         $this->projector_position_repo = $config->projectorPositionLedger();
 
         $this->projectionist_factory = new ProjectionistFactory($config);
@@ -57,7 +57,7 @@ class ProjectionistBootProjectorsTest extends \PHPUnit_Framework_TestCase
     private function seedEvent(string $event_id)
     {
         $event = new ThingHappened($event_id);
-        $this->event_store->appendEvent($event);
+        $this->event_log->appendEvent($event);
     }
 
     public function tests_boots_all_projectors_if_none_has_been_stored()
