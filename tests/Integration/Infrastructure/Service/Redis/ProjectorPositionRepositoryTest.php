@@ -1,14 +1,14 @@
-<?php namespace ProjectonistTests\Integration\Infrastructure\Projectionist\Service\Redis;
+<?php namespace ProjectonistTests\Integration\Infrastructure\Service\Redis;
 
 use Projectionist\Adapter\ProjectorPositionLedger;
-use Predis;
+use Predis\Client;
 
 // TODO: Test this works, until then disable
-class ProjectorPositionRepositoryTest extends \ProjectonistTests\Integration\Projectionist\Service\ProjectorPositionRepositoryTest
+class ProjectorPositionRepositoryTest extends \ProjectonistTests\Integration\Service\ProjectorPositionRepositoryTest
 {
     protected function makeRepository(): ProjectorPositionLedger
     {
-        $client = new Predis\Client();
+        $client = new Client();
         return new ProjectorPositionLedger\Redis($client);
     }
 }

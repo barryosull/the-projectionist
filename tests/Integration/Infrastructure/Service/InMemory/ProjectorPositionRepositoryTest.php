@@ -1,8 +1,8 @@
-<?php namespace ProjectonistTests\Integration\Infrastructure\Projectionist\Service\InMemory;
+<?php namespace ProjectonistTests\Integration\Infrastructure\Service\InMemory;
 
 use Projectionist\Adapter\ProjectorPositionLedger;
 
-class ProjectorPositionRepositoryTest extends \ProjectonistTests\Integration\Projectionist\Service\ProjectorPositionRepositoryTest
+class ProjectorPositionRepositoryTest extends \ProjectonistTests\Integration\Service\ProjectorPositionRepositoryTest
 {
     protected function makeRepository(): ProjectorPositionLedger
     {

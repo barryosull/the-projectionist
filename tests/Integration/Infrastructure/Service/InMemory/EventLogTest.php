@@ -1,8 +1,6 @@
-<?php namespace ProjectonistTests\Integration\Infrastructure\Projectionist\Service\InMemory;
+<?php namespace ProjectonistTests\Integration\Infrastructure\Service\InMemory;
 
-use Projectionist\Infrastructure\Services\InMemory;
-
-class EventLogTest extends \ProjectonistTests\Integration\Projectionist\Service\EventLogTest
+class EventLogTest extends \ProjectonistTests\Integration\Service\EventLogTest
 {
     protected function makeEventLog(): \Projectionist\Adapter\EventLog
     {

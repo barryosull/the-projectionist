@@ -1,10 +1,9 @@
-<?php namespace ProjectonistTests\Integration\Infrastructure\Projectionist\Service\InMemory;
+<?php namespace ProjectonistTests\Integration\Infrastructure\Service\InMemory;
 
 use Projectionist\Adapter\EventStream;
-use Projectionist\Infrastructure\Services\InMemory;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
-class EventStreamTest extends \ProjectonistTests\Integration\Projectionist\Service\EventLog\EventStreamTest
+class EventStreamTest extends \ProjectonistTests\Integration\Service\EventLog\EventStreamTest
 {
     protected function makeEventStream(): EventStream
     {

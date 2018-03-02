@@ -1,4 +1,4 @@
-<?php namespace ProjectonistTests\Unit\Projectionist\Services;
+<?php namespace ProjectonistTests\Unit\Services;
 
 use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\Services\ProjectorQueryable;

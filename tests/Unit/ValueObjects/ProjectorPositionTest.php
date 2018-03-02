@@ -1,4 +1,4 @@
-<?php namespace ProjectonistTests\Projectionist\ValueObjects;
+<?php namespace ProjectonistTests\Unit\ValueObjects;
 
 use Projectionist\Adapter\EventWrapper\Identifiable;
 use Projectionist\ValueObjects\ProjectorPosition;

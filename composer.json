@@ -12,9 +12,9 @@
     }
   },
   "autoload-dev": {
-    "psr-4": {
-      "ProjectionistBenchmarks\\": "benchmarks/",
-      "ProjectonistTests\\": "tests/"
-    }
+    "classmap": [
+      "benchmarks",
+      "tests/"
+    ]
   }
 }

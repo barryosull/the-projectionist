@@ -1,4 +1,4 @@
-<?php namespace ProjectonistTests\Integration\Projectionist\Service;
+<?php namespace ProjectonistTests\Integration\Service;
 
 use Projectionist\Adapter\EventLog;
 
