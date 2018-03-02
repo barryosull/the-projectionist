@@ -14,7 +14,7 @@
   },
   "autoload-dev": {
     "classmap": [
-      "benchmarks",
+      "benchmarks/",
       "tests/"
     ]
   }
