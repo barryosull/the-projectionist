@@ -3,7 +3,8 @@
     "illuminate/support": "^5.5",
     "phpunit/phpunit": "^6.0",
     "illuminate/container": "^5.5",
-    "predis/predis": "^1.1"
+    "predis/predis": "^1.1",
+    "php": "~7.0"
   },
 
   "autoload": {
