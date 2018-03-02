@@ -6,7 +6,7 @@ use Projectionist\ValueObjects\ProjectorReference;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 
-class ProjectorPositionCollectionTest extends \PHPUnit_Framework_TestCase
+class ProjectorPositionCollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function test_if_a_collection_has_a_reference()
     {

@@ -5,7 +5,7 @@ use Projectionist\ValueObjects\ProjectorReference;
 use ProjectonistTests\Fakes\Projectors\NoModeProjector;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 
-class ProjectorReferenceTest extends \PHPUnit_Framework_TestCase
+class ProjectorReferenceTest extends \PHPUnit\Framework\TestCase
 {
     public function test_reads_mode_from_projector()
     {

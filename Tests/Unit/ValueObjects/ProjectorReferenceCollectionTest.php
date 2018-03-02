@@ -6,7 +6,7 @@ use Projectionist\ValueObjects\ProjectorReferenceCollection;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 
-class ProjectorReferenceCollectionTest extends \PHPUnit_Framework_TestCase
+class ProjectorReferenceCollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function test_will_not_allow_duplicates()
     {

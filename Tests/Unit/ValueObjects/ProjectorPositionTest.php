@@ -7,7 +7,7 @@ use Projectionist\ValueObjects\ProjectorStatus;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
-class ProjectorPositionTest extends \PHPUnit_Framework_TestCase
+class ProjectorPositionTest extends \PHPUnit\Framework\TestCase
 {
     public function test_make_a_new_unplayed_position_from_a_reference()
     {

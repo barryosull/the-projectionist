@@ -157,6 +157,7 @@ If a projector fails during boot, all other projectors are marked as "stalled", 
 
 ## TODOs
 My list of todos for this project
+- Upgrade PHPUnit to 7.0.2
 - Need to a way to handle broken releases, so you can switch back to the previous codebase and ensure the projectors are all up to speed
 - Simplify 'fetchCollection' logic embedded in tests, its's getting hard to decipher and may not be required anymore
 - Restructure test folders to make more sense

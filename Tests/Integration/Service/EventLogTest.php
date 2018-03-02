@@ -2,7 +2,7 @@
 
 use Projectionist\Adapter\EventLog;
 
-abstract class EventLogTest extends \PHPUnit_Framework_TestCase
+abstract class EventLogTest extends \PHPUnit\Framework\TestCase
 {
     abstract protected function makeEventLog(): EventLog;
 

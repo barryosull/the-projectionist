@@ -3,7 +3,7 @@
 use Projectionist\Adapter\EventWrapper;
 use Projectionist\Adapter\EventStream;
 
-abstract class EventStreamTest extends \PHPUnit_Framework_TestCase
+abstract class EventStreamTest extends \PHPUnit\Framework\TestCase
 {
     abstract protected function makeEventStream(): EventStream;
 

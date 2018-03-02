@@ -4,7 +4,7 @@ use Projectionist\Strategy\EventHandler\ClassName;
 use ProjectonistTests\Fakes\Projectors\BaseTestProjector;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
-class ClassNameTest extends \PHPUnit_Framework_TestCase
+class ClassNameTest extends \PHPUnit\Framework\TestCase
 {
     public function test_parses_handler_method_and_calls_it()
     {

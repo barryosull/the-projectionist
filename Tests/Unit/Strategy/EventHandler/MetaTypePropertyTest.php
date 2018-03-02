@@ -5,7 +5,7 @@ use Projectionist\Strategy\EventHandler\MetaTypeProperty;
 use ProjectonistTests\Fakes\Projectors\BaseTestProjector;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
-class MetaTypePropertyTest extends \PHPUnit_Framework_TestCase
+class MetaTypePropertyTest extends \PHPUnit\Framework\TestCase
 {
     public function test_parses_handler_method_and_calls_it()
     {

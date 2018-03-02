@@ -9,7 +9,7 @@ use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 
-abstract class ProjectorPositionRepositoryTest extends \PHPUnit_Framework_TestCase
+abstract class ProjectorPositionRepositoryTest extends \PHPUnit\Framework\TestCase
 {
     /** @var ProjectorPositionLedger */
     private $repo;

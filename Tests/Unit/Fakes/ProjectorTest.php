@@ -4,7 +4,7 @@ use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 
-class ProjectorTest extends \PHPUnit_Framework_TestCase
+class ProjectorTest extends \PHPUnit\Framework\TestCase
 {
     private $event;
 

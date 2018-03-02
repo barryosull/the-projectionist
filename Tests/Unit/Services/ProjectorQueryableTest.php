@@ -11,7 +11,7 @@ use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 
-class ProjectorQueryableTest extends \PHPUnit_Framework_TestCase
+class ProjectorQueryableTest extends \PHPUnit\Framework\TestCase
 {
     /** Deps */
 

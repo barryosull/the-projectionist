@@ -7,7 +7,7 @@ use Tests\Fakes\Projectors\RunOnce;
 /**
  * Benchmarks for the defined function in PHP
  *
- * THis function is reported as being very slow here
+ * This function is reported as being very slow here
  * http://ie1.php.net/manual/en/function.defined.php#89886
  *
  * This was 8 years ago. How well does it work in PHP7?

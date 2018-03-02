@@ -18,7 +18,7 @@ use ProjectonistTests\Fakes\Projectors\BrokenProjector;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 use Prophecy\Argument;
 
-class ProjectorPlayerTest extends \PHPUnit_Framework_TestCase
+class ProjectorPlayerTest extends \PHPUnit\Framework\TestCase
 {
     public function test_broken_projectors_are_marked_as_broken_and_the_error_is_bubbled_up()
     {

@@ -15,7 +15,7 @@ use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
-class ProjectionistPlayProjectorsTest extends \PHPUnit_Framework_TestCase
+class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
 {
     /** @var ProjectionistFactory */
     private $projectionist_factory;
