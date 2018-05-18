@@ -1,4 +1,4 @@
-# The Projectionist: A migration system for Event Projectors
+# The Projectionist: Projector management and versioning system
 
 [![CircleCI](https://circleci.com/gh/barryosull/the-projectionist/tree/master.svg?style=svg)](https://circleci.com/gh/barryosull/the-projectionist/tree/master)
 
