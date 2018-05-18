@@ -1,4 +1,4 @@
-<?php namespace Projectionist;
+<?php namespace Projectionist\App;
 
 use Projectionist\Domain\Services\EventLog;
 use Projectionist\Domain\Strategy\EventHandler;

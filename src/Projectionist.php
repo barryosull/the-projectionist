@@ -1,5 +1,6 @@
 <?php namespace Projectionist;
 
+use Projectionist\App\Config;
 use Projectionist\Domain\Services\ProjectorQueryable;
 use Projectionist\Domain\Strategy\ProjectorPlayer;
 use Projectionist\Domain\Strategy\ProjectorSkipper;

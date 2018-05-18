@@ -1,6 +1,6 @@
 <?php namespace Projectionist\App\ConfigFactory;
 
-use Projectionist\Config;
+use Projectionist\App\Config;
 use Projectionist\Infra;
 use Projectionist\Domain\Strategy\EventHandler;
 

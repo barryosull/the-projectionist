@@ -1,7 +1,7 @@
 <?php namespace Projectionist\Domain\Strategy;
 
 use Projectionist\Domain\Services\EventWrapper;
-use Projectionist\Config;
+use Projectionist\App\Config;
 use Projectionist\Domain\Services\ProjectorException;
 use Projectionist\Domain\ValueObjects\ProjectorPosition;
 use Projectionist\Domain\ValueObjects\ProjectorPositionCollection;

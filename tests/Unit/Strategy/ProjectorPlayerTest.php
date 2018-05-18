@@ -2,7 +2,7 @@
 
 use Projectionist\Infra\EventStream;
 use Projectionist\Infra\EventWrapper\Identifiable;
-use Projectionist\Config;
+use Projectionist\App\Config;
 use Projectionist\Domain\Services\EventLog;
 use Projectionist\Domain\Services\ProjectorException;
 use Projectionist\Domain\Strategy\EventHandler;
