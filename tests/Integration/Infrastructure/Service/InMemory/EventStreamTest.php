@@ -1,6 +1,7 @@
 <?php namespace ProjectonistTests\Integration\Infrastructure\Service\InMemory;
 
 use Projectionist\Domain\Services\EventStream;
+use Projectionist\Infra\EventStream\InMemory;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
 class EventStreamTest extends \ProjectonistTests\Integration\Service\EventLog\EventStreamTest
@@ -11,6 +12,6 @@ class EventStreamTest extends \ProjectonistTests\Integration\Service\EventLog\Ev
             new ThingHappened('id')
         ];
 
-        return new EventStream\InMemory($events);
+        return new InMemory($events);
     }
 }

@@ -22,8 +22,8 @@ abstract class EventStreamTest extends \PHPUnit\Framework\TestCase
 
         $stream->next();
 
-        $event_b = $stream->next();
+        $eventB = $stream->next();
 
-        $this->assertNull($event_b);
+        $this->assertNull($eventB);
     }
 }

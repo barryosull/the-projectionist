@@ -1,5 +1,6 @@
 <?php namespace ProjectonistTests\Integration\Infrastructure\Service\Redis;
 
+use Projectionist\Infra\ProjectorPositionLedger\Redis;
 use Projectionist\Domain\Services\ProjectorPositionLedger;
 use Predis\Client;
 
@@ -9,6 +10,6 @@ class ProjectorPositionRepositoryTest extends \ProjectonistTests\Integration\Ser
     protected function makeRepository(): ProjectorPositionLedger
     {
         $client = new Client();
-        return new ProjectorPositionLedger\Redis($client);
+        return new Redis($client);
     }
 }

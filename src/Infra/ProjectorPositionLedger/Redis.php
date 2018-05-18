@@ -6,7 +6,6 @@ use Projectionist\Domain\ValueObjects\ProjectorPositionCollection;
 use Projectionist\Domain\ValueObjects\ProjectorReference;
 use Predis;
 use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
-use function Sodium\crypto_box_seed_keypair;
 
 class Redis implements ProjectorPositionLedger
 {
