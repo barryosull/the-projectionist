@@ -10,37 +10,15 @@ use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
 
 class ProjectorPlayer
 {
-    private $projector_position_ledger;
-    private $event_log;
-    private $event_handler;
+    private $projectorPositionLedger;
+    private $eventLog;
+    private $eventHandler;
 
     public function __construct(Config $adapter)
     {
-        $this->projector_position_ledger = $adapter->projectorPositionLedger();
-        $this->event_log = $adapter->eventLog();
-        $this->event_handler = $adapter->eventHandler();
-    }
-
-    private function getProjectorPositions(ProjectorReferenceCollection $projector_references): ProjectorPositionCollection
-    {
-        return new ProjectorPositionCollection(
-            array_map(function(ProjectorReference $ref){
-                $position = $this->projector_position_ledger->fetch($ref);
-
-                if ($position) {
-                    return $position;
-                }
-
-                return ProjectorPosition::makeNewUnplayed($ref);
-            }, $projector_references->toArray())
-        );
-    }
-
-    private function storeProjectorPositions(ProjectorPositionCollection $positions)
-    {
-        foreach ($positions as $position) {
-            $this->projector_position_ledger->store($position);
-        }
+        $this->projectorPositionLedger = $adapter->projectorPositionLedger();
+        $this->eventLog = $adapter->eventLog();
+        $this->eventHandler = $adapter->eventHandler();
     }
 
     public function boot(ProjectorReferenceCollection $projector_references)
@@ -73,6 +51,29 @@ class ProjectorPlayer
         }
     }
 
+    // TODO: Extract into it's own class/concept
+    private function getProjectorPositions(ProjectorReferenceCollection $projector_references): ProjectorPositionCollection
+    {
+        return new ProjectorPositionCollection(
+            array_map(function(ProjectorReference $ref){
+                $position = $this->projectorPositionLedger->fetch($ref);
+
+                if ($position) {
+                    return $position;
+                }
+
+                return ProjectorPosition::makeNewUnplayed($ref);
+            }, $projector_references->toArray())
+        );
+    }
+
+    private function storeProjectorPositions(ProjectorPositionCollection $positions)
+    {
+        foreach ($positions as $position) {
+            $this->projectorPositionLedger->store($position);
+        }
+    }
+
     private function playProjectors(ProjectorPositionCollection $positions): ProjectorPositionCollection
     {
         $grouped_by_position = $positions->groupByLastPosition();
@@ -89,7 +90,7 @@ class ProjectorPlayer
 
     private function playProjectorsFromPosition(ProjectorPositionCollection $positions, $last_position): ProjectorPositionCollection
     {
-        $event_stream = $this->event_log->getStream($last_position);
+        $event_stream = $this->eventLog->getStream($last_position);
 
         while ($event = $event_stream->next()) {
             $positions = $positions->map(function(ProjectorPosition $position) use ($event) {
@@ -110,7 +111,7 @@ class ProjectorPlayer
         }
         $projector = $projector_position->projector_reference->projector();
         try {
-            $this->event_handler->handle($event->wrappedEvent(), $projector);
+            $this->eventHandler->handle($event->wrappedEvent(), $projector);
             return $projector_position->played($event);
         } catch (\Throwable $t) {
             $this->catchFailure($t);

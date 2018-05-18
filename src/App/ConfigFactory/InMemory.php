@@ -2,7 +2,6 @@
 
 use Projectionist\App\Config;
 use Projectionist\Infra;
-use Projectionist\Domain\Strategy\EventHandler;
 
 class InMemory
 {
