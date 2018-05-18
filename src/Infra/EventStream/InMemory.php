@@ -12,7 +12,7 @@ class InMemory implements \Projectionist\Domain\Services\EventStream
         $this->events = new Collection($events);
     }
 
-    /** @return \Projectionist\Domain\Services\EventWrapper */
+    /** @return \Projectionist\Domain\Services\EventWrapper|null */
     public function next()
     {
         $event = $this->events->shift();

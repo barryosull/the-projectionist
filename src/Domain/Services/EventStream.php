@@ -4,6 +4,6 @@ use Projectionist\Domain\Services\EventWrapper;
 
 interface EventStream
 {
-    /** @return EventWrapper */
+    /** @return EventWrapper|null */
     public function next();
 }
