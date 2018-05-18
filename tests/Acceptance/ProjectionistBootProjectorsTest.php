@@ -34,7 +34,7 @@ class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
 
     public function setUp()
     {
-        $config = (new ConfigFactory\InMemory)->make();
+        $config = (new \Projectionist\App\ConfigFactory\InMemory)->make();
         $this->eventLog = $config->eventLog();
         $this->eventLog->reset();
         $this->projectorPositionRepo = $config->projectorPositionLedger();

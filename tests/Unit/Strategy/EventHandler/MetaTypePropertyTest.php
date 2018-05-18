@@ -1,7 +1,7 @@
 <?php namespace ProjectonistTests\Unit\Strategy\EventHandler;
 
 use Projectionist\Strategy\EventHandler\ClassName;
-use Projectionist\Strategy\EventHandler\MetaTypeProperty;
+use Projectionist\Infra\EventHandler\MetaTypeProperty;
 use ProjectonistTests\Fakes\Projectors\BaseTestProjector;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 

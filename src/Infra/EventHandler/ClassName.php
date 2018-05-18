@@ -1,6 +1,6 @@
-<?php namespace Projectionist\Strategy\EventHandler;
+<?php namespace Projectionist\Infra\EventHandler;
 
-use Projectionist\Strategy\EventHandler;
+use Projectionist\Domain\Strategy\EventHandler;
 
 class ClassName implements EventHandler
 {

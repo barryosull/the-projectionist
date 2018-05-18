@@ -1,8 +1,8 @@
 <?php namespace Projectionist;
 
 use Projectionist\Domain\Services\ProjectorQueryable;
-use Projectionist\Strategy\ProjectorPlayer;
-use Projectionist\Strategy\ProjectorSkipper;
+use Projectionist\Domain\Strategy\ProjectorPlayer;
+use Projectionist\Domain\Strategy\ProjectorSkipper;
 use Projectionist\Domain\ValueObjects\ProjectorMode;
 use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
 

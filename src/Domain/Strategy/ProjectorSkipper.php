@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Strategy;
+<?php namespace Projectionist\Domain\Strategy;
 
 use Projectionist\Domain\Services\EventWrapper;
 use Projectionist\Config;
@@ -6,7 +6,6 @@ use Projectionist\Domain\ValueObjects\ProjectorReference;
 use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
 use Projectionist\Domain\ValueObjects\ProjectorPosition;
 
-// TODO: Write unit tests for this
 class ProjectorSkipper
 {
     private $projector_position_ledger;

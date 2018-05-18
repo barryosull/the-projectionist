@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Strategy;
+<?php namespace Projectionist\Domain\Strategy;
 
 use Projectionist\Domain\Services\EventWrapper;
 use Projectionist\Config;

@@ -1,8 +1,8 @@
-<?php namespace Projectionist\ConfigFactory;
+<?php namespace Projectionist\App\ConfigFactory;
 
 use Projectionist\Config;
 use Projectionist\Infra;
-use Projectionist\Strategy\EventHandler;
+use Projectionist\Domain\Strategy\EventHandler;
 
 class InMemory
 {
@@ -10,7 +10,7 @@ class InMemory
     {
         $projector_position_ledger = new Infra\ProjectorPositionLedger\InMemory();
         $event_log = new Infra\EventLog\InMemory();
-        $event_handler = new EventHandler\ClassName();
+        $event_handler = new Infra\EventHandler\ClassName();
 
         return new Config($projector_position_ledger, $event_log, $event_handler);
     }

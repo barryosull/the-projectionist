@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Unit\Strategy\EventHandler;
 
-use Projectionist\Strategy\EventHandler\ClassName;
+use Projectionist\Infra\EventHandler\ClassName;
 use ProjectonistTests\Fakes\Projectors\BaseTestProjector;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
@@ -13,7 +13,7 @@ class ClassNameTest extends \PHPUnit\Framework\TestCase
 
         $projector->whenThingHappened($event)->shouldBeCalled();
 
-        $event_handler = new ClassName();
+        $event_handler = new \Projectionist\Infra\EventHandler\ClassName();
         $event_handler->handle($event, $projector->reveal());
     }
 }

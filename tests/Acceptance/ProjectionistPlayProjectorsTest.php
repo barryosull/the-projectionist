@@ -28,7 +28,7 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
 
     public function setUp()
     {
-        $config = (new ConfigFactory\InMemory)->make();
+        $config = (new \Projectionist\App\ConfigFactory\InMemory)->make();
         $config->projectorPositionLedger()->clear();
         $this->projectionist = new Projectionist($config);
 
