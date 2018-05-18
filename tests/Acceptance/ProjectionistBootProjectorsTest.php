@@ -4,7 +4,6 @@ use Projectionist\Adapter\EventLog;
 use Projectionist\ConfigFactory;
 use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\Projectionist;
-use Projectionist\ProjectionistFactory;
 use Projectionist\Services\ProjectorException;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
@@ -19,37 +18,30 @@ use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
 class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var  ProjectorPositionLedger $projector_position_repo */
-    private $projector_position_repo;
+    /** @var  ProjectorPositionLedger $projectorPositionRepo */
+    private $projectorPositionRepo;
 
     /** @var Projectionist $booter */
     private $projectionist;
 
-    /** @var array $projectors */
-    private $projectors;
+    /** @var ProjectorReferenceCollection $projectorRefs */
+    private $projectorRefs;
 
-    /** @var ProjectionistFactory $projectionist_factory */
-    private $projectionist_factory;
-
-    /** @var ProjectorReferenceCollection $projector_refs */
-    private $projector_refs;
-
-    /** @var EventLog\InMemory $event_log */
-    private $event_log;
+    /** @var EventLog\InMemory $eventLog */
+    private $eventLog;
 
     const EVENT_ID_1 = 'a6b3fdda-94f7-4d28-a48e-c46c259d55ae';
 
     public function setUp()
     {
         $config = (new ConfigFactory\InMemory)->make();
-        $this->event_log = $config->eventLog();
-        $this->event_log->reset();
-        $this->projector_position_repo = $config->projectorPositionLedger();
+        $this->eventLog = $config->eventLog();
+        $this->eventLog->reset();
+        $this->projectorPositionRepo = $config->projectorPositionLedger();
+        $this->projectionist = new Projectionist($config);
 
-        $this->projectionist_factory = new ProjectionistFactory($config);
-        $this->projectors = [new RunFromLaunch, new RunFromStart, new RunOnce];
-        $this->projectionist = $this->projectionist_factory->make($this->projectors);
-        $this->projector_refs = ProjectorReferenceCollection::fromProjectors($this->projectors);
+        $projectors = [new RunFromLaunch, new RunFromStart, new RunOnce];
+        $this->projectorRefs = ProjectorReferenceCollection::fromProjectors($projectors);
 
         $this->seedEvent(self::EVENT_ID_1);
     }
@@ -57,34 +49,38 @@ class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
     private function seedEvent(string $event_id)
     {
         $event = new ThingHappened($event_id);
-        $this->event_log->appendEvent($event);
+        $this->eventLog->appendEvent($event);
     }
 
     public function tests_boots_all_projectors_if_none_has_been_stored()
     {
-        $this->assertEmpty($this->projector_position_repo->fetchCollection($this->projector_refs));
+        $this->assertEmpty($this->projectorPositionRepo->fetchCollection($this->projectorRefs));
 
-        $this->projectionist->boot();
+        $this->projectionist->boot($this->projectorRefs);
 
-        $stored_projector_positions = $this->projector_position_repo->fetchCollection($this->projector_refs);
+        $stored_projector_positions = $this->projectorPositionRepo->fetchCollection($this->projectorRefs);
 
         $actual = $stored_projector_positions->references();
 
-        $this->assertEquals($this->projector_refs, $actual);
-        $this->assertProjectorsAreAtPosition($this->projectors, self::EVENT_ID_1, $stored_projector_positions);
+        $this->assertEquals($this->projectorRefs, $actual);
+        $this->assertProjectorsAreAtPosition($this->projectorRefs, self::EVENT_ID_1, $stored_projector_positions);
     }
 
-    private function assertProjectorsAreAtPosition(array $projectors, string $expected_position, ProjectorPositionCollection $positions)
+    private function assertProjectorsAreAtPosition(
+        ProjectorReferenceCollection $projectorRefs,
+        string $expectedPosition,
+        ProjectorPositionCollection $positions
+    )
     {
-        $this->assertCount(count($projectors), $positions);
-        $positions->each(function(ProjectorPosition $position) use ($expected_position) {
-            $this->assertEquals($expected_position, $position->last_position);
+        $this->assertCount(count($projectorRefs->projectors()), $positions);
+        $positions->each(function(ProjectorPosition $position) use ($expectedPosition) {
+            $this->assertEquals($expectedPosition, $position->last_position); // TODO: Change to getMethod
         });
     }
 
     public function test_boot_does_not_play_events_into_run_from_launch_projectors()
     {
-        $this->projectionist->boot();
+        $this->projectionist->boot($this->projectorRefs);
 
         $this->assertTrue(RunFromStart::hasProjectedEvent(self::EVENT_ID_1));
         $this->assertTrue(RunOnce::hasProjectedEvent(self::EVENT_ID_1));
@@ -93,25 +89,27 @@ class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
 
     public function test_booting_a_broken_projectors_marks_other_projectors_as_stalled()
     {
-        $run_once = new RunOnce;
+        $runFromStart = new RunFromStart;
         $broken = new BrokenProjector;
-        $run_from_start = new RunFromStart;
+        $runOnce = new RunOnce;
 
-        $projectors = [$run_once, $broken, $run_from_start];
-        $projectionist = $this->projectionist_factory->make($projectors);
+        $projectorRefs = ProjectorReferenceCollection::fromProjectors([
+            $runFromStart,
+            $broken,
+            $runOnce
+        ]);
 
-        $this->assertProjectionistFailsOnBoot($projectionist);
+        $this->assertProjectionistFailsOnBoot($projectorRefs);
 
-        $refs = ProjectorReferenceCollection::fromProjectors($projectors);
-        $stored_projector_positions = $this->projector_position_repo->fetchCollection($refs);
+        $stored_projector_positions = $this->projectorPositionRepo->fetchCollection($projectorRefs);
 
-        $run_once_pos = $stored_projector_positions->getByReference( ProjectorReference::makeFromProjector($run_once) );
-        $broken_pos = $stored_projector_positions->getByReference( ProjectorReference::makeFromProjector($broken) );
-        $run_from_start_pos = $stored_projector_positions->getByReference( ProjectorReference::makeFromProjector($run_from_start) );
+        $runOncePos = $stored_projector_positions->getByReference( ProjectorReference::makeFromProjector($runOnce) );
+        $brokenPos = $stored_projector_positions->getByReference( ProjectorReference::makeFromProjector($broken) );
+        $runFromStartPos = $stored_projector_positions->getByReference( ProjectorReference::makeFromProjector($runFromStart) );
 
-        $this->assertProjectorIsBroken($broken_pos);
-        $this->assertProjectorIsStalled($run_once_pos);
-        $this->assertProjectorIsStalled($run_from_start_pos);
+        $this->assertProjectorIsBroken($brokenPos);
+        $this->assertProjectorIsStalled($runOncePos);
+        $this->assertProjectorIsStalled($runFromStartPos);
     }
 
     private function assertProjectorIsBroken(ProjectorPosition $position)
@@ -124,11 +122,11 @@ class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($position->status->is(ProjectorStatus::STALLED), "Projector ".$position->projector_reference->class_path." should be stalled");
     }
 
-    private function assertProjectionistFailsOnBoot(Projectionist $projectionist)
+    private function assertProjectionistFailsOnBoot(ProjectorReferenceCollection $projectorRefs)
     {
         $first_boot_failed = false;
         try {
-            $projectionist->boot();
+            $this->projectionist->boot($projectorRefs);
         } catch (ProjectorException $e) {
             $first_boot_failed = true;
         }
@@ -138,12 +136,12 @@ class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
 
     public function test_booting_fails_if_a_projector_is_broken()
     {
-        $projectionist = $this->projectionist_factory->make([new BrokenProjector()]);
+        $projectorRefs = ProjectorReferenceCollection::fromProjectors([new BrokenProjector()]);
 
-        $this->assertProjectionistFailsOnBoot($projectionist);
+        $this->assertProjectionistFailsOnBoot($projectorRefs);
 
         $this->expectException(ProjectorException::class);
 
-        $projectionist->boot();
+        $this->projectionist->boot($projectorRefs);
     }
 }

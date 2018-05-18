@@ -3,7 +3,7 @@
 use Projectionist\Adapter\EventLog;
 use Projectionist\Adapter\ProjectorPositionLedger;
 use Projectionist\ConfigFactory;
-use Projectionist\ProjectionistFactory;
+use Projectionist\Projectionist;
 use Projectionist\Services\ProjectorException;
 use Projectionist\ValueObjects\ProjectorPosition;
 use Projectionist\ValueObjects\ProjectorPositionCollection;
@@ -17,8 +17,8 @@ use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
 class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var ProjectionistFactory */
-    private $projectionist_factory;
+    /** @var Projectionist */
+    private $projectionist;
 
     /** @var ProjectorPositionLedger */
     private $projector_position_ledger;
@@ -30,7 +30,8 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
     {
         $config = (new ConfigFactory\InMemory)->make();
         $config->projectorPositionLedger()->clear();
-        $this->projectionist_factory = new ProjectionistFactory($config);
+        $this->projectionist = new Projectionist($config);
+
         $this->projector_position_ledger = $config->projectorPositionLedger();
         $this->event_log = $config->eventLog();
         $this->event_log->reset();
@@ -49,29 +50,28 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
     {
         $this->seedEvent(self::EVENT_1_ID);
         $projectors = [new RunFromLaunch, new RunFromStart];
-        $projectionist = $this->projectionist_factory->make($projectors);
+        $projectorRefs = ProjectorReferenceCollection::fromProjectors($projectors);
 
-        $projectionist->play();
+        $this->projectionist->play($projectorRefs);
 
-        $projector_refs = ProjectorReferenceCollection::fromProjectors($projectors);
-        $stored_projector_positions = $this->projector_position_ledger->fetchCollection($projector_refs);
+        $stored_projector_positions = $this->projector_position_ledger->fetchCollection($projectorRefs);
 
-        $this->assertProjectorsAreAtPosition($projectors, self::EVENT_1_ID, $stored_projector_positions);
+        $this->assertProjectorsAreAtPosition($projectorRefs, self::EVENT_1_ID, $stored_projector_positions);
     }
 
-    private function assertProjectorsAreAtPosition(array $projectors, string $expected_position, ProjectorPositionCollection $positions)
+    private function assertProjectorsAreAtPosition(ProjectorReferenceCollection $projectorRefs, string $expectedPosition, ProjectorPositionCollection $positions)
     {
-        $this->assertCount(count($projectors), $positions);
-        $this->assertProjectorsHaveProcessedEvent($projectors, $expected_position);
-        $positions->each(function(ProjectorPosition $position) use ($expected_position) {
-           $this->assertEquals($expected_position, $position->last_position);
+        $this->assertCount(count($projectorRefs->projectors()), $positions);
+        $this->assertProjectorsHaveProcessedEvent($projectorRefs, $expectedPosition);
+        $positions->each(function(ProjectorPosition $position) use ($expectedPosition) {
+           $this->assertEquals($expectedPosition, $position->last_position);
            $this->assertEquals(ProjectorStatus::working(), $position->status);
         });
     }
 
-    private function assertProjectorsHaveProcessedEvent(array $projectors, string $event_id)
+    private function assertProjectorsHaveProcessedEvent(ProjectorReferenceCollection $projectorRefs, string $event_id)
     {
-        foreach ($projectors as $projector) {
+        foreach ($projectorRefs->projectors() as $projector) {
             $this->assertTrue($projector::hasProjectedEvent($event_id));
         }
     }
@@ -80,9 +80,9 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
     {
         $this->seedEvent(self::EVENT_1_ID);
         $projectors = [new RunFromLaunch, new RunFromStart, new RunOnce()];
-        $projectionist = $this->projectionist_factory->make($projectors);
+        $projectorRefs = ProjectorReferenceCollection::fromProjectors($projectors);
 
-        $projectionist->play();
+        $this->projectionist->play($projectorRefs);
 
         $this->assertFalse(RunOnce::hasProjectedEvent(self::EVENT_1_ID));
     }
@@ -91,22 +91,23 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
     {
         $this->seedEvent(self::EVENT_1_ID);
         $projectors = [new RunFromLaunch, new RunFromStart, new BrokenProjector()];
-        $projectionist = $this->projectionist_factory->make($projectors);
+        $projectorRefs = ProjectorReferenceCollection::fromProjectors($projectors);
 
         $this->expectException(ProjectorException::class);
 
-        $projectionist->play();
+        $this->projectionist->play($projectorRefs);
     }
 
     public function test_playing_after_a_failure_continues_normally()
     {
         $this->seedEvent(self::EVENT_1_ID);
-        $projectors = [new RunFromLaunch, new RunFromStart, new BrokenProjector];
-        $projectionist = $this->projectionist_factory->make($projectors);
+
+        $projectors = [new RunFromLaunch, new RunFromStart, new BrokenProjector()];
+        $projectorRefs = ProjectorReferenceCollection::fromProjectors($projectors);
 
         $first_play_failed = false;
         try {
-            $projectionist->play();
+            $this->projectionist->play($projectorRefs);
         } catch (\Throwable $e) {
             $first_play_failed = true;
         }
@@ -115,12 +116,12 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
 
         $this->seedEvent(self::EVENT_2_ID);
 
-        $projectionist->play();
+        $this->projectionist->play($projectorRefs);
 
-        $expected_projectors = [new RunFromLaunch, new RunFromStart];
-        $projector_refs = ProjectorReferenceCollection::fromProjectors($expected_projectors);
-        $stored_projector_positions = $this->projector_position_ledger->fetchCollection($projector_refs);
+        $expectedProjectors = [new RunFromLaunch, new RunFromStart];
+        $expectedProjectorRefs = ProjectorReferenceCollection::fromProjectors($expectedProjectors);
+        $stored_projector_positions = $this->projector_position_ledger->fetchCollection($expectedProjectorRefs);
 
-        $this->assertProjectorsAreAtPosition($expected_projectors, self::EVENT_2_ID, $stored_projector_positions);
+        $this->assertProjectorsAreAtPosition($expectedProjectorRefs, self::EVENT_2_ID, $stored_projector_positions);
     }
 }

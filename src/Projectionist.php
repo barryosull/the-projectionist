@@ -8,38 +8,43 @@ use Projectionist\ValueObjects\ProjectorReferenceCollection;
 
 class Projectionist
 {
-    private $projector_queryable;
-    private $projector_player;
-    private $projector_skipper;
+    private $adapter;
+    private $projectorPlayer;
+    private $projectorSkipper;
 
-    private $projector_references;
-
-    public function __construct(Config $adapter, ProjectorReferenceCollection $projector_references)
+    public function __construct(Config $adapter)
     {
-        $this->projector_queryable = new ProjectorQueryable($adapter->projectorPositionLedger(), $projector_references);
-        $this->projector_player = new ProjectorPlayer($adapter);
-        $this->projector_skipper = new ProjectorSkipper($adapter);
-
-        $this->projector_references = $projector_references;
+        $this->adapter = $adapter;
+        $this->projectorPlayer = new ProjectorPlayer($adapter);
+        $this->projectorSkipper = new ProjectorSkipper($adapter);
     }
 
-    public function boot()
+    public function boot(ProjectorReferenceCollection $projectorRefs)
     {
-        $new_projectors = $this->projector_queryable->newOrBrokenProjectors();
+        $projectorQueryable = $this->makeQueryable($projectorRefs);
 
-        $play_to_now_projectors = $new_projectors->exclude(ProjectorMode::RUN_FROM_LAUNCH);
-        $this->projector_player->boot($play_to_now_projectors);
+        $newProjectors = $projectorQueryable->newOrBrokenProjectors();
 
-        $skip_to_now_projectors = $new_projectors->extract(ProjectorMode::RUN_FROM_LAUNCH);
-        $this->projector_skipper->skip($skip_to_now_projectors);
+        $playToNowProjectors = $newProjectors->exclude(ProjectorMode::RUN_FROM_LAUNCH);
+        $this->projectorPlayer->boot($playToNowProjectors);
+
+        $skipToNowProjectors = $newProjectors->extract(ProjectorMode::RUN_FROM_LAUNCH);
+        $this->projectorSkipper->skip($skipToNowProjectors);
     }
 
-    public function play()
+    public function play(ProjectorReferenceCollection $projectorRefs)
     {
-        $projectors = $this->projector_queryable->allProjectors();
+        $projectorQueryable = $this->makeQueryable($projectorRefs);
 
-        $active_projectors = $projectors->exclude(ProjectorMode::RUN_ONCE);
+        $projectors = $projectorQueryable->allProjectors();
 
-        $this->projector_player->play($active_projectors);
+        $activeProjectors = $projectors->exclude(ProjectorMode::RUN_ONCE);
+
+        $this->projectorPlayer->play($activeProjectors);
+    }
+
+    private function makeQueryable(ProjectorReferenceCollection $projectorRefs): ProjectorQueryable
+    {
+        return new ProjectorQueryable($this->adapter->projectorPositionLedger(), $projectorRefs);
     }
 }

@@ -20,22 +20,19 @@ This how you create a projectionist.
 
 ```php
 // Define the config for the projectionist system
-$config = (new ConfigFactory\InMemory())->make(); 
-
-// Create a factory
-$projectionist_factory = new ProjectionistFactory($config); 
-
-// Load all your projectors into an array
-$projectors = [new RunFromLaunch, new RunFromStart];
+$services = new Projectionist\Services\Factory\InMemory(); 
 
 // Create the projectionist 
-$projectionist = $projectionist_factory->make($projectors); 
+$projectionist = new Projectionist($services); 
+
+// Load all your projectors into an array of Projector references
+$projectors = new ProjectorReferenceCollection([new RunFromLaunch, new RunFromStart]);
 
 // Boot the projectors
-$projectionist->boot();
+$projectionist->boot($projectors);
 
 // Play the projectors
-$projectionist->play();
+$projectionist->play($projectors);
 ```
 
 That's it. The tricky part is in the details though. To use this library, you must write integrations for your system. We don't know what how you've implemented your system, so instead we've made it easy to integrate with this system, no matter what your implementation.
