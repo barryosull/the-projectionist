@@ -1,9 +1,9 @@
-<?php namespace Projectionist\Adapter\EventLog;
+<?php namespace Projectionist\Infra\EventLog;
 
-use Projectionist\Adapter\EventWrapper;
-use Projectionist\Adapter\EventStream;
+use Projectionist\Domain\Services\EventWrapper;
+use Projectionist\Domain\Services\EventStream;
 
-class EventSourced implements \Projectionist\Adapter\EventLog
+class EventSourced implements \Projectionist\Domain\Services\EventLog
 {
     public function latestEvent(): Event
     {

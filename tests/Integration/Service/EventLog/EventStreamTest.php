@@ -1,7 +1,7 @@
 <?php namespace ProjectonistTests\Integration\Service\EventLog;
 
-use Projectionist\Adapter\EventWrapper;
-use Projectionist\Adapter\EventStream;
+use Projectionist\Domain\Services\EventWrapper;
+use Projectionist\Domain\Services\EventStream;
 
 abstract class EventStreamTest extends \PHPUnit\Framework\TestCase
 {

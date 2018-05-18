@@ -1,14 +1,14 @@
 <?php namespace ProjectonistTests\Acceptance;
 
-use Projectionist\Adapter\EventLog;
-use Projectionist\Adapter\ProjectorPositionLedger;
+use Projectionist\Infra\EventLog;
+use Projectionist\Domain\Services\ProjectorPositionLedger;
 use Projectionist\ConfigFactory;
 use Projectionist\Projectionist;
-use Projectionist\Services\ProjectorException;
-use Projectionist\ValueObjects\ProjectorPosition;
-use Projectionist\ValueObjects\ProjectorPositionCollection;
-use Projectionist\ValueObjects\ProjectorReferenceCollection;
-use Projectionist\ValueObjects\ProjectorStatus;
+use Projectionist\Domain\Services\ProjectorException;
+use Projectionist\Domain\ValueObjects\ProjectorPosition;
+use Projectionist\Domain\ValueObjects\ProjectorPositionCollection;
+use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Domain\ValueObjects\ProjectorStatus;
 use ProjectonistTests\Fakes\Projectors\BrokenProjector;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;

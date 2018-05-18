@@ -1,11 +1,11 @@
-<?php namespace Projectionist\Adapter\ProjectorPositionLedger;
+<?php namespace Projectionist\Infra\ProjectorPositionLedger;
 
-use Projectionist\Adapter\ProjectorPositionLedger;
-use Projectionist\ValueObjects\ProjectorPosition;
-use Projectionist\ValueObjects\ProjectorPositionCollection;
-use Projectionist\ValueObjects\ProjectorReference;
+use Projectionist\Domain\Services\ProjectorPositionLedger;
+use Projectionist\Domain\ValueObjects\ProjectorPosition;
+use Projectionist\Domain\ValueObjects\ProjectorPositionCollection;
+use Projectionist\Domain\ValueObjects\ProjectorReference;
 use Predis;
-use Projectionist\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
 use function Sodium\crypto_box_seed_keypair;
 
 class Redis implements ProjectorPositionLedger

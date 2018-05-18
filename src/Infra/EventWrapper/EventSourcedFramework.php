@@ -1,7 +1,7 @@
-<?php namespace Projectionist\Adapter\EventWrapper;
+<?php namespace Projectionist\Infra\EventWrapper;
 
 // TODO: Move into it's own namespace/repo, this is just here as a POC
-class EventSourcedFramework implements \Projectionist\Adapter\EventWrapper
+class EventSourcedFramework implements \Projectionist\Domain\Services\EventWrapper
 {
     public $meta;
     public $content;

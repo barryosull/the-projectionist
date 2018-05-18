@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Integration\Infrastructure\Service\Redis;
 
-use Projectionist\Adapter\ProjectorPositionLedger;
+use Projectionist\Domain\Services\ProjectorPositionLedger;
 use Predis\Client;
 
 // TODO: Test this works, until then disable

@@ -1,9 +1,9 @@
-<?php namespace Projectionist\Adapter;
+<?php namespace Projectionist\Domain\Services;
 
-use Projectionist\ValueObjects\ProjectorPosition;
-use Projectionist\ValueObjects\ProjectorReference;
-use Projectionist\ValueObjects\ProjectorPositionCollection;
-use Projectionist\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Domain\ValueObjects\ProjectorPosition;
+use Projectionist\Domain\ValueObjects\ProjectorReference;
+use Projectionist\Domain\ValueObjects\ProjectorPositionCollection;
+use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
 
 interface ProjectorPositionLedger
 {

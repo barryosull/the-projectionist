@@ -1,9 +1,9 @@
 <?php namespace ProjectonistTests\Unit\ValueObjects;
 
-use Projectionist\Adapter\EventWrapper\Identifiable;
-use Projectionist\ValueObjects\ProjectorPosition;
-use Projectionist\ValueObjects\ProjectorReference;
-use Projectionist\ValueObjects\ProjectorStatus;
+use Projectionist\Infra\EventWrapper\Identifiable;
+use Projectionist\Domain\ValueObjects\ProjectorPosition;
+use Projectionist\Domain\ValueObjects\ProjectorReference;
+use Projectionist\Domain\ValueObjects\ProjectorStatus;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 

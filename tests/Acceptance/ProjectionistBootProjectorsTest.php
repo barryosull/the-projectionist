@@ -1,15 +1,15 @@
 <?php namespace ProjectonistTests\Acceptance;
 
-use Projectionist\Adapter\EventLog;
+use Projectionist\Infra\EventLog;
 use Projectionist\ConfigFactory;
-use Projectionist\Adapter\ProjectorPositionLedger;
+use Projectionist\Infra\ProjectorPositionLedger;
 use Projectionist\Projectionist;
-use Projectionist\Services\ProjectorException;
-use Projectionist\ValueObjects\ProjectorPosition;
-use Projectionist\ValueObjects\ProjectorPositionCollection;
-use Projectionist\ValueObjects\ProjectorReference;
-use Projectionist\ValueObjects\ProjectorReferenceCollection;
-use Projectionist\ValueObjects\ProjectorStatus;
+use Projectionist\Domain\Services\ProjectorException;
+use Projectionist\Domain\ValueObjects\ProjectorPosition;
+use Projectionist\Domain\ValueObjects\ProjectorPositionCollection;
+use Projectionist\Domain\ValueObjects\ProjectorReference;
+use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Domain\ValueObjects\ProjectorStatus;
 use ProjectonistTests\Fakes\Projectors\BrokenProjector;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
@@ -18,7 +18,7 @@ use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
 class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var  ProjectorPositionLedger $projectorPositionRepo */
+    /** @var  \Projectionist\Domain\Services\ProjectorPositionLedger $projectorPositionRepo */
     private $projectorPositionRepo;
 
     /** @var Projectionist $booter */

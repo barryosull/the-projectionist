@@ -1,9 +1,9 @@
-<?php namespace Projectionist\Adapter\EventLog;
+<?php namespace Projectionist\Infra\EventLog;
 
-use Projectionist\Adapter\EventWrapper;
-use Projectionist\Adapter\EventStream;
+use Projectionist\Infra\EventWrapper;
+use Projectionist\Infra\EventStream;
 
-class InMemory implements \Projectionist\Adapter\EventLog
+class InMemory implements \Projectionist\Domain\Services\EventLog
 {
     private static $events = [];
 
@@ -17,7 +17,7 @@ class InMemory implements \Projectionist\Adapter\EventLog
         self::$events = [];
     }
 
-    public function latestEvent(): \Projectionist\Adapter\EventWrapper
+    public function latestEvent(): \Projectionist\Domain\Services\EventWrapper
     {
         $event = last(self::$events);
         if (!$event) {
@@ -26,7 +26,7 @@ class InMemory implements \Projectionist\Adapter\EventLog
         return new EventWrapper\Identifiable($event);
     }
 
-    public function getStream($last_event_id): \Projectionist\Adapter\EventStream
+    public function getStream($last_event_id): \Projectionist\Domain\Services\EventStream
     {
         return new EventStream\InMemory(self::$events);
     }

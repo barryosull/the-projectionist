@@ -1,6 +1,6 @@
-<?php namespace Projectionist\Adapter\EventWrapper;
+<?php namespace Projectionist\Infra\EventWrapper;
 
-class Identifiable implements \Projectionist\Adapter\EventWrapper
+class Identifiable implements \Projectionist\Domain\Services\EventWrapper
 {
     private $wrapped_event;
 

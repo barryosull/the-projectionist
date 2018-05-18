@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Integration\Service;
 
-use Projectionist\Adapter\EventLog;
+use Projectionist\Domain\Services\EventLog;
 
 abstract class EventLogTest extends \PHPUnit\Framework\TestCase
 {
@@ -14,6 +14,6 @@ abstract class EventLogTest extends \PHPUnit\Framework\TestCase
 
         $stream = $event_log->getStream(self::EVENT_ID);
 
-        $this->assertInstanceOf(\Projectionist\Adapter\EventStream::class, $stream);
+        $this->assertInstanceOf(\Projectionist\Domain\Services\EventStream::class, $stream);
     }
 }

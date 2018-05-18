@@ -1,8 +1,8 @@
 <?php namespace ProjectonistTests\Unit\ValueObjects;
 
-use Projectionist\ValueObjects\ProjectorPosition;
-use Projectionist\ValueObjects\ProjectorPositionCollection;
-use Projectionist\ValueObjects\ProjectorReference;
+use Projectionist\Domain\ValueObjects\ProjectorPosition;
+use Projectionist\Domain\ValueObjects\ProjectorPositionCollection;
+use Projectionist\Domain\ValueObjects\ProjectorReference;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 

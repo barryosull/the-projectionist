@@ -1,6 +1,6 @@
-<?php namespace Projectionist\ValueObjects;
+<?php namespace Projectionist\Domain\ValueObjects;
 
-use Projectionist\Adapter\EventWrapper;
+use Projectionist\Domain\Services\EventWrapper;
 
 class ProjectorPosition
 {

@@ -1,12 +1,12 @@
 <?php namespace Projectionist\Config\EventSourced;
 
-use Projectionist\ValueObjects\ProjectorPosition;
-use Projectionist\ValueObjects\ProjectorPositionCollection;
-use Projectionist\ValueObjects\ProjectorReference;
-use Projectionist\ValueObjects\ProjectorStatus;
+use Projectionist\Domain\ValueObjects\ProjectorPosition;
+use Projectionist\Domain\ValueObjects\ProjectorPositionCollection;
+use Projectionist\Domain\ValueObjects\ProjectorReference;
+use Projectionist\Domain\ValueObjects\ProjectorStatus;
 
 // TODO: Write integration test
-class EventSourced implements \Projectionist\Adapter\ProjectorPositionLedger
+class EventSourced implements \Projectionist\Domain\Services\ProjectorPositionLedger
 {
     private $table;
 

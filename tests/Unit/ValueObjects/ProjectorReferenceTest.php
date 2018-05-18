@@ -1,7 +1,7 @@
 <?php namespace ProjectonistTests\Unit\ValueObjects;
 
-use Projectionist\ValueObjects\ProjectorMode;
-use Projectionist\ValueObjects\ProjectorReference;
+use Projectionist\Domain\ValueObjects\ProjectorMode;
+use Projectionist\Domain\ValueObjects\ProjectorReference;
 use ProjectonistTests\Fakes\Projectors\NoModeProjector;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
 

@@ -1,8 +1,8 @@
-<?php namespace Projectionist\Services;
+<?php namespace Projectionist\Domain\Services;
 
-use Projectionist\Adapter\ProjectorPositionLedger;
+use Projectionist\Domain\Services\ProjectorPositionLedger;
 use Projectionist\Config;
-use Projectionist\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
 
 class ProjectorQueryable
 {

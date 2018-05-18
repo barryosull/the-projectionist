@@ -1,6 +1,6 @@
 <?php namespace ProjectonistTests\Integration\Infrastructure\Service\InMemory;
 
-use Projectionist\Adapter\EventStream;
+use Projectionist\Domain\Services\EventStream;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;
 
 class EventStreamTest extends \ProjectonistTests\Integration\Service\EventLog\EventStreamTest

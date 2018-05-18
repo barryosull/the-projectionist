@@ -1,10 +1,10 @@
 <?php namespace Projectionist;
 
-use Projectionist\Services\ProjectorQueryable;
+use Projectionist\Domain\Services\ProjectorQueryable;
 use Projectionist\Strategy\ProjectorPlayer;
 use Projectionist\Strategy\ProjectorSkipper;
-use Projectionist\ValueObjects\ProjectorMode;
-use Projectionist\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Domain\ValueObjects\ProjectorMode;
+use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
 
 class Projectionist
 {

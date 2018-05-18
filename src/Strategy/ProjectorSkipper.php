@@ -1,10 +1,10 @@
 <?php namespace Projectionist\Strategy;
 
-use Projectionist\Adapter\EventWrapper;
+use Projectionist\Domain\Services\EventWrapper;
 use Projectionist\Config;
-use Projectionist\ValueObjects\ProjectorReference;
-use Projectionist\ValueObjects\ProjectorReferenceCollection;
-use Projectionist\ValueObjects\ProjectorPosition;
+use Projectionist\Domain\ValueObjects\ProjectorReference;
+use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Domain\ValueObjects\ProjectorPosition;
 
 // TODO: Write unit tests for this
 class ProjectorSkipper

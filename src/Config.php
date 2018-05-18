@@ -1,8 +1,8 @@
 <?php namespace Projectionist;
 
-use Projectionist\Adapter\EventLog;
+use Projectionist\Domain\Services\EventLog;
 use Projectionist\Strategy\EventHandler;
-use Projectionist\Adapter\ProjectorPositionLedger;
+use Projectionist\Domain\Services\ProjectorPositionLedger;
 
 class Config {
 

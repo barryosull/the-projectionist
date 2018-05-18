@@ -1,12 +1,12 @@
 <?php namespace ProjectonistTests\Unit\Services;
 
-use Projectionist\Adapter\ProjectorPositionLedger;
-use Projectionist\Services\ProjectorQueryable;
-use Projectionist\ValueObjects\ProjectorPosition;
-use Projectionist\ValueObjects\ProjectorPositionCollection;
-use Projectionist\ValueObjects\ProjectorReference;
-use Projectionist\ValueObjects\ProjectorReferenceCollection;
-use Projectionist\ValueObjects\ProjectorStatus;
+use Projectionist\Domain\Services\ProjectorPositionLedger;
+use Projectionist\Domain\Services\ProjectorQueryable;
+use Projectionist\Domain\ValueObjects\ProjectorPosition;
+use Projectionist\Domain\ValueObjects\ProjectorPositionCollection;
+use Projectionist\Domain\ValueObjects\ProjectorReference;
+use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Domain\ValueObjects\ProjectorStatus;
 use ProjectonistTests\Fakes\Projectors\RunFromLaunch;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\RunOnce;
@@ -15,7 +15,7 @@ class ProjectorQueryableTest extends \PHPUnit\Framework\TestCase
 {
     /** Deps */
 
-    /** @var ProjectorPositionLedger */
+    /** @var \Projectionist\Domain\Services\ProjectorPositionLedger */
     private $repo;
 
     /** Under test */

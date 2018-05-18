@@ -1,4 +1,4 @@
-<?php namespace Projectionist\Adapter;
+<?php namespace Projectionist\Domain\Services;
 
 interface EventWrapper
 {

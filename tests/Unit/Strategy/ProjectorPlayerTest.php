@@ -1,18 +1,18 @@
 <?php namespace ProjectonistTests\Unit\Strategy;
 
-use Projectionist\Adapter\EventStream;
-use Projectionist\Adapter\EventWrapper\Identifiable;
+use Projectionist\Infra\EventStream;
+use Projectionist\Infra\EventWrapper\Identifiable;
 use Projectionist\Config;
-use Projectionist\Adapter\EventLog;
-use Projectionist\Services\ProjectorException;
+use Projectionist\Domain\Services\EventLog;
+use Projectionist\Domain\Services\ProjectorException;
 use Projectionist\Strategy\EventHandler;
 use Projectionist\Strategy\EventHandler\ClassName;
-use Projectionist\Adapter\ProjectorPositionLedger;
+use Projectionist\Domain\Services\ProjectorPositionLedger;
 use Projectionist\Strategy\ProjectorPlayer;
-use Projectionist\ValueObjects\ProjectorPosition;
-use Projectionist\ValueObjects\ProjectorPositionCollection;
-use Projectionist\ValueObjects\ProjectorReference;
-use Projectionist\ValueObjects\ProjectorReferenceCollection;
+use Projectionist\Domain\ValueObjects\ProjectorPosition;
+use Projectionist\Domain\ValueObjects\ProjectorPositionCollection;
+use Projectionist\Domain\ValueObjects\ProjectorReference;
+use Projectionist\Domain\ValueObjects\ProjectorReferenceCollection;
 use ProjectonistTests\Fakes\Projectors\RunFromStart;
 use ProjectonistTests\Fakes\Projectors\BrokenProjector;
 use ProjectonistTests\Fakes\Services\EventLog\ThingHappened;

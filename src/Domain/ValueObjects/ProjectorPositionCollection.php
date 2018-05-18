@@ -1,4 +1,4 @@
-<?php namespace Projectionist\ValueObjects;
+<?php namespace Projectionist\Domain\ValueObjects;
 
 use Illuminate\Support\Collection;
 
