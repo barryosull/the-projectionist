@@ -19,16 +19,16 @@ class InMemory implements \Projectionist\Domain\Services\ProjectorPositionLedger
         $this->store = [];
     }
 
-    public function store(ProjectorPosition $projector_position)
+    public function store(ProjectorPosition $projectorPosition)
     {
-        $ref = $projector_position->projector_reference;
+        $ref = $projectorPosition->projector_reference;
         $key = $ref->class_path.'-'.$ref->version;
-        $this->store[$key] = $projector_position;
+        $this->store[$key] = $projectorPosition;
     }
 
-    public function fetch(ProjectorReference $projector_reference)
+    public function fetch(ProjectorReference $projectorReference)
     {
-        $key = $projector_reference->class_path.'-'.$projector_reference->version;
+        $key = $projectorReference->class_path.'-'.$projectorReference->version;
         if (!isset($this->store[$key])) {
             return null;
         }

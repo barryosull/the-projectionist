@@ -24,17 +24,17 @@ class Redis implements ProjectorPositionLedger
         $this->redis->del([self::STORE]);
     }
 
-    public function store(ProjectorPosition $projector_position)
+    public function store(ProjectorPosition $projectorPosition)
     {
-        $field = $projector_position->projector_reference->toString();
-        $value = serialize($projector_position);
+        $field = $projectorPosition->projector_reference->toString();
+        $value = serialize($projectorPosition);
         $this->redis->hset(self::STORE, $field, $value);
     }
 
     /** @return ProjectorPosition */
-    public function fetch(ProjectorReference $projector_reference)
+    public function fetch(ProjectorReference $projectorReference)
     {
-        $field = $projector_reference->toString();
+        $field = $projectorReference->toString();
         $serialized = $this->redis->hget(self::STORE, $field);
         if (!$serialized) {
             return null;
@@ -46,12 +46,12 @@ class Redis implements ProjectorPositionLedger
     {
         $fields = $references->toStrings();
 
-        $positions_serialized = $this->redis->hmget(self::STORE, $fields);
+        $positionsSerialized = $this->redis->hmget(self::STORE, $fields);
 
-        $positions_serialized = array_filter($positions_serialized);
+        $positionsSerialized = array_filter($positionsSerialized);
 
-        return new ProjectorPositionCollection(array_map(function($position_serialized){
-            return unserialize($position_serialized);
-        }, $positions_serialized));
+        return new ProjectorPositionCollection(array_map(function($positionSerialized){
+            return unserialize($positionSerialized);
+        }, $positionsSerialized));
     }
 }

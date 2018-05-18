@@ -19,19 +19,19 @@ class ProjectorPositionCollection extends Collection
         }
     }
 
-    public function hasReference(ProjectorReference $projector_reference): bool
+    public function hasReference(ProjectorReference $projectorReference): bool
     {
-        return $this->getByReference($projector_reference) != null;
+        return $this->getByReference($projectorReference) != null;
     }
 
     /**
-     * @param ProjectorReference $projector_reference
+     * @param ProjectorReference $projectorReference
      * @return ProjectorPosition
      */
-    public function getByReference(ProjectorReference $projector_reference)
+    public function getByReference(ProjectorReference $projectorReference)
     {
-         return $this->first(function(ProjectorPosition $position) use ($projector_reference){
-            return $position->projector_reference->equals($projector_reference);
+         return $this->first(function(ProjectorPosition $position) use ($projectorReference){
+            return $position->projector_reference->equals($projectorReference);
         });
     }
 
@@ -44,8 +44,8 @@ class ProjectorPositionCollection extends Collection
 
     public function filterOutFailing(): ProjectorPositionCollection
     {
-        return $this->filter(function(ProjectorPosition $projector_position){
-            return $projector_position->isFailing() === false;
+        return $this->filter(function(ProjectorPosition $projectorPosition){
+            return $projectorPosition->isFailing() === false;
         });
     }
 
@@ -61,14 +61,14 @@ class ProjectorPositionCollection extends Collection
 
     public function groupByLastPosition(): Collection
     {
-        $group_by_position = [];
+        $groupByPosition = [];
         foreach ($this as $position) {
-            $group_by_position[$position->last_position][] = $position;
+            $groupByPosition[$position->last_position][] = $position;
         }
 
-        return (new Collection($group_by_position))
-            ->map(function($grouped_positions){
-                return new ProjectorPositionCollection($grouped_positions);
+        return (new Collection($groupByPosition))
+            ->map(function($groupedPositions){
+                return new ProjectorPositionCollection($groupedPositions);
             });
     }
 }

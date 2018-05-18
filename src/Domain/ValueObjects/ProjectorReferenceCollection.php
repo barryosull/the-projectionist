@@ -23,35 +23,35 @@ class ProjectorReferenceCollection extends Collection
             return $reference->toString();
         }, $items);
 
-        $unique_references = array_unique($references);
+        $uniqueReferences = array_unique($references);
 
-        if (count($unique_references) != count($references)) {
+        if (count($uniqueReferences) != count($references)) {
             throw new \Exception("Duplicate projector references, not allowed");
         }
     }
 
     public function extract(string $mode): ProjectorReferenceCollection
     {
-        return $this->filter(function(ProjectorReference $projector_reference) use ($mode) {
-            return $projector_reference->mode == $mode;
+        return $this->filter(function(ProjectorReference $projectorReference) use ($mode) {
+            return $projectorReference->mode == $mode;
         })->values();
     }
 
     public function exclude(string $mode): ProjectorReferenceCollection
     {
-        return $this->filter(function(ProjectorReference $projector_reference) use ($mode) {
-            return $projector_reference->mode != $mode;
+        return $this->filter(function(ProjectorReference $projectorReference) use ($mode) {
+            return $projectorReference->mode != $mode;
         })->values();
     }
 
-    public function extractNewOrFailedProjectors(ProjectorPositionCollection $projector_positions)
+    public function extractNewOrFailedProjectors(ProjectorPositionCollection $projectorPositions)
     {
-        return $this->filter(function(ProjectorReference $projector_reference) use ($projector_positions){
-            $projection_pos = $projector_positions->getByReference($projector_reference);
-            if (!$projection_pos) {
+        return $this->filter(function(ProjectorReference $projectorReference) use ($projectorPositions){
+            $projectorPosition = $projectorPositions->getByReference($projectorReference);
+            if (!$projectorPosition) {
                 return true;
             }
-            return $projection_pos->isFailing();
+            return $projectorPosition->isFailing();
         })->values();
     }
 

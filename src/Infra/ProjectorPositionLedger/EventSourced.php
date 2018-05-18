@@ -15,15 +15,15 @@ class EventSourced implements \Projectionist\Domain\Services\ProjectorPositionLe
         $this->table = \DB::table('player_snapshots');
     }
 
-    public function store(ProjectorPosition $projector_position)
+    public function store(ProjectorPosition $projectorPosition)
     {
         $row = [
-            'class_name' => $projector_position->projector_reference->class_path,
-            'player_version' => $projector_position->projector_reference->version,
-            'version' => $projector_position->processed_events,
-            'last_id' => $projector_position->last_position,
-            'status' => $projector_position->status,
-            'occurred_at' => $projector_position->occurred_at
+            'class_name' => $projectorPosition->projector_reference->class_path,
+            'player_version' => $projectorPosition->projector_reference->version,
+            'version' => $projectorPosition->processed_events,
+            'last_id' => $projectorPosition->last_position,
+            'status' => $projectorPosition->status,
+            'occurred_at' => $projectorPosition->occurred_at
         ];
 
         $key = [
@@ -34,18 +34,18 @@ class EventSourced implements \Projectionist\Domain\Services\ProjectorPositionLe
         $this->table->updateOrCreate($key, $row);
     }
 
-    public function fetch(ProjectorReference $projector_reference): ProjectorPosition
+    public function fetch(ProjectorReference $projectorReference): ProjectorPosition
     {
         $row = $this->table
-            ->where('class_name', $projector_reference)
-            ->where('player_version', $projector_reference->version)
+            ->where('class_name', $projectorReference)
+            ->where('player_version', $projectorReference->version)
             ->first();
 
         if (!$row) {
             return null;
         }
 
-        return $this->convertRowToPosition($projector_reference, $row);
+        return $this->convertRowToPosition($projectorReference, $row);
     }
 
     public function fetchCollection(): ProjectorPositionCollection
@@ -57,10 +57,10 @@ class EventSourced implements \Projectionist\Domain\Services\ProjectorPositionLe
         }, $rows));
     }
 
-    private function convertRowToPosition(ProjectorReference $projector_reference, array $row): ProjectorPosition
+    private function convertRowToPosition(ProjectorReference $projectorReference, array $row): ProjectorPosition
     {
         return new ProjectorPosition(
-            $projector_reference,
+            $projectorReference,
             $row['version'],
             $row['last_id'],
             $row['occurred_at'],

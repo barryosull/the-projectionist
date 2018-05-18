@@ -8,36 +8,36 @@ use Projectionist\Domain\ValueObjects\ProjectorPosition;
 
 class ProjectorSkipper
 {
-    private $projector_position_ledger;
-    private $event_log;
+    private $projectorPositionLedger;
+    private $eventLog;
 
     public function __construct(Config $adapter)
     {
-        $this->projector_position_ledger = $adapter->projectorPositionLedger();
-        $this->event_log = $adapter->eventLog();
+        $this->projectorPositionLedger = $adapter->projectorPositionLedger();
+        $this->eventLog = $adapter->eventLog();
     }
 
-    public function skip(ProjectorReferenceCollection $projector_references)
+    public function skip(ProjectorReferenceCollection $projectorRefs)
     {
-        $latest_event = $this->event_log->latestEvent();
+        $latest_event = $this->eventLog->latestEvent();
         if ($latest_event == null) {
             return;
         }
-        foreach ($projector_references as $projector_reference) {
-            $this->skipProjectorToEvent($projector_reference, $latest_event);
+        foreach ($projectorRefs as $projectorRef) {
+            $this->skipProjectorToEvent($projectorRef, $latest_event);
         }
     }
 
-    private function skipProjectorToEvent(ProjectorReference $projector_reference, EventWrapper $latest_event)
+    private function skipProjectorToEvent(ProjectorReference $projectorReference, EventWrapper $latest_event)
     {
-        $projector_position = $this->projector_position_ledger->fetch($projector_reference);
-        if (!$projector_position) {
-            $projector_position = ProjectorPosition::makeNewUnplayed($projector_reference);
+        $projectorPosition = $this->projectorPositionLedger->fetch($projectorReference);
+        if (!$projectorPosition) {
+            $projectorPosition = ProjectorPosition::makeNewUnplayed($projectorReference);
         }
         if ($latest_event) {
-            $projector_position = $projector_position->played($latest_event);
+            $projectorPosition = $projectorPosition->played($latest_event);
         }
 
-        $this->projector_position_ledger->store($projector_position);
+        $this->projectorPositionLedger->store($projectorPosition);
     }
 }

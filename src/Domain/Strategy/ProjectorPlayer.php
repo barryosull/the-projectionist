@@ -76,16 +76,16 @@ class ProjectorPlayer
 
     private function playProjectors(ProjectorPositionCollection $positions): ProjectorPositionCollection
     {
-        $grouped_by_position = $positions->groupByLastPosition();
+        $groupedByPosition = $positions->groupByLastPosition();
 
-        $grouped_by_position = $grouped_by_position->map(function($grouped_positions, $last_position){
+        $groupedByPosition = $groupedByPosition->map(function($groupedPositions, $last_position){
             if ($this->thereWasAFailure()) {
-                return $grouped_positions;
+                return $groupedPositions;
             }
-            return $this->playProjectorsFromPosition($grouped_positions, $last_position);
+            return $this->playProjectorsFromPosition($groupedPositions, $last_position);
         });
 
-        return new ProjectorPositionCollection($grouped_by_position->flatten()->toArray());
+        return new ProjectorPositionCollection($groupedByPosition->flatten()->toArray());
     }
 
     private function playProjectorsFromPosition(ProjectorPositionCollection $positions, $last_position): ProjectorPositionCollection
@@ -104,32 +104,32 @@ class ProjectorPlayer
         return $positions;
     }
 
-    private function playEventIntoProjector(EventWrapper $event, ProjectorPosition $projector_position): ProjectorPosition
+    private function playEventIntoProjector(EventWrapper $event, ProjectorPosition $projectorPosition): ProjectorPosition
     {
         if ($this->thereWasAFailure()) {
-            return $projector_position;
+            return $projectorPosition;
         }
-        $projector = $projector_position->projector_reference->projector();
+        $projector = $projectorPosition->projector_reference->projector();
         try {
             $this->eventHandler->handle($event->wrappedEvent(), $projector);
-            return $projector_position->played($event);
+            return $projectorPosition->played($event);
         } catch (\Throwable $t) {
             $this->catchFailure($t);
-            return $projector_position->broken();
+            return $projectorPosition->broken();
         }
     }
 
-    private $broken_projector_exception;
+    private $brokenProjectorException;
 
     private function thereWasAFailure()
     {
-        return $this->broken_projector_exception != null;
+        return $this->brokenProjectorException != null;
     }
 
     private function reportFailure()
     {
-        $exception = $this->broken_projector_exception;
-        $this->broken_projector_exception = null;
+        $exception = $this->brokenProjectorException;
+        $this->brokenProjectorException = null;
         throw new ProjectorException(
             "A projector had an unexpected failure",
             $exception->getCode(),
@@ -139,6 +139,6 @@ class ProjectorPlayer
 
     private function catchFailure(\Throwable $t)
     {
-        $this->broken_projector_exception = $t;
+        $this->brokenProjectorException = $t;
     }
 }

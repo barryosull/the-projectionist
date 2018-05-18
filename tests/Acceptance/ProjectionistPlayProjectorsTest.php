@@ -52,7 +52,7 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
         $projectors = [new RunFromLaunch, new RunFromStart];
         $projectorRefs = ProjectorReferenceCollection::fromProjectors($projectors);
 
-        $this->projectionist->play($projectorRefs);
+        $this->projectionist->play($projectorRefs->projectors());
 
         $stored_projector_positions = $this->projector_position_ledger->fetchCollection($projectorRefs);
 
@@ -82,7 +82,7 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
         $projectors = [new RunFromLaunch, new RunFromStart, new RunOnce()];
         $projectorRefs = ProjectorReferenceCollection::fromProjectors($projectors);
 
-        $this->projectionist->play($projectorRefs);
+        $this->projectionist->play($projectorRefs->projectors());
 
         $this->assertFalse(RunOnce::hasProjectedEvent(self::EVENT_1_ID));
     }
@@ -95,7 +95,7 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
 
         $this->expectException(ProjectorException::class);
 
-        $this->projectionist->play($projectorRefs);
+        $this->projectionist->play($projectorRefs->projectors());
     }
 
     public function test_playing_after_a_failure_continues_normally()
@@ -107,7 +107,7 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
 
         $first_play_failed = false;
         try {
-            $this->projectionist->play($projectorRefs);
+            $this->projectionist->play($projectorRefs->projectors());
         } catch (\Throwable $e) {
             $first_play_failed = true;
         }
@@ -116,7 +116,7 @@ class ProjectionistPlayProjectorsTest extends \PHPUnit\Framework\TestCase
 
         $this->seedEvent(self::EVENT_2_ID);
 
-        $this->projectionist->play($projectorRefs);
+        $this->projectionist->play($projectorRefs->projectors());
 
         $expectedProjectors = [new RunFromLaunch, new RunFromStart];
         $expectedProjectorRefs = ProjectorReferenceCollection::fromProjectors($expectedProjectors);

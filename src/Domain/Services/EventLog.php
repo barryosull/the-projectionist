@@ -7,5 +7,5 @@ interface EventLog
 {
     public function latestEvent(): EventWrapper;
 
-    public function getStream($last_event_id): EventStream;
+    public function getStream($lastEventId): EventStream;
 }

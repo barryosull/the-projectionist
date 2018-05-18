@@ -20,13 +20,13 @@ This how you create a projectionist.
 
 ```php
 // Define the config for the projectionist system
-$services = new Projectionist\Services\Factory\InMemory(); 
+$config = new Projectionist\App\ConfigFactory\InMemory(); 
 
 // Create the projectionist 
-$projectionist = new Projectionist($services); 
+$projectionist = new Projectionist($config); 
 
 // Load all your projectors into an array of Projector references
-$projectors = new ProjectorReferenceCollection([new RunFromLaunch, new RunFromStart]);
+$projectors = [new RunFromLaunch, new RunFromStart];
 
 // Boot the projectors
 $projectionist->boot($projectors);

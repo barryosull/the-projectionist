@@ -9,10 +9,10 @@ interface ProjectorPositionLedger
 {
     public function clear();
 
-    public function store(ProjectorPosition $projector_position);
+    public function store(ProjectorPosition $projectorPosition);
 
     /** @return ProjectorPosition */
-    public function fetch(ProjectorReference $projector_reference);
+    public function fetch(ProjectorReference $projectorReference);
 
     public function fetchCollection(ProjectorReferenceCollection $references): ProjectorPositionCollection;
 }

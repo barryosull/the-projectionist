@@ -20,8 +20,10 @@ class Projectionist
         $this->projectorSkipper = new ProjectorSkipper($adapter);
     }
 
-    public function boot(ProjectorReferenceCollection $projectorRefs)
+    public function boot(array $projectors)
     {
+        $projectorRefs = ProjectorReferenceCollection::fromProjectors($projectors);
+
         $projectorQueryable = $this->makeQueryable($projectorRefs);
 
         $newProjectors = $projectorQueryable->newOrBrokenProjectors();
@@ -33,8 +35,10 @@ class Projectionist
         $this->projectorSkipper->skip($skipToNowProjectors);
     }
 
-    public function play(ProjectorReferenceCollection $projectorRefs)
+    public function play(array $projectors)
     {
+        $projectorRefs = ProjectorReferenceCollection::fromProjectors($projectors);
+
         $projectorQueryable = $this->makeQueryable($projectorRefs);
 
         $projectors = $projectorQueryable->allProjectors();

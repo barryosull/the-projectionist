@@ -26,7 +26,7 @@ class InMemory implements \Projectionist\Domain\Services\EventLog
         return new EventWrapper\Identifiable($event);
     }
 
-    public function getStream($last_event_id): \Projectionist\Domain\Services\EventStream
+    public function getStream($lastEventId): \Projectionist\Domain\Services\EventStream
     {
         return new EventStream\InMemory(self::$events);
     }

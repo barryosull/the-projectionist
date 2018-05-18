@@ -1,8 +1,7 @@
 <?php namespace ProjectonistTests\Acceptance;
 
 use Projectionist\Infra\EventLog;
-use Projectionist\ConfigFactory;
-use Projectionist\Infra\ProjectorPositionLedger;
+use Projectionist\App\ConfigFactory;
 use Projectionist\Projectionist;
 use Projectionist\Domain\Services\ProjectorException;
 use Projectionist\Domain\ValueObjects\ProjectorPosition;
@@ -34,7 +33,7 @@ class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
 
     public function setUp()
     {
-        $config = (new \Projectionist\App\ConfigFactory\InMemory)->make();
+        $config = (new ConfigFactory\InMemory)->make();
         $this->eventLog = $config->eventLog();
         $this->eventLog->reset();
         $this->projectorPositionRepo = $config->projectorPositionLedger();
@@ -56,7 +55,7 @@ class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEmpty($this->projectorPositionRepo->fetchCollection($this->projectorRefs));
 
-        $this->projectionist->boot($this->projectorRefs);
+        $this->projectionist->boot($this->projectorRefs->projectors());
 
         $stored_projector_positions = $this->projectorPositionRepo->fetchCollection($this->projectorRefs);
 
@@ -80,7 +79,7 @@ class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
 
     public function test_boot_does_not_play_events_into_run_from_launch_projectors()
     {
-        $this->projectionist->boot($this->projectorRefs);
+        $this->projectionist->boot($this->projectorRefs->projectors());
 
         $this->assertTrue(RunFromStart::hasProjectedEvent(self::EVENT_ID_1));
         $this->assertTrue(RunOnce::hasProjectedEvent(self::EVENT_ID_1));
@@ -126,7 +125,7 @@ class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
     {
         $first_boot_failed = false;
         try {
-            $this->projectionist->boot($projectorRefs);
+            $this->projectionist->boot($projectorRefs->projectors());
         } catch (ProjectorException $e) {
             $first_boot_failed = true;
         }
@@ -142,6 +141,6 @@ class ProjectionistBootProjectorsTest extends \PHPUnit\Framework\TestCase
 
         $this->expectException(ProjectorException::class);
 
-        $this->projectionist->boot($projectorRefs);
+        $this->projectionist->boot($projectorRefs->projectors());
     }
 }

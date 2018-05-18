@@ -19,7 +19,7 @@ class MetaTypeProperty implements EventHandler
 
     private function handlerFunctionName(string $type): string
     {
-        $event_type_snakecase = str_replace(".", "_", $type);
-        return 'when_'.$event_type_snakecase;
+        $eventTypeSnakecase = str_replace(".", "_", $type);
+        return 'when_'.$eventTypeSnakecase;
     }
 }

@@ -6,32 +6,32 @@ use Projectionist\Domain\Services\ProjectorPositionLedger;
 
 class Config {
 
-    private $projector_position_ledger;
-    private $event_log;
-    private $event_handler;
+    private $projectorPositionLedger;
+    private $eventLog;
+    private $eventHandler;
 
     public function __construct(
-        ProjectorPositionLedger $projector_position_ledger,
-        EventLog $event_log,
-        EventHandler $event_handler
+        ProjectorPositionLedger $projectorPositionLedger,
+        EventLog $eventLog,
+        EventHandler $eventHandler
     ) {
-        $this->projector_position_ledger = $projector_position_ledger;
-        $this->event_log = $event_log;
-        $this->event_handler = $event_handler;
+        $this->projectorPositionLedger = $projectorPositionLedger;
+        $this->eventLog = $eventLog;
+        $this->eventHandler = $eventHandler;
     }
 
     public function projectorPositionLedger(): ProjectorPositionLedger
     {
-        return $this->projector_position_ledger;
+        return $this->projectorPositionLedger;
     }
 
     public function eventLog(): EventLog
     {
-        return $this->event_log;
+        return $this->eventLog;
     }
 
     public function eventHandler(): EventHandler
     {
-        return $this->event_handler;
+        return $this->eventHandler;
     }
 }
