@@ -1,4 +1,4 @@
-# The Projectionist
+# The Projectionist: A migration system for Event Projectors
 
 [![CircleCI](https://circleci.com/gh/barryosull/the-projectionist/tree/master.svg?style=svg)](https://circleci.com/gh/barryosull/the-projectionist/tree/master)
 
@@ -155,6 +155,8 @@ If a projector fails during boot, all other projectors are marked as "stalled", 
 ## TODOs
 My list of todos for this project
 - Need to a way to handle broken releases, so you can switch back to the previous codebase and ensure the projectors are all up to speed
+    - Do the same thing as standard migration systems, replay last batch
 - Simplify 'fetchCollection' logic embedded in tests, its's getting hard to decipher and may not be required anymore
 - Restructure test folders to make more sense
 - Write a better tutorial for the adapters
+- Use Ports and Adapters in tests
