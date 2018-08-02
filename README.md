@@ -4,7 +4,9 @@
 
 If you are building an EventSourced/CQRS system in PHP, you need a solid system to handle building your projections. Enter the "projectionist".
 
-This is a library that makes it easy to consume events and manage the lifecycle of projectors in PHP, keeping track of where each projector is in the event stream. It's based on a lot of trial and error from building these kinds of systems, so my hope is that it will allow others to leapfrog us and gain from our mistakes.
+This is a library that makes it easy to consume events and manage the lifecycle of projectors in PHP, keeping track of where each projector is in the event stream. It is currently a **WIP** so I wouldn't advise using it right now, but feel free to have a look around (and read this readme, lots of details here).
+
+It's based on a lot of trial and error from building these kinds of systems, so my hope is that it will allow others to leapfrog us and gain from our mistakes.
 
 ![Projectionist in action](https://res.cloudinary.com/practicaldev/image/fetch/s--0Wje2n09--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/ea3uvjpnhca5wokt6tnx.png)
 
